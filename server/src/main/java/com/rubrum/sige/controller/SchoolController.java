@@ -2,10 +2,12 @@ package com.rubrum.sige.controller;
 
 import java.util.List;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -54,5 +56,14 @@ public class SchoolController {
     public List<SchoolResponseDTO> getAll() {
         List<SchoolResponseDTO> schoolList = repository.findAll().stream().map(SchoolResponseDTO::new).toList();
         return schoolList;
+    }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<SchoolResponseDTO> getByName(@PathVariable String name) throws BadRequestException {
+        School school = repository.findByName(name);
+        if (school == null) {
+            throw new BadRequestException("nome não encontrado.");
+        }
+        return ResponseEntity.ok(new SchoolResponseDTO(school));
     }
 }
