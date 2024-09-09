@@ -1,6 +1,16 @@
 package com.rubrum.sige.domain.user;
 
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
+
+import com.rubrum.sige.domain.schoolMember.SchoolMemberRepository;
+import com.rubrum.sige.domain.schoolMember.SchoolMemberRoles;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +24,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+//bobao
 @Table(name = "users", uniqueConstraints= @UniqueConstraint(columnNames={"email"}))
 @Entity(name = "users")
 @EqualsAndHashCode(of = "id")
@@ -22,7 +32,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 @Validated
-public class User {
+public class User implements UserDetails {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
@@ -38,9 +48,64 @@ public class User {
     @NotBlank(message = "a senha precisa ser preenchida.")
     private String password;
 
+    @Autowired
+    SchoolMemberRepository memberRepository;
+
     public User(UserRequestDTO data) {
         this.name = data.name();
         this.email = data.email();
         this.password = data.password();
     }
+
+    public SchoolMemberRoles getRole(String schoolId) {
+        SchoolMemberRoles role = memberRepository.findBySchoolIdAndUserId(schoolId, this.id).getRole();
+        return role;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        String schoolId = "";
+        SchoolMemberRoles role = this.getRole(schoolId);
+
+        switch (role) {
+            case PROVOST:
+                return List.of(new SimpleGrantedAuthority("ROLE_PROVOST"));
+
+            case ADMIN:
+                return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
+
+            case STUDENT:
+                return List.of(new SimpleGrantedAuthority("ROLE_STUDENT"));
+
+            default:
+                return List.of(new SimpleGrantedAuthority("ROLE_GUEST"));
+        }
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    
 }

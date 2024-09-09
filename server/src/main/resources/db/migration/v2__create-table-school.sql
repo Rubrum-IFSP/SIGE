@@ -44,7 +44,7 @@ CREATE TABLE "calendary_event" (
 CREATE TABLE "menu" (
   "id" varchar PRIMARY KEY NOT NULL,
   "school_id" varchar NOT NULL,
-  "file" blob
+  "file" bytea
 );
 
 CREATE TABLE "school_member" (
@@ -73,13 +73,13 @@ CREATE TABLE "subject_message" (
   "subject_id" varchar NOT NULL,
   "content" text,
   "type" message_types,
-  "created_at" datetime DEFAULT (now())
+  "created_at" TIMESTAMP DEFAULT (now())
 );
 
 CREATE TABLE "lession" (
   "id" varchar PRIMARY KEY NOT NULL,
   "subject_id" varchar NOT NULL,
-  "delivery_time" datetime,
+  "delivery_time" TIMESTAMP,
   "created_at" date DEFAULT (now())
 );
 
@@ -88,7 +88,7 @@ CREATE TABLE "news" (
   "school_id" varchar NOT NULL,
   "news_type" news_type,
   "title" text NOT NULL,
-  "content" longtext,
+  "content" text,
   "autors" text,
   "created_at" date DEFAULT (now())
 );
@@ -98,31 +98,31 @@ CREATE TABLE "news_comment" (
   "news_id" varchar NOT NULL,
   "sender" varchar(255),
   "content" text,
-  "created_at" datetime DEFAULT (now())
+  "created_at" TIMESTAMP DEFAULT (now())
 );
 
 COMMENT ON COLUMN "school_member"."data" IS 'Guardar os dados desta coluna em JSON.';
 
 COMMENT ON COLUMN "news_comment"."sender" IS 'Apenas o nome de quem comentou.';
 
-ALTER TABLE "school" ADD FOREIGN KEY ("id") REFERENCES "calendary_event" ("school_id");
+ALTER TABLE "calendary_event" ADD FOREIGN KEY ("school_id") REFERENCES "school" ("id");
 
-ALTER TABLE "school" ADD FOREIGN KEY ("id") REFERENCES "menu" ("school_id");
+ALTER TABLE "menu" ADD FOREIGN KEY ("school_id") REFERENCES "school" ("id");
 
-ALTER TABLE "user" ADD FOREIGN KEY ("id") REFERENCES "school_member" ("user_id");
+ALTER TABLE "school_member" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
 
-ALTER TABLE "school" ADD FOREIGN KEY ("id") REFERENCES "school_member" ("school_id");
+ALTER TABLE "school_member" ADD FOREIGN KEY ("school_id") REFERENCES "school" ("id");
 
-ALTER TABLE "school" ADD FOREIGN KEY ("id") REFERENCES "school_class" ("school_id");
+ALTER TABLE "school_class" ADD FOREIGN KEY ("school_id") REFERENCES "school" ("id");
 
-ALTER TABLE "school_class" ADD FOREIGN KEY ("id") REFERENCES "subject" ("school_class_id");
+ALTER TABLE "subject" ADD FOREIGN KEY ("school_class_id") REFERENCES "school_class" ("id");
 
-ALTER TABLE "user" ADD FOREIGN KEY ("id") REFERENCES "subject_message" ("sender_id");
+ALTER TABLE "subject_message" ADD FOREIGN KEY ("sender_id") REFERENCES "user" ("id");
 
-ALTER TABLE "subject" ADD FOREIGN KEY ("id") REFERENCES "subject_message" ("subject_id");
+ALTER TABLE "subject_message" ADD FOREIGN KEY ("subject_id") REFERENCES "subject" ("id");
 
-ALTER TABLE "subject" ADD FOREIGN KEY ("id") REFERENCES "lession" ("subject_id");
+ALTER TABLE "lession" ADD FOREIGN KEY ("subject_id") REFERENCES "subject" ("id");
 
-ALTER TABLE "school" ADD FOREIGN KEY ("id") REFERENCES "news" ("school_id");
+ALTER TABLE "news" ADD FOREIGN KEY ("school_id") REFERENCES "school" ("id");
 
-ALTER TABLE "news" ADD FOREIGN KEY ("id") REFERENCES "news_comment" ("news_id");
+ALTER TABLE "news_comment" ADD FOREIGN KEY ("news_id") REFERENCES "news" ("id");

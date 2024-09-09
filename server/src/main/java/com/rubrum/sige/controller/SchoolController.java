@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rubrum.sige.domain.school.School;
 import com.rubrum.sige.domain.school.SchoolRepository;
 import com.rubrum.sige.domain.school.SchoolResponseDTO;
+import com.rubrum.sige.domain.schoolMember.SchoolMemberRepository;
 import com.rubrum.sige.domain.school.SchoolRequestDTO;
 
 import jakarta.validation.Valid;
@@ -28,6 +29,9 @@ public class SchoolController {
     
     @Autowired
     private SchoolRepository repository;
+
+    @Autowired
+    private SchoolMemberRepository memberRepository;
 
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestBody @Valid SchoolRequestDTO data) {
