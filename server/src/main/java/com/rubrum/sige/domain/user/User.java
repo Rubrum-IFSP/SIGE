@@ -3,13 +3,11 @@ package com.rubrum.sige.domain.user;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 
-import com.rubrum.sige.domain.schoolMember.SchoolMemberRepository;
 import com.rubrum.sige.domain.schoolMember.SchoolMemberRoles;
 
 import jakarta.persistence.Entity;
@@ -24,7 +22,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-//bobao
+
 @Table(name = "users", uniqueConstraints= @UniqueConstraint(columnNames={"email"}))
 @Entity(name = "users")
 @EqualsAndHashCode(of = "id")
@@ -48,8 +46,11 @@ public class User implements UserDetails {
     @NotBlank(message = "a senha precisa ser preenchida.")
     private String password;
 
-    @Autowired
-    SchoolMemberRepository memberRepository;
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
 
     public User(UserRequestDTO data) {
         this.name = data.name();
@@ -58,8 +59,7 @@ public class User implements UserDetails {
     }
 
     public SchoolMemberRoles getRole(String schoolId) {
-        SchoolMemberRoles role = memberRepository.findBySchoolIdAndUserId(schoolId, this.id).getRole();
-        return role;
+        return SchoolMemberRoles.GUEST;
     }
 
     @Override
