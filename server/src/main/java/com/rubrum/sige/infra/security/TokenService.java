@@ -11,6 +11,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.rubrum.sige.domain.user.User;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Service
 public class TokenService {
     
@@ -46,5 +48,11 @@ public class TokenService {
 
     private Instant generateExpirationDate() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+    }
+
+    public String recoverToken(HttpServletRequest request) {
+        var authReader = request.getHeader("Authorization");
+        if (authReader == null) return null;
+        return authReader.replace("Bearer ", "");
     }
 }
