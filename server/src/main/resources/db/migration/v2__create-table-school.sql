@@ -1,15 +1,6 @@
 SELECT 'CREATE DATABASE sige'
 WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'sige')\gexec
 
-\c sige
-
-CREATE TYPE "member_roles" AS ENUM (
-  'PROVOST',
-  'ADMIN',
-  'STUDENT',
-  'GUEST'
-);
-
 CREATE TYPE "message_types" AS ENUM (
   'SYSTEM',
   'TEXT_MESSAGE'
@@ -51,7 +42,7 @@ CREATE TABLE "school_member" (
   "id" varchar PRIMARY KEY NOT NULL,
   "user_id" varchar NOT NULL,
   "school_id" varchar NOT NULL,
-  "role" member_roles DEFAULT 'GUEST',
+  "role" varchar DEFAULT 'GUEST',
   "data" text
 );
 

@@ -25,4 +25,10 @@ public class SchoolMember {
     private String userId;
     private String schoolId;
     private SchoolMemberRoles role;
+
+    public SchoolMember(String userId, SchoolMemberRoles role, String schoolId) {
+        this.userId = userId;
+        this.schoolId = schoolId;
+        this.role = role;
+    }
 }

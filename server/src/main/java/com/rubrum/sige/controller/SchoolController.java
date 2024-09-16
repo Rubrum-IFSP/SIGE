@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rubrum.sige.domain.school.School;
 import com.rubrum.sige.domain.school.SchoolRepository;
 import com.rubrum.sige.domain.school.SchoolResponseDTO;
+import com.rubrum.sige.domain.schoolMember.SchoolMember;
 import com.rubrum.sige.domain.schoolMember.SchoolMemberRepository;
+import com.rubrum.sige.domain.schoolMember.SchoolMemberResponseDTO;
+import com.rubrum.sige.domain.schoolMember.SchoolMemberRoles;
+import com.rubrum.sige.domain.user.User;
+import com.rubrum.sige.domain.user.UserRepository;
+import com.rubrum.sige.infra.security.TokenService;
+import com.rubrum.sige.services.UserService;
 import com.rubrum.sige.domain.school.SchoolRequestDTO;
 
 import jakarta.validation.Valid;
@@ -31,12 +40,30 @@ public class SchoolController {
     private SchoolRepository repository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
     private SchoolMemberRepository memberRepository;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody @Valid SchoolRequestDTO data) {
+    public ResponseEntity<String> save(@RequestBody @Valid SchoolRequestDTO data, @RequestHeader("Authorization") String token) {
+        var email = tokenService.validateToken(token.replace("Bearer ", ""));
+        User user = userRepository.findByEmail(email);
+
+        if (user == null) return ResponseEntity.badRequest().build();
+        
         School school = new School(data);
         repository.save(school);
+
+        String schoolId = repository.findByName(school.getName()).getId();
+        SchoolMember member = new SchoolMember(user.getId(), SchoolMemberRoles.PROVOST, schoolId);
+        memberRepository.save(member);
         return ResponseEntity.ok("escola criada com sucesso!");
     }
 
@@ -69,5 +96,11 @@ public class SchoolController {
             throw new BadRequestException("nome não encontrado.");
         }
         return ResponseEntity.ok(new SchoolResponseDTO(school));
+    }
+
+    @GetMapping("/member") 
+    public List<SchoolMemberResponseDTO> getMembers() {
+        List<SchoolMemberResponseDTO> memberList = memberRepository.findAll().stream().map(SchoolMemberResponseDTO::new).toList();
+        return memberList;
     }
 }
