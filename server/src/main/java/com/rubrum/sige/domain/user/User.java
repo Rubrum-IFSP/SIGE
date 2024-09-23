@@ -59,7 +59,7 @@ public class User implements UserDetails {
     }
 
     public SchoolMemberRoles getRole(String schoolId) {
-        return SchoolMemberRoles.GUEST;
+        return SchoolMemberRoles.PROVOST;
     }
 
     @Override
@@ -69,13 +69,13 @@ public class User implements UserDetails {
 
         switch (role) {
             case PROVOST:
-                return List.of(new SimpleGrantedAuthority("ROLE_PROVOST"));
+                return List.of(new SimpleGrantedAuthority("ROLE_PROVOST"), new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_STUDENT"), new SimpleGrantedAuthority("ROLE_GUEST"));
 
             case ADMIN:
-                return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
+                return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_STUDENT"), new SimpleGrantedAuthority("ROLE_GUEST"));
 
             case STUDENT:
-                return List.of(new SimpleGrantedAuthority("ROLE_STUDENT"));
+                return List.of(new SimpleGrantedAuthority("ROLE_STUDENT"), new SimpleGrantedAuthority("ROLE_GUEST"));
 
             default:
                 return List.of(new SimpleGrantedAuthority("ROLE_GUEST"));

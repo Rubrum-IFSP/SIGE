@@ -20,7 +20,7 @@ CREATE TABLE "users" (
 
 CREATE TABLE "school" (
   "id" varchar PRIMARY KEY NOT NULL,
-  "name" varchar(255) NOT NULL,
+  "name" varchar(255) NOT NULL UNIQUE,
   "palette" text
 );
 
@@ -42,7 +42,7 @@ CREATE TABLE "school_member" (
   "id" varchar PRIMARY KEY NOT NULL,
   "user_id" varchar NOT NULL,
   "school_id" varchar NOT NULL,
-  "role" varchar DEFAULT 'GUEST',
+  "role" text DEFAULT 'GUEST',
   "data" text
 );
 
