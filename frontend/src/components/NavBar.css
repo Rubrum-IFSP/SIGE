@@ -1,0 +1,60 @@
+@import "root.css";
+.bg-color-primary{
+    background-color:var(--primary)
+}
+.text-color-sec{
+    color:var(--secondary);
+}
+.link{
+    color:var(--secondary);
+    text-decoration-line: none;
+    margin-right:1.1em;
+    font-weight: bold;
+    font-style:italic;
+}
+.link:hover {
+    text-decoration-line:underline;
+    color: var(--secondary-dark);
+    transition:0.2s;
+}
+.buttonEntrar{
+    text-decoration-line:none;
+    position: absolute;
+    right: 0.8em;
+    top:0.6em;
+    background-color:var(--secondary);
+    color:#450a0a;
+    padding:8px 20px 8px 20px;
+    border: solid black 2px;
+    border-radius:16px;
+    font-weight: bold;
+    
+}
+.buttonEntrar:hover{
+    background-color: var(--secondary-dark);
+    outline: 3px solid black;
+    transition:0.2s;
+}
+.navBar{
+    background-color: var(--primary);
+    height:4em;
+    border-bottom: solid 2px black;
+}
+.logo{
+    position:relative;
+    display:inline-flex;
+    left:-2em;
+}  
+.logoBrand{
+    font-weight: bolder;
+    color:var(--secondary);
+    font-size:1.4em;
+    padding-left: 1em;
+    display:inline;
+    text-decoration-line: none;
+}
+.logoBrand:hover{
+    text-decoration-line: underline;
+    color:var(--secondary-dark  );
+    transition:0.2s;
+}

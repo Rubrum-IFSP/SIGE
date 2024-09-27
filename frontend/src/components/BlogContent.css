@@ -1,0 +1,25 @@
+.blogContent{
+    color:black;
+    background-color: var(--secondary);
+    border: var(--primary) solid 0.15em;
+    margin: 0px auto 1em auto;
+    padding:1em;
+    border-radius:0.8em;
+}
+.blogContent h1{
+    font-size:1.6em;
+    font-weight:bolder;
+    font-style:italic;
+    text-decoration:underline;
+}
+.blogContent .content{
+    max-width:inherit;
+    word-wrap:break-word;
+}
+.blogContent .details{
+    font-size:1em;
+    display:block;
+    font-style:italic;
+    text-decoration:underline;
+    font-weight:lighter;
+}

@@ -1,0 +1,23 @@
+@import "./root.css";
+.perfilWrapper{
+    background-color: var(--secondary);
+    width:80%;
+    border:0.15em solid var(--primary);
+    height:fit-content;
+    padding:2em;
+    margin:2em auto 0em auto;
+    border-radius:0.8em;
+}
+
+.perfilWrapper span{
+    display:block;
+    font-weight:bold;
+    font-size:1.2em;
+    color:black;
+}
+.perfilWrapper div{
+    display:inline-block;
+    text-align:center;
+    border-radius:0.8em;
+    padding:0.2em;
+}

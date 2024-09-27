@@ -1,0 +1,35 @@
+@import "../root.css";
+
+.formWrapper{
+    background-color:rgba(29, 26, 26, 0.521);
+    font-weight:bolder;
+    color:black;
+    width:min-content;
+    padding:1em;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.658);
+    border:2px solid rgba(0, 0, 0, 0.733);
+    border-radius:0.8em;
+    margin-top:2em;
+    margin-left:auto;
+    margin-right:auto;
+
+}
+
+.formWrapper h1{
+    text-align:center;
+    font-weight:bold;
+}
+
+.formWrapper a{
+    text-decoration:none;
+    color: black;
+}
+.linkCadastro{
+    text-align:center;
+    margin-top:1em;
+
+}
+
+.formWrapper a:hover{
+    text-decoration:underline;
+}

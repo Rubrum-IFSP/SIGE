@@ -1,0 +1,24 @@
+@import "../root.css";
+
+.inputFieldWrapper{
+    display:block;
+}
+.inputFieldWrapper label{
+    margin-bottom:0.2em;
+    font-size:1.2em;
+}
+.inputFieldWrapper input{
+    border: black 2px solid;
+    border-radius: 1em;
+    width:20em;
+    margin-bottom:0.8em;
+}
+.inputFieldWrapper input:hover{
+    background-color: rgba(235, 232, 232, 0.2);
+    transition: 0.2s;
+}
+.inputFieldWrapper input:focus{
+    outline:none;
+    outline:2px solid var(--secondary);
+    transition:0.2s;
+}
