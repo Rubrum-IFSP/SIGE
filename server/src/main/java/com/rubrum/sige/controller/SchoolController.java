@@ -5,8 +5,6 @@ import java.util.List;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +24,6 @@ import com.rubrum.sige.domain.schoolMember.SchoolMemberRoles;
 import com.rubrum.sige.domain.user.User;
 import com.rubrum.sige.domain.user.UserRepository;
 import com.rubrum.sige.infra.security.TokenService;
-import com.rubrum.sige.services.UserService;
 import com.rubrum.sige.domain.school.SchoolRequestDTO;
 
 import jakarta.validation.Valid;
@@ -41,9 +38,6 @@ public class SchoolController {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private SchoolMemberRepository memberRepository;
@@ -102,5 +96,22 @@ public class SchoolController {
     public List<SchoolMemberResponseDTO> getMembers() {
         List<SchoolMemberResponseDTO> memberList = memberRepository.findAll().stream().map(SchoolMemberResponseDTO::new).toList();
         return memberList;
+    }
+
+    @GetMapping("/user/{email}")
+    public List<SchoolResponseDTO> getSchoolsByUserEmail(@PathVariable String email) throws BadRequestException {
+        User user = userRepository.findByEmail(email);
+        if (user == null) throw new BadRequestException("usuario não encontrado.");
+
+        List<SchoolMember> userMembers = memberRepository.findAllByUserId(user.getId());
+        List<SchoolResponseDTO> response = List.of();
+
+        for (SchoolMember schoolMember : userMembers) {
+            School school = repository.findById(schoolMember.getSchoolId()).get();
+            SchoolResponseDTO dto = new SchoolResponseDTO(school);
+            response.add(dto);
+        }
+
+        return response;
     }
 }

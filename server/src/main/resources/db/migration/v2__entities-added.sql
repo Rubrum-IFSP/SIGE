@@ -1,6 +1,5 @@
-SELECT 'CREATE DATABASE sige'
-WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'sige')\gexec
-
+-- SELECT 'CREATE DATABASE sige'
+-- WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'sige')\gexec
 CREATE TYPE "message_types" AS ENUM (
   'SYSTEM',
   'TEXT_MESSAGE'

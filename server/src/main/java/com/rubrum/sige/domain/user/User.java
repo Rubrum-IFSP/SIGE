@@ -60,8 +60,10 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SchoolMemberRoles role = SchoolMemberRoles.GUEST;
+        return List.of(new SimpleGrantedAuthority("ROLE_GUEST"));
+    }
 
+    public Collection<? extends GrantedAuthority> getAuthorities(SchoolMemberRoles role) {
         switch (role) {
             case PROVOST:
                 return List.of(new SimpleGrantedAuthority("ROLE_PROVOST"), new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_STUDENT"), new SimpleGrantedAuthority("ROLE_GUEST"));
