@@ -58,14 +58,9 @@ public class User implements UserDetails {
         this.password = data.password();
     }
 
-    public SchoolMemberRoles getRole(String schoolId) {
-        return SchoolMemberRoles.PROVOST;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        String schoolId = "";
-        SchoolMemberRoles role = this.getRole(schoolId);
+        SchoolMemberRoles role = SchoolMemberRoles.GUEST;
 
         switch (role) {
             case PROVOST:
