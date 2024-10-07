@@ -54,7 +54,7 @@ function BasicExample({ connected }: Props) {
               <a href="#/sobrenos" className="link">
                 Sobre Nós
               </a>
-              <a href="#/faqatendimento" className="link">
+              <a href="#/atendimento" className="link">
                 FAQ/Atendimento
               </a>
 

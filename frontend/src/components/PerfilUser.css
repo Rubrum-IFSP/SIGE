@@ -15,9 +15,19 @@
     font-size:1.2em;
     color:black;
 }
-.perfilWrapper div{
-    display:inline-block;
+.school{
+    background-color: white;
+    display:inline-flex;
+    justify-content: center;
+    align-items: center;
+    border:2px black solid;
+    height:fit-content;
+    width:fit-content;
+    padding:0.8em 1em 0.8em 1em ; 
     text-align:center;
     border-radius:0.8em;
-    padding:0.2em;
+    margin-left:0;
+    font-size:0.8em;
+    margin: 0.3em 0.6em 0em 0em;
+
 }

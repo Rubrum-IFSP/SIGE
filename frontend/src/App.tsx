@@ -8,6 +8,8 @@ import EventosPage from "./pages/Eventos";
 import LandingPage from "./pages/LandingPage";
 import CadastroEscola from "./pages/CadastroEscola";
 import Atendimento from "./pages/Atendimento";
+import MeuPerfil from "./pages/MeuPerfil";
+import SobreNos from "./pages/SobreNos";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="/cadastroescola" element={<CadastroEscola />} />
         <Route path="/Atendimento" element={<Atendimento />} />
         <Route path="/noticias" element={<NoticiasPage />} />
+        <Route path="/perfil" element={<MeuPerfil />} />
+        <Route path="/sobrenos" element={<SobreNos />} />
       </Routes>
     </Router>
   );
