@@ -8,7 +8,7 @@ interface Props {
 export default function School({ name, id }: Props) {
   return (
     <div className="schoolWrapper">
-      <Link className="a" to={"/"} state={{ id: id, name: name }}>
+      <Link className="a" to={"/home"} state={{ id: id, name: name }}>
         <span>{name}</span>
       </Link>
     </div>

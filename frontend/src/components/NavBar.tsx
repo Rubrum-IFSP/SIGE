@@ -15,7 +15,7 @@ function BasicExample({ connected }: Props) {
       <Navbar expand="lg" className="navBar ">
         <Container className="teste2 ">
           <div className="logo">
-            <a href="#/landingpage" className="logoBrand">
+            <a href="#/" className="logoBrand">
               SIGE
             </a>
           </div>
@@ -27,6 +27,9 @@ function BasicExample({ connected }: Props) {
               </a>
               <a href="#/atendimento" className="link">
                 FAQ/Atendimento
+              </a>
+              <a href="#/landingpage" className="link">
+                Instituições
               </a>
 
               <Nav.Link href="#link">
@@ -44,7 +47,7 @@ function BasicExample({ connected }: Props) {
       <Navbar expand="lg" className="navBar ">
         <Container className="teste2 ">
           <div className="logo">
-            <a href="#/landingpage" className="logoBrand">
+            <a href="#/" className="logoBrand">
               SIGE
             </a>
           </div>
