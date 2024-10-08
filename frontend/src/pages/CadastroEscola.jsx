@@ -7,12 +7,15 @@ export default function CadastroEscola() {
   return (
     <Layout connected={true}>
       <Form
-        inputFields={[
-          <InputField type={"text"} labelText={"Nome:"} nameInput={"name"} />,
-        ]}
-        title={"Cadastrar Escola"}
-        children={[<ConfirmButton text={"Cadastrar"} />]}
-      ></Form>
+       title={"Cadastrar Escola"}
+      >
+<div className="inputFieldWrapper">
+      <label>Nome da Escola</label>
+      <input name={"schoolName"} type={"text"}></input>
+    </div>
+
+    <ConfirmButton text={"Cadastrar"} />
+      </Form>
     </Layout>
   );
 }

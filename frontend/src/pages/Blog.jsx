@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import Blog from "../components/Blog";
 import BlogContent from "../components/BlogContent";
 
-export default function BlogPage(props: any) {
+export default function BlogPage(props) {
   let { state } = useLocation();
 
   return (

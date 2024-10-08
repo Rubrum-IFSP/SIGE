@@ -4,7 +4,7 @@ import Content from "../components/Noticias";
 
 import { useLocation } from "react-router-dom";
 
-export default function Noticias(props: any) {
+export default function Noticias(props) {
   let { state } = useLocation();
 
   return (

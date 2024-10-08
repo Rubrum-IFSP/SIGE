@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import MenuEscola from "../components/MenuEscola";
 import School from "../components/School";
 
-export default function LandingPage(props: any) {
+export default function LandingPage(props) {
   let { state } = useLocation();
 
   return (

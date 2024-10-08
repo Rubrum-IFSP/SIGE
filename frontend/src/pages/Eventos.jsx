@@ -4,7 +4,7 @@ import NoticiasWrapper from "../components/NoticiasWrapper";
 
 import { useLocation } from "react-router-dom";
 
-export default function EventosPage(props: any) {
+export default function EventosPage(props) {
   let { state } = useLocation();
 
   return (
