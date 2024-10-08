@@ -10,6 +10,7 @@
     height:7em;
     border-radius:0.8em;
     border:black solid 0.17em;
+    box-shadow: 2px 2px 5px;
 
 }
 .schoolWrapper .a{

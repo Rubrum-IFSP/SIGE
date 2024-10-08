@@ -7,6 +7,7 @@
     padding:2em;
     margin:2em auto 0em auto;
     border-radius:0.8em;
+    box-shadow: 4px 4px 10px;
 }
 
 .perfilWrapper span{
@@ -29,5 +30,5 @@
     margin-left:0;
     font-size:0.8em;
     margin: 0.3em 0.6em 0em 0em;
-
+    box-shadow: 2px 2px 4px;
 }

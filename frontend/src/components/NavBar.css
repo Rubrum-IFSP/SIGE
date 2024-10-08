@@ -39,6 +39,7 @@
     background-color: var(--primary);
     height:4em;
     border-bottom: solid 2px black;
+    box-shadow: 0 0px 10px;
 }
 .logo{
     position:relative;

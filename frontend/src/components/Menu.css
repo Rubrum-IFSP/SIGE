@@ -8,6 +8,7 @@
     width:fit-content;
     border:solid rgb(24, 22, 22) 0.17em;
     border-radius:0.8em;
+    box-shadow: 3px 3px 10px;
 }
 .menuWrapper h1{
     display:block;

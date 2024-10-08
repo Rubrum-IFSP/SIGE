@@ -14,6 +14,7 @@ import CadastrarAtividade from "./pages/CadastrarAtividade";
 import CadastrarClasse from "./pages/CadastrarClasse";
 import Index from "./pages/Index";
 import CadastrarMateria from "./pages/CadastrarMateria";
+import Classes from "./pages/Classes";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="/cadastroatividade" element={<CadastrarAtividade/>}/>
         <Route path="/cadastroclasse" element={<CadastrarClasse/>}/>
         <Route path="/cadastromateria" element={<CadastrarMateria/>}/>
+        <Route path="/classes" element={<Classes/>}/>
       </Routes>
     </Router>
   );

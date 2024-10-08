@@ -39,7 +39,7 @@
 
 .atendimentoWrapper input:hover, textarea:hover{
     background-color:rgba(197, 196, 196, 0.623);
-    transition:0.6s;
+    transition:0.5s;
 }
 .atendimentoWrapper input:focus, textarea:focus{
     outline:1px solid black;
