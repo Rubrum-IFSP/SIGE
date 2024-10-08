@@ -10,12 +10,17 @@ import CadastroEscola from "./pages/CadastroEscola";
 import Atendimento from "./pages/Atendimento";
 import MeuPerfil from "./pages/MeuPerfil";
 import SobreNos from "./pages/SobreNos";
+import CadastrarAtividade from "./pages/CadastrarAtividade";
+import CadastrarClasse from "./pages/CadastrarClasse";
+import Index from "./pages/Index";
+import CadastrarMateria from "./pages/CadastrarMateria";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Index/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/blog" element={<BlogPage />} />
@@ -26,6 +31,9 @@ function App() {
         <Route path="/noticias" element={<NoticiasPage />} />
         <Route path="/perfil" element={<MeuPerfil />} />
         <Route path="/sobrenos" element={<SobreNos />} />
+        <Route path="/cadastroatividade" element={<CadastrarAtividade/>}/>
+        <Route path="/cadastroclasse" element={<CadastrarClasse/>}/>
+        <Route path="/cadastromateria" element={<CadastrarMateria/>}/>
       </Routes>
     </Router>
   );

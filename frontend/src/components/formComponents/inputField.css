@@ -22,3 +22,19 @@
     outline:2px solid var(--secondary);
     transition:0.2s;
 }
+.inputFieldWrapper select{
+    border: black 2px solid;
+    border-radius: 1em;
+    width:20em;
+    margin-bottom:0.8em;
+}
+.inputFieldWrapper select:hover{
+    background-color: rgba(235, 232, 232, 0.2);
+    transition: 0.2s;
+    cursor:pointer;
+}
+.inputFieldWrapper select:focus{
+    outline:none;
+    outline:2px solid var(--secondary);
+    transition:0.2s;
+}
