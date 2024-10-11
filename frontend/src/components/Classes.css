@@ -44,3 +44,20 @@
     text-decoration: underline;
     color:black;
 }
+
+.linkFormClasses{
+    text-align:center;
+    margin:1em 0 1em 0;
+    font-size:1.4em;
+}
+
+.linkFormClasses a{
+    color:white;
+    text-decoration: none;
+    font-weight:bold;
+}
+.linkFormClasses a:hover{
+    color:black;
+    text-decoration: underline;
+    transition:0.3s;
+}

@@ -7,19 +7,15 @@ const css = `
   }
 `
 
-export default function FormBlog() {
+export default function FormClasse() {
   return (
     <Layout connected={false}>
       <style>{css}</style>
       <div className="atendimentoWrapper">
         <form>
-          <h1>Blog Post</h1>
-          <label>Título:</label>
-          <input type="text" name="title" />
-          <label>Autor:</label>
-          <input type="text" name="author" />
-          <label>Conteúdo:</label>
-          <textarea></textarea>
+          <h1>Criar Classe</h1>
+          <label>Nome:</label>
+          <input type="text" name="name" />
           <input className="submitButton" type="submit" value="Enviar" />
         </form>
       </div>

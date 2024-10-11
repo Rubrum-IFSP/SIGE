@@ -18,6 +18,9 @@ import Classes from "./pages/Classes";
 import FormBlog from "./pages/FormBlog";
 import FormNoticia from "./pages/FormNoticias"
 import Materia from "./pages/Materia"
+import FormAtividade from "./pages/FormAtividade"
+import FormClasse from "./pages/FormClasse"
+import FormMateria from "./pages/FormMateria"
 
 function App() {
   return (
@@ -42,6 +45,9 @@ function App() {
         <Route path="/formblog" element={<FormBlog/>}/>
         <Route path="/formnoticias" element={<FormNoticia/>}/>
         <Route path="/materia" element={<Materia/>}/>
+        <Route path="/formatividade" element={<FormAtividade/>}/>
+        <Route path="/formclasse" element={<FormClasse/>}/>
+        <Route path="/formmateria" element={<FormMateria/>}/>
       </Routes>
     </Router>
   );

@@ -56,3 +56,9 @@
     color:white;
     background-color: black;
 }
+.atendimentoWrapper select{
+    width:100%;
+    border-radius:0.8em;
+    border:solid black 2px;
+    padding:0.2em;
+}

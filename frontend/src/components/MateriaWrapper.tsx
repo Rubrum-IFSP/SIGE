@@ -1,4 +1,5 @@
 import "./MateriaWrapper.css";
+import { Link } from "react-router-dom";
 
 interface Props {
   children: any;
@@ -11,6 +12,16 @@ export default function MateriaWrapper({
   nomeProfessor,
   nomeMateria,
 }: Props) {
+  var cadastrar;
+  const isProfessor = true;
+  if (isProfessor)
+    cadastrar = (
+      <div className="linkFormAtividade">
+        <Link to="/formatividade">Cadastrar Nova Atividade</Link>
+      </div>
+    );
+  else cadastrar = "";
+
   return (
     <div className="wrapper">
       <div className="subjectInfo">
@@ -19,6 +30,7 @@ export default function MateriaWrapper({
         </span>
       </div>
       <div className="atividadesWrapper">{children}</div>
+      {cadastrar}
     </div>
   );
 }

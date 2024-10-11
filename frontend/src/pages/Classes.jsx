@@ -1,5 +1,6 @@
 import Layout from "../components/Layout"
 import Classes from "../components/Classes"
+import { Link } from "react-router-dom";
 
 function getClasses(e) {
     let res = [];
@@ -21,7 +22,11 @@ export default function ClassesPage(){
         <Layout>
             <style></style>
             <div className="mainWrapper">
-           <Classes nomeClasse={"3 INFO"} nomeEscola={"IFSP"}>{getClasses("Teste")}</Classes>
+           <Classes nomeClasse={"3 INFO"} nomeEscola={"IFSP"}>{[getClasses("Teste"), 
+            <div className="linkFormClasses"><Link to="/formclasse">Cadastrar nova Classe</Link></div>,
+            <div className="linkFormClasses"><Link to="/formmateria">Cadastrar nova Matéria</Link></div>
+            ]}</Classes>
+           
             </div>
         </Layout>
     )

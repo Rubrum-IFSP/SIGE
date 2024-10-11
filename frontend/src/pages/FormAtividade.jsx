@@ -7,18 +7,18 @@ const css = `
   }
 `
 
-export default function FormBlog() {
+export default function FormAtividade() {
   return (
     <Layout connected={false}>
       <style>{css}</style>
       <div className="atendimentoWrapper">
         <form>
-          <h1>Blog Post</h1>
+          <h1>Nova Atividade</h1>
           <label>Título:</label>
           <input type="text" name="title" />
-          <label>Autor:</label>
-          <input type="text" name="author" />
-          <label>Conteúdo:</label>
+          <label>Data:</label>
+          <input type="date" name="deliveryDate" />
+          <label>Descrição:</label>
           <textarea></textarea>
           <input className="submitButton" type="submit" value="Enviar" />
         </form>

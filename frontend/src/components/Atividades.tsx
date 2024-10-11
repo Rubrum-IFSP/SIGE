@@ -13,6 +13,7 @@ export default function Atividade({ data, titulo, descricao }: Props) {
         {titulo} - {data}
       </span>
       <span className="atividadeDescricao">{descricao}</span>
+      <button>Excluir</button>
     </div>
   );
 }

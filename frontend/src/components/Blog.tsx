@@ -5,5 +5,5 @@ interface Props {
 }
 
 export default function Blog({ content }: Props) {
-  return <div className="blogWrapper">{content}</div>;
+  return <div className="wrapper">{content}</div>;
 }
