@@ -15,6 +15,9 @@ import CadastrarClasse from "./pages/CadastrarClasse";
 import Index from "./pages/Index";
 import CadastrarMateria from "./pages/CadastrarMateria";
 import Classes from "./pages/Classes";
+import FormBlog from "./pages/FormBlog";
+import FormNoticia from "./pages/FormNoticias"
+import Materia from "./pages/Materia"
 
 function App() {
   return (
@@ -36,6 +39,9 @@ function App() {
         <Route path="/cadastroclasse" element={<CadastrarClasse/>}/>
         <Route path="/cadastromateria" element={<CadastrarMateria/>}/>
         <Route path="/classes" element={<Classes/>}/>
+        <Route path="/formblog" element={<FormBlog/>}/>
+        <Route path="/formnoticias" element={<FormNoticia/>}/>
+        <Route path="/materia" element={<Materia/>}/>
       </Routes>
     </Router>
   );

@@ -19,6 +19,10 @@ function calendarDays(){
   let month = date.getMonth()+1;
   let year = date.getFullYear();
   let dayNum = daysInMonth(month,year);
+  if(month <10){
+    "0".concat(month);
+  }
+
 
 
 
@@ -28,9 +32,10 @@ function calendarDays(){
     } else dia = "";
     result.push(
       <DiaCalendario
-        dia={dia + i + "/09"}
+        dia={dia + i +"/"+ month}
         isEvent={isEvent}
         idEscola={idEscola}
+        key={i}
       ></DiaCalendario>
     );
   }

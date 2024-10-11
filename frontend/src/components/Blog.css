@@ -10,3 +10,20 @@
     border-radius:0.8em;
     box-shadow: 5px 5px 10px;
 }
+.blogWrapper a{
+    font-size:1.4em;
+    color: white;
+    font-weight:bolder;
+    text-decoration: none;
+    text-align:center;
+
+}
+
+.centerWrapper{
+    text-align:center;
+}
+.blogWrapper a:hover{
+    text-decoration: underline;
+    color:black;
+    transition: 0.3s;
+}

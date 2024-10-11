@@ -13,19 +13,19 @@ export default function SobreNos() {
       <SobreNosContent
         imageUrl={"./public/vite.svg"}
         aboutMeText={
-          "Felipe Congio Albino, fez parte da equipe que desenvolveu os componentes do Front-End do projeto, utilizando a tecnologia React para criar páginas interativas e fáceis de se navegar."
+          "Felipe Fernandes Alves, fez parte da equipe que desenvolveu os componentes do Front-End do projeto, utilizando a tecnologia React para criar páginas interativas e fáceis de se navegar."
         }
       />
       <SobreNosContent
         imageUrl={"./public/vite.svg"}
         aboutMeText={
-          "Felipe Congio Albino, fez parte da equipe que desenvolveu os componentes do Front-End do projeto, utilizando a tecnologia React para criar páginas interativas e fáceis de se navegar."
+          "João Victor Montanaro"
         }
       />
       <SobreNosContent
         imageUrl={"./public/vite.svg"}
         aboutMeText={
-          "Felipe Congio Albino, fez parte da equipe que desenvolveu os componentes do Front-End do projeto, utilizando a tecnologia React para criar páginas interativas e fáceis de se navegar."
+          "Júlia Moreira de Paula, fez parte da equipe que desenvolveu os componentes do Front-End do projeto, utilizando a tecnologia React para criar páginas interativas e fáceis de se navegar."
         }
       />
     </Layout>

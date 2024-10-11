@@ -9,7 +9,7 @@ function getClasses(e) {
         <div className="class">
           <span className="subjectTitle">{e + " " + i}</span>
           <span className="subjectLink">
-            <a href="/#/classes">Acessar a Matéria</a>
+            <a href="/#/materia">Acessar a Matéria</a>
           </span>
         </div>
       );

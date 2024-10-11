@@ -9,7 +9,7 @@ export default function MenuEscola({ schools }: Props) {
     <div className="menuEscolaWrapper">
       <div className="adicionarEscolaOption">
         <a href="#/cadastroescola">
-          <span>Adicionar Escola...</span>
+          <span>Criar Escola...</span>
         </a>
       </div>
       {schools}
