@@ -24,6 +24,7 @@ import com.rubrum.sige.domain.schoolMember.SchoolMemberRoles;
 import com.rubrum.sige.domain.user.User;
 import com.rubrum.sige.domain.user.UserRepository;
 import com.rubrum.sige.infra.security.TokenService;
+import com.rubrum.sige.services.InviteService;
 import com.rubrum.sige.domain.school.SchoolRequestDTO;
 
 import jakarta.validation.Valid;
@@ -44,6 +45,9 @@ public class SchoolController {
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private InviteService inviteService;
 
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestBody @Valid SchoolRequestDTO data, @RequestHeader("Authorization") String token) {
@@ -78,11 +82,23 @@ public class SchoolController {
     }
 
     @PostMapping("/invite/create/{schoolName}")
-    public void generateSchoolInvite(@PathVariable String schoolName) {
+    public ResponseEntity<String> generateSchoolInvite(@PathVariable String schoolName) {
         School school = repository.findByName(schoolName);
-        if (school == null) return;
+        if (school == null) return ResponseEntity.badRequest().build();
 
-        
+        String invite = inviteService.generateInvite(school);
+        return ResponseEntity.ok(invite);
+    }
+
+    @PostMapping("/invite/validate/{invite}")
+    public ResponseEntity<SchoolResponseDTO> validateSchoolInvite(String invite) {
+        var schoolName = inviteService.validateInvite(invite);
+        if (schoolName == null) return ResponseEntity.badRequest().build();
+
+        School school = repository.findByName(schoolName);
+        if (school == null) return ResponseEntity.badRequest().build();
+
+        return ResponseEntity.ok(new SchoolResponseDTO(school));
     }
 
     @GetMapping
