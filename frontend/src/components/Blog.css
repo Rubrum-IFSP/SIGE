@@ -2,7 +2,7 @@
 
 .blogWrapper{
     width:80%;
-    background-color:rgba(0, 0, 0, 0.479);
+    background-color:var(--news-background);
     border:0.15em solid black;
     height:fit-content;
     padding:2em;

@@ -29,7 +29,8 @@ function calendarDays(){
   for (let i = 1; i <= dayNum; i++) {
     if (i < 10) {
       dia = "0";
-    } else dia = "";
+      isEvent=true;
+    } else {dia = ""; isEvent=false;}
     result.push(
       <DiaCalendario
         dia={dia + i +"/"+ month}

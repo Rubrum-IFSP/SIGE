@@ -1,10 +1,12 @@
+@import "./root.css";
+
 .schoolWrapper{
     position:relative;
     display:inline-flex;
     justify-content: center;
     padding-top:0.8em;
     font-size:1em;
-    background-color:white;
+    background-color:var(--secondary);
     margin: 0em 1em 1em 1em;
     width:13em;
     height:7em;

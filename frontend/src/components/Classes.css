@@ -8,7 +8,7 @@
     margin: 0em 0 1em 0;
     }
 .classWrapper{
-        background-color: rgba(0, 0, 0, 0.37);
+        background-color: var(--news-background);
         width:90%;
         margin: 2em auto 2em auto;
         border-radius:0.8em;

@@ -1,6 +1,8 @@
+@import "./root.css";
+
 .menuEscolaWrapper{
     display:flex;
-    background-color:rgba(29, 26, 26, 0.521);
+    background-color:var(--news-background);
     font-weight:bolder;
     color:black;
     width:80em;
@@ -21,7 +23,7 @@
     border: 0.15em solid black;
     border-radius:0.8em;
     padding:0.6em;
-    background-color:rgba(226, 226, 226, 0.849);
+    background-color:var(--secondary-dark);
     margin: 0em 1em 0.6em 1em;
     width:13em;
     height:7em;

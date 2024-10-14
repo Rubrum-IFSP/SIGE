@@ -1,4 +1,4 @@
-const url = "http://10.122.20.18:8081";
+const url = "http://10.122.20.13:8081";
 
 export class User {
   public name: string;

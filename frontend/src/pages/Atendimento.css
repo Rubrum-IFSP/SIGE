@@ -1,5 +1,7 @@
+@import "../components/root.css";
+
 .atendimentoWrapper{
-    background-color:rgba(0, 0, 0, 0.404);
+    background-color:var(--news-background);
     position:relative;
     width:40em;
     height:fit-content;
@@ -38,7 +40,7 @@
 }
 
 .atendimentoWrapper input:hover, textarea:hover{
-    background-color:rgba(197, 196, 196, 0.623);
+    background-color:var(--secondary-dark);
     transition:0.5s;
 }
 .atendimentoWrapper input:focus, textarea:focus{

@@ -1,10 +1,11 @@
 :root{
-    --primary: #450a0a;
-    --secondary: #fed7aa;
-    --secondary-dark:#ffbb6d;
+    --primary: #00420c;
+    --secondary: #fdf5ad;
+    --secondary-dark: #f5ff9f;
+    --news-background: #939b4f;
 }
 .backgroundWrapper{
-    background-image: url("..//../public/default_background.jpg");
+    background-color: #ECF87F;
     height: 100%;
     background-size: cover;
     margin-bottom:6em;

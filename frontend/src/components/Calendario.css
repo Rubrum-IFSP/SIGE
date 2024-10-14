@@ -1,6 +1,6 @@
 .calendarWrapper{
     display:flex;
-    background-color:rgba(29, 26, 26, 0.521);
+    background-color:var(--news-background);
     font-weight:bolder;
     color:black;
     max-width:48em;

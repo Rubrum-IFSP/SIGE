@@ -3,12 +3,12 @@
 .menuWrapper{
     position:absolute;
     margin: 2em 2em 0em 2em;
-    background-color:rgba(29, 26, 26, 0.521);
+    background-color:var(--news-background);
     padding:2em 2em 1em 2em;
     width:fit-content;
-    border:solid rgb(24, 22, 22) 0.17em;
+    border:solid black 2px;
     border-radius:0.8em;
-    box-shadow: 3px 3px 10px;
+    box-shadow: 6px 6px 7px rgba(0, 0, 0, 0.25);
 }
 .menuWrapper h1{
     display:block;
@@ -21,7 +21,7 @@
 }
 .dropdown {
     display:block;
-
+    
     margin-bottom:1em;
   }
   .dropdown-content {

@@ -1,13 +1,16 @@
-/* AboutMeComponent.css */
+@import "./root.css";
+
+
 .about-me-container {
     margin:2em auto 1em auto;
     width:90%;
     display: flex;
     align-items: center;
     padding: 20px;
-    background-color: #f7f7f7;
+    background-color: var(--news-background);
     border-radius: 10px;
     box-shadow: 2px 2px 10px;
+    border:solid 2px var(--primary);
   }
   
   .profile-image {
@@ -25,7 +28,8 @@
   .about-me-info p {
     font-size: 1.4em;
     font-style:italic;
-    font-weight:bold;
+    font-weight:bolder;
     font-weight: 400;
     margin-bottom: 20px;
+    color:black;
   }

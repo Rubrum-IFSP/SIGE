@@ -1,7 +1,7 @@
 @import "../root.css";
 
 .formWrapper{
-    background-color:rgba(29, 26, 26, 0.521);
+    background-color:var(--news-background);
     font-weight:bolder;
     color:black;
     width:min-content;

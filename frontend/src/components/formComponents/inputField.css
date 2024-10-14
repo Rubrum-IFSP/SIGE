@@ -14,7 +14,7 @@
     margin-bottom:0.8em;
 }
 .inputFieldWrapper input:hover{
-    background-color: rgba(235, 232, 232, 0.2);
+    background-color: var(--secondary-dark);
     transition: 0.2s;
 }
 .inputFieldWrapper input:focus{
