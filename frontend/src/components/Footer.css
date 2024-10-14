@@ -1,0 +1,24 @@
+@import "root.css";
+.footer{
+    position:absolute;
+    margin-top:2em;
+    bottom:0em;
+    background-color:var(--primary);
+    height:4em;
+    width:100%;
+    text-align:center;
+    color:var(--secondary);
+    font-weight:bolder;
+    font-style:italic;
+    text-decoration-line: underline;
+    border-top: solid black 2px;
+}
+.footerContent{
+   margin-top:1em;
+}
+.footer a{
+    color:var(--secondary)
+}
+.footer a:hover{
+    color: var(--secondary-dark )
+}

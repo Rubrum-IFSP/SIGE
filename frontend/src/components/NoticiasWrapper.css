@@ -1,0 +1,23 @@
+@import "./root.css";
+
+.wrapper{
+    width:80%;
+    background-color:#939b4f;
+    border:0.15em solid black;
+    height:fit-content;
+    padding:2em;
+    margin:2em auto 0em auto;
+    border-radius:0.8em;
+    box-shadow: 5px 5px 10px;
+}
+.wrapper a{
+    color:white;
+    font-size:1.4em;
+    font-weight:bolder;
+    text-decoration: none;
+}
+.wrapper a:hover{
+    color:black;
+    text-decoration: underline;
+    transition:0.3s;
+}

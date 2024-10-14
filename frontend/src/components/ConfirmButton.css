@@ -1,0 +1,21 @@
+@import "./root.css";
+
+.buttonWrapper{
+    text-align:center;
+    
+}
+
+.buttonWrapper button{
+   background-color: white;
+   border:2px solid black;
+   padding:10px;
+   color:var(--primary);
+   font-weight:bolder;
+   border-radius:0.8em;
+}
+.buttonWrapper button:hover{
+    background-color: var(--secondary);
+    outline:none;
+    outline:3px solid white;
+    transition:0.2s;
+}

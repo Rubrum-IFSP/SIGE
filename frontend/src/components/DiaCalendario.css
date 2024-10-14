@@ -1,0 +1,32 @@
+.dayWrapperActive{
+    position:relative;
+    background-color: rgb(252, 216, 140);
+    margin-right:0.8em;
+    margin-bottom:0.6em;
+    display:inline-flex;
+    padding:1.5em;
+    border:2px solid black;
+    border-radius:1em;
+}
+.dayWrapperActive a{
+    color: var(--primary);
+    font-style: italic;
+    text-decoration-line: none;
+}
+.dayWrapperActive a:hover{
+    text-decoration: underline;
+    color:black;
+    transition:0.2s;
+    
+}
+
+.dayWrapperInactive{
+    position:relative;
+    display:inline-flex;
+    padding:1.5em;
+    background-color: var(--secondary);
+    margin-right:0.8em;
+    margin-bottom:0.6em;
+    border:2px solid black;
+    border-radius:1em;
+}

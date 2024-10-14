@@ -1,0 +1,12 @@
+:root{
+    --primary: #00420c;
+    --secondary: #fdf5ad;
+    --secondary-dark: #f5ff9f;
+    --news-background: #939b4f;
+}
+.backgroundWrapper{
+    background-color: #ECF87F;
+    height: 100%;
+    background-size: cover;
+    margin-bottom:6em;
+}

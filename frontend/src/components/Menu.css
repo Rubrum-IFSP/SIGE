@@ -1,0 +1,68 @@
+@import "./root.css";
+
+.menuWrapper{
+    position:absolute;
+    margin: 2em 2em 0em 2em;
+    background-color:var(--news-background);
+    padding:2em 2em 1em 2em;
+    width:fit-content;
+    border:solid black 2px;
+    border-radius:0.8em;
+    box-shadow: 6px 6px 7px rgba(0, 0, 0, 0.25);
+}
+.menuWrapper h1{
+    display:block;
+    width:10em;
+    word-wrap:break-word;
+    text-align:center;
+    color:black;
+    font-weight:bolder;
+    font-size:1em;
+}
+.dropdown {
+    display:block;
+    
+    margin-bottom:1em;
+  }
+  .dropdown-content {
+    display:none;
+    visibility:hidden;
+    position: relative;
+    width: 100%;
+    overflow: auto;
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.4);
+  }
+  .dropdown:hover .dropdown-content {
+    display: block;
+    visibility:visible;
+    background-color:white;
+    border:0.15em black solid;
+    border-radius:0.8em;
+    transition:1s;
+  }
+  .dropdown-content a {
+    display: block;
+    color: #000000;
+    padding: 5px;
+    text-decoration: none;
+  }
+  .dropdown-content a:hover {
+    font-weight:bold;
+    background-color: var(--secondary);
+    transition:0.2s;
+  }
+  .dropdown button{
+    font-weight:bolder;
+    width:10em;
+    height:2em;
+    background-color:var(--secondary);
+    border: rgba(0, 0, 0, 0.87) solid 0.2em;
+    border-radius:0.8em;
+  }
+  .dropdown button:hover{
+    background-color: var(--secondary-dark);
+    transition: 0.2s;
+    outline:none;
+    outline:3px solid black;
+    transition:0.2s;
+  }

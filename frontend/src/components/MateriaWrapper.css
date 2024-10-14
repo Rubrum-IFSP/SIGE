@@ -1,0 +1,27 @@
+@import "./root.css";
+
+.wrapper{
+    color:black;
+    font-size:1.2em;
+    width:95%;
+}
+.subjectInfo{
+    background-color:var(--secondary);
+    padding:0.5em;
+    border:solid black 2px;
+    border-radius:0.8em;
+    font-weight:bold;
+}
+.atividadesWrapper{
+    background-color:var(--secondary);
+    margin-top:1em;
+    padding:0.5em;
+    height:fit-content;
+    border-radius:0.8em;
+    border: black solid 2px;
+}
+
+.linkFormAtividade{
+    text-align:center;
+    margin-top:1em;
+}

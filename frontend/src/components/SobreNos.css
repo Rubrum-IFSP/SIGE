@@ -1,0 +1,35 @@
+@import "./root.css";
+
+
+.about-me-container {
+    margin:2em auto 1em auto;
+    width:90%;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--news-background);
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px;
+    border:solid 2px var(--primary);
+  }
+  
+  .profile-image {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    margin-right: 20px;
+    border:2px solid black;
+  }
+  
+  .about-me-info {
+    flex: 1;
+  }
+  
+  .about-me-info p {
+    font-size: 1.4em;
+    font-style:italic;
+    font-weight:bolder;
+    font-weight: 400;
+    margin-bottom: 20px;
+    color:black;
+  }

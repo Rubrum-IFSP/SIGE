@@ -1,0 +1,50 @@
+@import "./root.css";
+
+.menuEscolaWrapper{
+    display:flex;
+    background-color:var(--news-background);
+    font-weight:bolder;
+    color:black;
+    width:80em;
+    padding:1em 1em 2.5em 1em;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.658);
+    border:2px solid rgba(0, 0, 0, 0.733);
+    border-radius:0.8em;
+    margin-top:2em;
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+    flex-wrap:wrap;
+    justify-content: center;
+}
+
+
+.adicionarEscolaOption{
+    border: 0.15em solid black;
+    border-radius:0.8em;
+    padding:0.6em;
+    background-color:var(--secondary-dark);
+    margin: 0em 1em 0.6em 1em;
+    width:13em;
+    height:7em;
+    display:flex;
+    justify-content: center;
+    text-align:center;
+    box-shadow: 2px 2px 5px;
+}
+
+.adicionarEscolaOption span{
+    font-size:1.3em;
+    display:block;
+    color:black;
+}
+.adicionarEscolaOption a:hover{
+    text-decoration:underline;
+    color:black;
+
+
+}
+.adicionarEscolaOption a{
+    font-style:italic;
+    text-decoration:none;
+}

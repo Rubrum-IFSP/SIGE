@@ -1,0 +1,21 @@
+.calendarWrapper{
+    display:flex;
+    background-color:var(--news-background);
+    font-weight:bolder;
+    color:black;
+    max-width:48em;
+    padding:1em 1em 2.5em 1em;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.658);
+    border:2px solid rgba(0, 0, 0, 0.733);  
+    border-radius:0.8em;
+    margin-top:2em;
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.calendarWrapper p{
+    font-size:2em;
+    font-weight: bolder;
+    margin-bottom:1.5em;
+}
