@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rubrum.sige.domain.school.InviteResponseDTO;
 import com.rubrum.sige.domain.school.School;
 import com.rubrum.sige.domain.school.SchoolRepository;
 import com.rubrum.sige.domain.school.SchoolResponseDTO;
@@ -23,6 +24,7 @@ import com.rubrum.sige.domain.schoolMember.SchoolMemberResponseDTO;
 import com.rubrum.sige.domain.schoolMember.SchoolMemberRoles;
 import com.rubrum.sige.domain.user.User;
 import com.rubrum.sige.domain.user.UserRepository;
+import com.rubrum.sige.domain.user.UserResponseDTO;
 import com.rubrum.sige.infra.security.TokenService;
 import com.rubrum.sige.services.InviteService;
 import com.rubrum.sige.domain.school.SchoolRequestDTO;
@@ -82,23 +84,29 @@ public class SchoolController {
     }
 
     @PostMapping("/invite/create/{schoolName}")
-    public ResponseEntity<String> generateSchoolInvite(@PathVariable String schoolName) {
+    public ResponseEntity<String> generateSchoolInvite(@PathVariable String schoolName, @RequestHeader String userEmail) {
         School school = repository.findByName(schoolName);
         if (school == null) return ResponseEntity.badRequest().build();
 
-        String invite = inviteService.generateInvite(school);
+        String invite = inviteService.generateInvite(school, userEmail);
         return ResponseEntity.ok(invite);
     }
 
     @PostMapping("/invite/validate/{invite}")
-    public ResponseEntity<SchoolResponseDTO> validateSchoolInvite(String invite) {
+    public ResponseEntity<InviteResponseDTO> validateSchoolInvite(String invite) {
         var schoolName = inviteService.validateInvite(invite);
         if (schoolName == null) return ResponseEntity.badRequest().build();
 
         School school = repository.findByName(schoolName);
         if (school == null) return ResponseEntity.badRequest().build();
 
-        return ResponseEntity.ok(new SchoolResponseDTO(school));
+        String userEmail = inviteService.getSenderEmail(invite);
+        User sender = userRepository.findByEmail(userEmail);
+
+        SchoolResponseDTO schoolInfo = new SchoolResponseDTO(school);
+        UserResponseDTO userInfo = new UserResponseDTO(sender);
+
+        return ResponseEntity.ok(new InviteResponseDTO(schoolInfo, userInfo));
     }
 
     @GetMapping
@@ -107,7 +115,7 @@ public class SchoolController {
         return schoolList;
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/get/{name}")
     public ResponseEntity<SchoolResponseDTO> getByName(@PathVariable String name) throws BadRequestException {
         School school = repository.findByName(name);
         if (school == null) {
@@ -122,8 +130,8 @@ public class SchoolController {
         return memberList;
     }
 
-    @GetMapping("/user/{email}")
-    public List<SchoolResponseDTO> getSchoolsByUserEmail(@PathVariable String email) throws BadRequestException {
+    @GetMapping("/user")
+    public List<SchoolResponseDTO> getSchoolsByUserEmail(@RequestHeader String email) throws BadRequestException {
         User user = userRepository.findByEmail(email);
         if (user == null) throw new BadRequestException("usuario não encontrado.");
 

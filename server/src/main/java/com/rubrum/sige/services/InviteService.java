@@ -17,12 +17,13 @@ public class InviteService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    public String generateInvite(School school) {
+    public String generateInvite(School school, String userEmail) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
                 .withIssuer("sigeapi")
                 .withSubject(school.getName())
+                .withClaim("sender", userEmail)
                 .withExpiresAt(generateExpirationDate())
                 .sign(algorithm);
             return token;
@@ -31,18 +32,32 @@ public class InviteService {
         }
     }
 
-    public String validateInvite(String token) {
+    public String validateInvite(String invite) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
                 .withIssuer("sigeapi")
                 .build()
-                .verify(token)
+                .verify(invite)
                 .getSubject();
         } catch (Exception e) {
             return "";
         }
     }
+
+    public String getSenderEmail(String invite) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            return JWT.require(algorithm)
+                .withIssuer("sigeapi")
+                .build()
+                .verify(invite)
+                .getClaim("sender")
+                .asString();
+        } catch (Exception e) {
+            return "";
+        }
+    } 
 
     private Instant generateExpirationDate() {
         return LocalDateTime.now().plusHours(72).toInstant(ZoneOffset.of("-03:00"));
