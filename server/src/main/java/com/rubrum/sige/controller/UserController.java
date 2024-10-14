@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rubrum.sige.domain.school.SchoolRepository;
+import com.rubrum.sige.domain.schoolMember.SchoolMember;
+import com.rubrum.sige.domain.schoolMember.SchoolMemberRepository;
+import com.rubrum.sige.domain.schoolMember.SchoolMemberRoles;
 import com.rubrum.sige.domain.user.User;
 import com.rubrum.sige.domain.user.UserRepository;
 import com.rubrum.sige.domain.user.UserRequestDTO;
@@ -25,6 +29,12 @@ public class UserController {
     @Autowired
     private UserRepository repository;
 
+    @Autowired 
+    SchoolMemberRepository memberRepository;
+
+    @Autowired
+    SchoolRepository schoolRepository;
+
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody @Valid UserRequestDTO data) {
         User user = new User(data);
@@ -32,9 +42,16 @@ public class UserController {
         return ResponseEntity.ok("usuário criado com sucesso!");
     }
 
-    @GetMapping("/schools")
-    public void getUserSchools(@RequestHeader String userEmail) {
-        
+    @GetMapping("/role")
+    public ResponseEntity<String> getUserRole(@RequestHeader String userEmail, @RequestHeader String schoolId) {
+        SchoolMemberRoles role = SchoolMemberRoles.GUEST;
+        User user = repository.findByEmail(userEmail);
+        if (user == null) return ResponseEntity.badRequest().build();
+
+        SchoolMember member = memberRepository.findBySchoolIdAndUserId(schoolId, user.getId());
+        if (member != null) role = member.getRole();
+
+        return ResponseEntity.ok(role.toString());
     }
 
     @GetMapping()

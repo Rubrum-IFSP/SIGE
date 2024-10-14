@@ -41,10 +41,16 @@ public class SecurityFilter extends OncePerRequestFilter {
                 var schoolId = request.getHeader("schoolId");
                 String userId = user.getId();
 
-                var userRole = user.getAuthorities(userService.getUserRole(userId, schoolId));
-                if (userRole == null) userRole = user.getAuthorities();
+                var userAuth = user.getAuthorities();
 
-                var authentication = new UsernamePasswordAuthenticationToken(user, null, userRole);
+                if (schoolId != null) {
+                    var role = userService.getUserRole(userId, schoolId);
+                    if (role != null) {
+                        userAuth = user.getAuthorities(role);
+                    }
+                }
+
+                var authentication = new UsernamePasswordAuthenticationToken(user, null, userAuth);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }

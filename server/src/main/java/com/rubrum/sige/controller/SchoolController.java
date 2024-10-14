@@ -77,6 +77,14 @@ public class SchoolController {
         return ResponseEntity.ok("escola editada com sucesso.");
     }
 
+    @PostMapping("/invite/create/{schoolName}")
+    public void generateSchoolInvite(@PathVariable String schoolName) {
+        School school = repository.findByName(schoolName);
+        if (school == null) return;
+
+        
+    }
+
     @GetMapping
     public List<SchoolResponseDTO> getAll() {
         List<SchoolResponseDTO> schoolList = repository.findAll().stream().map(SchoolResponseDTO::new).toList();
