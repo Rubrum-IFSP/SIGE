@@ -30,9 +30,11 @@ import com.rubrum.sige.services.InviteService;
 import com.rubrum.sige.domain.school.SchoolRequestDTO;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 @Validated
 @RestController
+@Slf4j
 @RequestMapping("school")
 public class SchoolController {
     
@@ -84,9 +86,13 @@ public class SchoolController {
     }
 
     @PostMapping("/invite/create/{schoolName}")
-    public ResponseEntity<String> generateSchoolInvite(@PathVariable String schoolName, @RequestHeader String userEmail) {
+    public ResponseEntity<String> generateSchoolInvite(@PathVariable String schoolName, @RequestHeader String Authorization) {
         School school = repository.findByName(schoolName);
         if (school == null) return ResponseEntity.badRequest().build();
+        
+        if (Authorization == null) return ResponseEntity.badRequest().build();
+        String token = Authorization.replace("Bearer ", "");
+        String userEmail = tokenService.validateToken(token);
 
         String invite = inviteService.generateInvite(school, userEmail);
         return ResponseEntity.ok(invite);
