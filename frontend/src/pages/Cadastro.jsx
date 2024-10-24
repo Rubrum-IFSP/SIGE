@@ -2,10 +2,14 @@ import Layout from "../components/Layout.tsx";
 import Form from "../components/formComponents/Form.tsx";
 import ConfirmButton from "../components/ConfirmButton.tsx";
 import { register, User } from "../interface/auth.ts";
-import { useState } from "react";
+import { useState, Alert } from "react";
+import {Toaster, toast} from "react-hot-toast";
+
 
 export default function Cadastro() {
   const [user, setUser] = useState({});
+
+
 
   const onChangeHandler = (e) => {
     e.preventDefault();
@@ -18,11 +22,20 @@ export default function Cadastro() {
   };
   
   const registerUser = () => {
+    if(user.password === user.passwordConfirm ){
     register(user);
+    }
+    else {
+      return toast.error("Senhas Diferentes!")
+    }
   };
 
   return (
     <Layout connected={false}>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
       <Form
         inputFields={[
           <div className="inputFieldWrapper">
@@ -35,11 +48,11 @@ export default function Cadastro() {
           </div>,
           <div className="inputFieldWrapper">
             <label>Senha:</label>
-            <input onChange={onChangeHandler} name="password"></input>
+            <input type="password" onChange={onChangeHandler} name="password"></input>
           </div>,
           <div className="inputFieldWrapper">
             <label>Confirme sua Senha:</label>
-            <input name="passwordConfirm"></input>
+            <input type="password" onChange={onChangeHandler} name="passwordConfirm"></input>
           </div>,
         ]}
         title={"Cadastro"}

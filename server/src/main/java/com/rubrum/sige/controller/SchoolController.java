@@ -27,9 +27,11 @@ import com.rubrum.sige.infra.security.TokenService;
 import com.rubrum.sige.domain.school.SchoolRequestDTO;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 @Validated
 @RestController
+@Slf4j
 @RequestMapping("school")
 public class SchoolController {
     

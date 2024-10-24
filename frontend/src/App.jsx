@@ -22,9 +22,11 @@ import FormAtividade from "./pages/FormAtividade"
 import FormClasse from "./pages/FormClasse"
 import FormMateria from "./pages/FormMateria"
 
+
 function App() {
   return (
     <Router>
+  
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<Index/>}/>
