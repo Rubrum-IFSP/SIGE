@@ -1,13 +1,23 @@
 import Layout from "../components/Layout.tsx";
 import Form from "../components/formComponents/Form.tsx";
 import ConfirmButton from "../components/ConfirmButton.tsx";
-import { register, User } from "../interface/auth.ts";
+import { register, User } from "../interface/auth.jsx";
 import { useState, Alert } from "react";
 import {Toaster, toast} from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
+const setCookie = (name, value, days) => {
+  const expirationDate = new Date();
+  expirationDate.setDate(expirationDate.getDate() + days);
+ 
+  document.cookie = `${name}=${value}; expires=${expirationDate.toUTCString()}; path=/`;
+ };
+
 
 
 export default function Cadastro() {
   const [user, setUser] = useState({});
+  const navigate = useNavigate();
 
 
 
@@ -21,10 +31,23 @@ export default function Cadastro() {
     console.log(user);
   };
   
-  const registerUser = () => {
+  const registerUser = async  () => {
     if(user.password === user.passwordConfirm ){
-    register(user);
+    const  res = await register(user);
+
+    if(res.ok){
+      const userCopia ={
+        name: user.name,
+        email: user.email,
+        
+      }
+    sessionStorage.setItem('user',JSON.stringify(userCopia));
+    navigate("/landingpage",{state:{username:user.name}})
     }
+    else{
+      return toast.error("Já existe um usuário com esse email!")
+    }  
+  }
     else {
       return toast.error("Senhas Diferentes!")
     }
