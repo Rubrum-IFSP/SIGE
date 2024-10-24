@@ -55,4 +55,8 @@ public class TokenService {
         if (authReader == null) return null;
         return authReader.replace("Bearer ", "");
     }
+
+    public String recoverToken(String header) {
+        return header.replace("Bearer ", "");
+    }
 }

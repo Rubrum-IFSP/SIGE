@@ -37,7 +37,9 @@ public class SecurityConfigurations {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.POST, "/school/update").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/school/save").authenticated()
-                .requestMatchers(HttpMethod.POST, "school/invite/create").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/invite/create").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/invite/join").authenticated()
+                .requestMatchers(HttpMethod.POST, "/invite/validate").permitAll()
                 .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                 .anyRequest().permitAll()

@@ -22,7 +22,7 @@ public class InviteService {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
                 .withIssuer("sigeapi")
-                .withSubject(school.getName())
+                .withSubject(school.getId())
                 .withClaim("sender", userEmail)
                 .withExpiresAt(generateExpirationDate())
                 .sign(algorithm);
@@ -32,6 +32,11 @@ public class InviteService {
         }
     }
 
+    /**
+     * 
+     * @param invite
+     * @return String schoolName
+     */
     public String validateInvite(String invite) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
