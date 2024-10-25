@@ -5,14 +5,7 @@ import { register, User } from "../interface/auth.jsx";
 import { useState, Alert } from "react";
 import {Toaster, toast} from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-
-const setCookie = (name, value, days) => {
-  const expirationDate = new Date();
-  expirationDate.setDate(expirationDate.getDate() + days);
- 
-  document.cookie = `${name}=${value}; expires=${expirationDate.toUTCString()}; path=/`;
- };
-
+import Cookies from "js-cookie";
 
 
 export default function Cadastro() {
@@ -39,9 +32,10 @@ export default function Cadastro() {
       const userCopia ={
         name: user.name,
         email: user.email,
-        
+
       }
-    sessionStorage.setItem('user',JSON.stringify(userCopia));
+      Cookies.set("user",JSON.stringify(userCopia))
+
     navigate("/landingpage",{state:{username:user.name}})
     }
     else{
@@ -54,7 +48,7 @@ export default function Cadastro() {
   };
 
   return (
-    <Layout connected={false}>
+    <Layout connected={Cookies.get("user")}>
       <Toaster
         position="top-center"
         reverseOrder={false}

@@ -2,6 +2,7 @@ import Layout from "../components/Layout";
 import { useLocation, Link } from "react-router-dom";
 import Blog from "../components/Blog";
 import BlogContent from "../components/BlogContent";
+import Cookie from "js-cookie";
 
 var isGremio = true;
 
@@ -9,7 +10,7 @@ export default function BlogPage(props) {
   let { state } = useLocation();
   if(isGremio){
   return (
-    <Layout connected={true}>
+    <Layout connected={Cookie.get("user")}>
       
       <Blog
         content={[

@@ -1,6 +1,7 @@
 import Layout from "../components/Layout";
 import Form from "../components/formComponents/Form";
 import ConfirmButton from "../components/ConfirmButton";
+import Cookie from "js-cookie";
 
 export default function CadastrarAtividade(){
 
@@ -16,7 +17,7 @@ export default function CadastrarAtividade(){
     }
 
     return(
-        <Layout connected ={true}>
+        <Layout connected ={Cookie.get("user")}>
             <Form title={"Enviar Atividade"}>
             <div className="inputFieldWrapper">
                 <label>Nome:</label>

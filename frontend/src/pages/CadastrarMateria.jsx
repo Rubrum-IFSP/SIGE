@@ -1,6 +1,8 @@
 import Layout from "../components/Layout";
 import Form from "../components/formComponents/Form";
 import ConfirmButton from "../components/ConfirmButton";
+import Cookie from "js-cookie";
+
 
 export default function CadastrarMateria(){
 
@@ -11,7 +13,7 @@ export default function CadastrarMateria(){
     }
 
     return(
-        <Layout connected="true">
+        <Layout connected={Cookie.get("user")}>
             <Form title={"Criar Materia"}>
             <div className="inputFieldWrapper">
                 <label>Nome:</label>

@@ -1,7 +1,7 @@
 import Layout from "../components/Layout";
 import NoticiasWrapper from "../components/NoticiasWrapper";
 import Content from "../components/Noticias";
-
+import Cookie from "js-cookie";
 import { useLocation, Link } from "react-router-dom";
 
 export default function Noticias(props) {
@@ -10,7 +10,7 @@ export default function Noticias(props) {
   var isProfessor = true;
   if(isProfessor){
   return (
-    <Layout>
+    <Layout connected={Cookie.get("user")}>
       <NoticiasWrapper
         children={[
           <Content

@@ -1,9 +1,11 @@
 import Layout from "../components/Layout";
 import SobreNosContent from "../components/SobreNos";
+import Cookie from "js-cookie";
+
 
 export default function SobreNos() {
   return (
-    <Layout connected={false}>
+    <Layout connected={Cookie.get("user")}>
       <SobreNosContent
         imageUrl={"./public/vite.svg"}
         aboutMeText={

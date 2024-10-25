@@ -1,6 +1,6 @@
 import Layout from "../components/Layout";
 import "./Atendimento.css";
-
+import Cookie from "js-cookie";
 const css = `
   .atendimentoWrapper{
     box-shadow: 4px 4px 10px ;
@@ -9,7 +9,7 @@ const css = `
 
 export default function Atendimeneto() {
   return (
-    <Layout connected={false}>
+    <Layout connected={Cookie.get("user")}>
       <style>{css}</style>
       <div className="atendimentoWrapper">
         <form>

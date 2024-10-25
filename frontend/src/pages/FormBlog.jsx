@@ -1,5 +1,6 @@
 import Layout from "../components/Layout";
 import "./Atendimento.css";
+import Cookie from "js-cookie";
 
 const css = `
   .atendimentoWrapper{
@@ -9,7 +10,7 @@ const css = `
 
 export default function FormBlog() {
   return (
-    <Layout connected={false}>
+    <Layout connected={Cookie.get("user")}>
       <style>{css}</style>
       <div className="atendimentoWrapper">
         <form>

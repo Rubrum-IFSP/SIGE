@@ -1,5 +1,9 @@
 import Layout from "../components/Layout";
 import PerfilUser from "../components/PerfilUser";
+import { useNavigate } from "react-router-dom";
+import Cookie from "js-cookie";
+
+
 
 function School() {
   return (
@@ -9,15 +13,26 @@ function School() {
   );
 }
 
+
 export default function MeuPerfil() {
+  const navigate = useNavigate();
+  
+  const user = JSON.parse(Cookie.get("user"));
+  
+
+  const logout =()  =>{
+    Cookie.remove("user");
+    console.log("removeu");
+    navigate("/",{state:{msg:"removed-cookie"}});
+  }
+  
+
   return (
-    <Layout connected={false}>
-      <PerfilUser name={"felipe"} email={"felipecongioalbino11@gmail.com"}>
-        {School()}
-        {School()}
-        {School()}
-        {School()}
+    <Layout connected={Cookie.get("user")}>
+      <PerfilUser name={user.name} email={user.email}>
+      <button onClick={logout} className="logoutButton">Sair do Perfil</button>  
       </PerfilUser>
     </Layout>
-  );
+    
+);
 }

@@ -2,6 +2,7 @@ import Layout from "../components/Layout"
 import MateriaWrapper from "../components/MateriaWrapper";
 import Atividade from "../components/Atividades";
 import { Link } from "react-router-dom";
+import Cookie from "js-cookie";
 
 const obj = {
     nomeProfessor : "Agnaldo",
@@ -15,7 +16,7 @@ const atv = {
 
 export default function Materia(){
     return(
-        <Layout>
+        <Layout connected={Cookie.get("user")}>
             <MateriaWrapper nomeMateria={obj.nomeMateria} nomeProfessor={obj.nomeProfessor}>
                 <Atividade titulo={atv.titulo} descricao={atv.descricao} data={atv.data}></Atividade>
                 <Atividade titulo={atv.titulo} descricao={atv.descricao} data={atv.data}></Atividade>

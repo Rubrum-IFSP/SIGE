@@ -1,6 +1,7 @@
 import Layout from "../components/Layout";
 import Noticias from "../components/Noticias";
 import NoticiasWrapper from "../components/NoticiasWrapper";
+import Cookie from "js-cookie";
 
 const css = `
     .teste{
@@ -14,7 +15,7 @@ const css = `
 
 export default function Index(){
     return(
-        <Layout connected={false}> 
+        <Layout connected={Cookie.get("user")}> 
         <style jsx>{css}</style>
             <NoticiasWrapper>
                 <h1 className="teste">Bem Vindo!</h1>

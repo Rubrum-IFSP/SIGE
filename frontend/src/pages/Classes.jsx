@@ -1,6 +1,7 @@
 import Layout from "../components/Layout"
 import Classes from "../components/Classes"
 import { Link } from "react-router-dom";
+import Cookie from "js-cookie";
 
 function getClasses(e) {
     let res = [];
@@ -19,7 +20,7 @@ function getClasses(e) {
   }
 export default function ClassesPage(){
     return(
-        <Layout>
+        <Layout connected={Cookie.get("user")}>
             <style></style>
             <div className="mainWrapper">
            <Classes nomeClasse={"3 INFO"} nomeEscola={"IFSP"}>{[getClasses("Teste"), 
