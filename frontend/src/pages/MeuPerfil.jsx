@@ -22,7 +22,7 @@ export default function MeuPerfil() {
 
   const logout =()  =>{
     Cookie.remove("user");
-    console.log("removeu");
+    console.log("removeu cookie");
     navigate("/",{state:{msg:"removed-cookie"}});
   }
   

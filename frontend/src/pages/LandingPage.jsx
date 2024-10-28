@@ -15,7 +15,8 @@ export default function LandingPage(props) {
     <Layout connected={Cookies.get("user")}>
       <MenuEscola
 
-      />
+      >
+        </MenuEscola>
     </Layout>
   );
 }

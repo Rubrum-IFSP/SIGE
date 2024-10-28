@@ -18,7 +18,7 @@ export const register = async (user) => {
     },
     method: "POST",
     body: JSON.stringify(user),
-  }).then((res) =>res);
+  }).then((res) => res);
 };
 
 export const login = async (user) => {
@@ -30,6 +30,19 @@ export const login = async (user) => {
     },
     method: "POST",
     body: JSON.stringify(user),
+  }).then((res) => res.json());
+};
+
+
+export const saveSchool = async (school) => {
+
+  return await fetch(url + "/school/save", {
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      Accept: "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify(school),
   }).then((res) =>res);
 };
 

@@ -32,9 +32,9 @@ import lombok.extern.slf4j.Slf4j;
 @Validated
 @RestController
 @Slf4j
-@RequestMapping("school")
+@RequestMapping("/school")
 public class SchoolController {
-    
+
     @Autowired
     private SchoolRepository repository;
 
@@ -48,12 +48,14 @@ public class SchoolController {
     private TokenService tokenService;
 
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody @Valid SchoolRequestDTO data, @RequestHeader("Authorization") String token) {
+    public ResponseEntity<String> save(@RequestBody @Valid SchoolRequestDTO data,
+            @RequestHeader("Authorization") String token) {
         var email = tokenService.validateToken(token.replace("Bearer ", ""));
         User user = userRepository.findByEmail(email);
 
-        if (user == null) return ResponseEntity.badRequest().build();
-        
+        if (user == null)
+            return ResponseEntity.badRequest().build();
+
         School school = new School(data);
         repository.save(school);
 
@@ -94,16 +96,18 @@ public class SchoolController {
         return ResponseEntity.ok(new SchoolResponseDTO(school));
     }
 
-    @GetMapping("/member") 
+    @GetMapping("/member")
     public List<SchoolMemberResponseDTO> getMembers() {
-        List<SchoolMemberResponseDTO> memberList = memberRepository.findAll().stream().map(SchoolMemberResponseDTO::new).toList();
+        List<SchoolMemberResponseDTO> memberList = memberRepository.findAll().stream().map(SchoolMemberResponseDTO::new)
+                .toList();
         return memberList;
     }
 
     @GetMapping("/user")
     public List<SchoolResponseDTO> getSchoolsByUserEmail(@RequestHeader String email) throws BadRequestException {
         User user = userRepository.findByEmail(email);
-        if (user == null) throw new BadRequestException("usuario não encontrado.");
+        if (user == null)
+            throw new BadRequestException("usuario não encontrado.");
 
         List<SchoolMember> userMembers = memberRepository.findAllByUserId(user.getId());
         List<SchoolResponseDTO> response = List.of();

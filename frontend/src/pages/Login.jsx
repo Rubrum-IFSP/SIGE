@@ -5,6 +5,7 @@ import ConfirmButton from "../components/ConfirmButton";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../interface/auth";
+import Cookie from "js-cookie";
 
 
 export default function Login() {
@@ -26,7 +27,12 @@ export default function Login() {
   const loginUser = async () => {
     const res = await login(user)
 
-    if(res.ok)navigate("/landingpage",{state:{username:user.name}})
+    if(!res.error){
+      navigate("/landingpage")
+
+      Cookie.set("user",JSON.stringify(res));
+    }
+    else console.log("login deu errado")
    
   };
 

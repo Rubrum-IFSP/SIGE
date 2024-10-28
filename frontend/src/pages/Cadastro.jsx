@@ -1,7 +1,7 @@
 import Layout from "../components/Layout.tsx";
 import Form from "../components/formComponents/Form.tsx";
 import ConfirmButton from "../components/ConfirmButton.tsx";
-import { register, User } from "../interface/auth.jsx";
+import { register, User, login } from "../interface/auth.jsx";
 import { useState, Alert } from "react";
 import {Toaster, toast} from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -30,13 +30,14 @@ export default function Cadastro() {
 
     if(res.ok){
       const userCopia ={
-        name: user.name,
         email: user.email,
-
+        password: user.password,
       }
-      Cookies.set("user",JSON.stringify(userCopia))
 
-    navigate("/landingpage",{state:{username:user.name}})
+      const resLogin = await login(userCopia)
+      Cookies.set("user",JSON.stringify(resLogin))
+
+      navigate("/landingpage")
     }
     else{
       return toast.error("Já existe um usuário com esse email!")
