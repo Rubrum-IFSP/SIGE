@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rubrum.sige.domain.user.AuthenticationDTO;
-import com.rubrum.sige.domain.user.LoginResponseDTO;
+import com.rubrum.sige.domain.user.AuthResponseDTO;
 import com.rubrum.sige.domain.user.User;
 import com.rubrum.sige.domain.user.UserRepository;
 import com.rubrum.sige.domain.user.UserRequestDTO;
@@ -33,13 +33,14 @@ public class AuthenticationController {
     private UserRepository repository;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthenticationDTO data) {
+    public ResponseEntity<AuthResponseDTO> login(@RequestBody @Valid AuthenticationDTO data) {
         var emailPassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var auth = manager.authenticate(emailPassword);
 
         var token = tokenService.generateToken((User) auth.getPrincipal());
+        User user = repository.findByEmail(data.email());
 
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        return ResponseEntity.ok(new AuthResponseDTO(user.getName(), user.getEmail(), token));
     }
 
     @PostMapping("/register")
