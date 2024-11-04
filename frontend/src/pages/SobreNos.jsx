@@ -15,13 +15,13 @@ export default function SobreNos() {
       <SobreNosContent
         imageUrl={"./public/vite.svg"}
         aboutMeText={
-          "Felipe Fernandes Alves, fez parte da equipe que desenvolveu os componentes do Front-End do projeto, utilizando a tecnologia React para criar páginas interativas e fáceis de se navegar."
+          "Felipe Fernandes Alves, líder do time que desenvolveu o Back-End da aplicação, inovou com um novo framework ao invés de se contentar com apenas os assuntos passados em aula, afinal 'A conformidade é o carcereiro da liberdade e o inimigo do crescimento' - Paulo Kogos."
         }
       />
       <SobreNosContent
         imageUrl={"./public/vite.svg"}
         aboutMeText={
-          "João Victor Montanaro"
+          "João Victor Montanaro, colaborou principalmente no projeto dos componentes visuais do projeto, parte essencial do Front-End do projeto. Um querido amigo, filho e futuro esposo, descanse em paz."
         }
       />
       <SobreNosContent

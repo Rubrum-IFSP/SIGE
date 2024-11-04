@@ -1,6 +1,7 @@
 package com.rubrum.sige.controller;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,7 +111,7 @@ public class SchoolController {
             throw new BadRequestException("usuario não encontrado.");
 
         List<SchoolMember> userMembers = memberRepository.findAllByUserId(user.getId());
-        List<SchoolResponseDTO> response = List.of();
+        List<SchoolResponseDTO> response = new ArrayList<>();
 
         for (SchoolMember schoolMember : userMembers) {
             School school = repository.findById(schoolMember.getSchoolId()).get();
