@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rubrum.sige.domain.news.NewsResponseDTO;
 import com.rubrum.sige.domain.school.School;
 import com.rubrum.sige.domain.school.SchoolRepository;
 import com.rubrum.sige.domain.school.SchoolResponseDTO;
@@ -120,5 +121,11 @@ public class SchoolController {
         }
 
         return response;
+    }
+
+    @GetMapping("/news")
+    public List<NewsResponseDTO> getSchoolNews(@RequestHeader String schoolId) throws BadRequestException {
+        // TODO implement method
+        return null;
     }
 }
