@@ -3,7 +3,7 @@ import DiaCalendario from "../components/DiaCalendario";
 import Calendario from "../components/Calendario";
 import Menu from "../components/Menu";
 import { useLocation } from "react-router-dom";
-import Cookie from "js-cookie";
+import Cookies from "js-cookie";
 
 const date = new Date();
 
@@ -56,8 +56,11 @@ function getMonthName(e){
 
 
 export default function Home() {
+
+  const {state} = useLocation();
+
   return(<Layout connected={Cookies.get("user")}>
-    <Menu nomeEscola={"IFSP"} idEscola={123}></Menu>
+    <Menu nomeEscola={state.name} idEscola={state.name}></Menu>
     <Calendario monthName={getMonthName(date.getMonth())} content={calendarDays()}></Calendario>
   </Layout>)
 }

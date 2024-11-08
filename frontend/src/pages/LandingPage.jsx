@@ -9,17 +9,59 @@ import { useEffect, useState } from "react";
 export default function LandingPage(props) {
   const {state} = useLocation();
   const user = JSON.parse( Cookies.get("user"))
-  var teste;
-  
-  const functionTeste = async ()=>{
-    teste = await getSchoolByEmail(user.email)
-    
+  const [schools, setSchools] = useState([]); // State to hold schools data
+
+  const [loading, setLoading] = useState(true); // State to manage loading status
+
+  const [error, setError] = useState(null); // State to manage errors
+
+
+  useEffect(() => {
+
+    const fetchSchools = async () => {
+
+      try {
+        const schoolsData = await getSchoolByEmail(user.email);
+        console.log('Schools:', schoolsData);
+        setSchools(schoolsData); 
+
+      } 
+      catch (err) {
+        console.error('Error fetching schools:', err);
+        setError(err.message); 
+
+      } 
+      finally {
+        setLoading(false); 
+      }
+
+    };
+
+
+    fetchSchools(); 
+
+  }, [user.email]); 
+
+
+  if (loading) {
+    return <p>Loading...</p>;
   }
+
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
 
   return (
     <Layout connected={Cookies.get("user")}>
-      <MenuEscola >
-        
+      <MenuEscola schools={schools.map(school => (
+
+// <li key={school.palette}>{school.name}</li>
+ <School key={school.id} name={school.name} ></School>
+
+))} >
+      
         </MenuEscola>
     </Layout>
   );

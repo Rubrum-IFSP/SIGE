@@ -49,7 +49,8 @@ export const saveSchool = async (school) => {
   }).then((res) =>res);
 };
 
-export const getSchoolByEmail = async (email) => {
+export async function getSchoolByEmail(email) {
+
 
   try {
 
@@ -60,34 +61,32 @@ export const getSchoolByEmail = async (email) => {
           headers: {
 
               'Content-Type': 'application/json',
-              Accept: "application/json",
 
-              'email': email, // Pass the email in the request header
+              'email': email // Add the email as a request header
 
-          },
+          }
 
       });
 
+
+
       if (!response.ok) {
 
-        const errorText = await response.text(); // Get the response body as text for debugging
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
 
-        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
-
-    }
+      }
 
 
-    const data = await response.json();
+      const data = await response.json();
 
-    return data; 
+      return data;
 
-} catch (error) {
+  } catch (error) {
 
-    console.error('Failed to fetch schools:', error);
+      console.error('Failed to fetch schools:', error);
 
-    throw error; // Rethrow the error for further handling
+      throw error; 
+
+  }
 
 }
-
-};
-
