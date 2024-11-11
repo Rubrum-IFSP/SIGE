@@ -33,7 +33,19 @@ public class News {
     private String title;
     private String content;
     private String autors;
-
     private Date created_at;
 
+    public News(NewsRequestDTO data) {
+        this.school_id = data.school_id();
+        this.news_type = data.news_type();
+        this.title = data.title();
+        this.content = data.content();
+        this.autors = data.autors();
+    }
+
+    public void update(NewsUpdateRequestDTO data) {
+        this.title = data.title();
+        this.content = data.content();
+        this.autors = data.autors();
+    }
 }
