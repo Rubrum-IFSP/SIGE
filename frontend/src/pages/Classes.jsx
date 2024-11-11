@@ -1,7 +1,8 @@
 import Layout from "../components/Layout"
 import Classes from "../components/Classes"
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Cookie from "js-cookie";
+
 
 function getClasses(e) {
     let res = [];
@@ -19,11 +20,14 @@ function getClasses(e) {
     return res;
   }
 export default function ClassesPage(){
+
+  const {state} = useLocation();
+
     return(
         <Layout connected={Cookie.get("user")}>
             <style></style>
             <div className="mainWrapper">
-           <Classes nomeClasse={"3 INFO"} nomeEscola={"IFSP"}>{[getClasses("Teste"), 
+           <Classes nomeClasse={"3 INFO"} nomeEscola={state.nome}>{[getClasses("Teste"), 
             <div className="linkFormClasses"><Link to="/formclasse">Cadastrar nova Classe</Link></div>,
             <div className="linkFormClasses"><Link to="/formmateria">Cadastrar nova Matéria</Link></div>
             ]}</Classes>

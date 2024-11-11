@@ -54,6 +54,9 @@ const css = `
     color:white;
     transition:0.4s;
   }
+  .noticia-preview{
+    position:sticky;
+  }
 `
 
 export default function Atendimeneto() {
@@ -119,7 +122,7 @@ export default function Atendimeneto() {
 
       <div className="main-wrappers">
         <div className="atendimentoWrapper">
-          <h1>Notícias</h1>
+          <h1>Eventos</h1>
 
           <div>
             <form>
@@ -158,7 +161,7 @@ export default function Atendimeneto() {
 
                       })
                     ) : ( <div></div> )}
-                    <div>* O nome de sua conta será vinculado  automáticamente à notícia</div>
+                    <div>* O nome de sua conta será vinculado  automáticamente ao evento</div>
                 </div>
               </div>
               <input className="submitButton" type="submit" value="Enviar" />
@@ -178,7 +181,7 @@ export default function Atendimeneto() {
                   </div>
                 )
               })
-            ) : ( <div>O preview de sua notícia ficará aqui!</div> )}
+            ) : ( <div>O preview de seu evento ficará aqui!</div> )}
           </div>
         </div>
       </div>

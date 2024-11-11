@@ -23,7 +23,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "users", uniqueConstraints= @UniqueConstraint(columnNames={"email"}))
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = { "email" }))
 @Entity(name = "users")
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
@@ -31,7 +31,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @Validated
 public class User implements UserDetails {
-    @Id @GeneratedValue(strategy = GenerationType.UUID)
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @NotNull(message = "o nome precisa ser preenchido.")
@@ -66,10 +67,12 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities(SchoolMemberRoles role) {
         switch (role) {
             case PROVOST:
-                return List.of(new SimpleGrantedAuthority("ROLE_PROVOST"), new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_STUDENT"), new SimpleGrantedAuthority("ROLE_GUEST"));
+                return List.of(new SimpleGrantedAuthority("ROLE_PROVOST"), new SimpleGrantedAuthority("ROLE_ADMIN"),
+                        new SimpleGrantedAuthority("ROLE_STUDENT"), new SimpleGrantedAuthority("ROLE_GUEST"));
 
             case ADMIN:
-                return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_STUDENT"), new SimpleGrantedAuthority("ROLE_GUEST"));
+                return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_STUDENT"),
+                        new SimpleGrantedAuthority("ROLE_GUEST"));
 
             case STUDENT:
                 return List.of(new SimpleGrantedAuthority("ROLE_STUDENT"), new SimpleGrantedAuthority("ROLE_GUEST"));
@@ -104,5 +107,4 @@ public class User implements UserDetails {
         return true;
     }
 
-    
 }

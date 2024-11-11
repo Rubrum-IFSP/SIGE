@@ -25,7 +25,8 @@ import lombok.Setter;
 @Setter
 @Validated
 public class School {
-    @Id @GeneratedValue(strategy = GenerationType.UUID)
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @NotNull(message = "preencha o nome.")

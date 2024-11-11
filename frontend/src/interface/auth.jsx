@@ -62,7 +62,7 @@ export async function getSchoolByEmail(email) {
 
               'Content-Type': 'application/json',
 
-              'email': email // Add the email as a request header
+              'email': email
 
           }
 

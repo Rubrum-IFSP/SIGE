@@ -57,7 +57,6 @@ export default function LandingPage(props) {
     <Layout connected={Cookies.get("user")}>
       <MenuEscola schools={schools.map(school => (
 
-// <li key={school.palette}>{school.name}</li>
  <School key={school.id} name={school.name} ></School>
 
 ))} >

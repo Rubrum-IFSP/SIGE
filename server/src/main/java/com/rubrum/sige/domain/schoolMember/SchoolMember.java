@@ -20,7 +20,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @Validated
 public class SchoolMember {
-    @Id @GeneratedValue(strategy = GenerationType.UUID)
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String userId;
     private String schoolId;

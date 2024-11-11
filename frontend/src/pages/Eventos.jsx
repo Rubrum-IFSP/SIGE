@@ -3,6 +3,7 @@ import Noticias from "../components/Noticias";
 import NoticiasWrapper from "../components/NoticiasWrapper";
 import Cookie from "js-cookie";
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function EventosPage(props) {
   let { state } = useLocation();
@@ -12,11 +13,12 @@ export default function EventosPage(props) {
       <NoticiasWrapper
         children={[
           <Noticias
-            title={state.id}
-            content={state.id}
-            datePublished={state.id}
-            author={state.id}
+            title={state.nome}
+            content={state.nome}
+            datePublished={state.nome}
+            author={state.nome}
           />,
+          <div className="centerWrapper"><Link to="/formeventos">Publicar um Evento</Link></div>,
         ]}
       />
     </Layout>

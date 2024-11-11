@@ -24,7 +24,8 @@ import lombok.Setter;
 @Setter
 @Validated
 public class News {
-    @Id @GeneratedValue(strategy = GenerationType.UUID)
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     private String school_id;
@@ -33,7 +34,6 @@ public class News {
     private String content;
     private String autors;
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Date created_at;
-    
+
 }

@@ -35,7 +35,7 @@ public class Event {
     @NotBlank
     @NotNull
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
     private String desc;
@@ -49,7 +49,8 @@ public class Event {
     @Column(name = "school_id")
     private String schoolId;
 
-    @Id @GeneratedValue(strategy = GenerationType.UUID)
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     public Event(@Valid EventRequestDTO data) {
