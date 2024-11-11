@@ -1,6 +1,6 @@
 package com.rubrum.sige.domain.news;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.springframework.validation.annotation.Validated;
 
@@ -28,19 +28,20 @@ public class News {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    private String school_id;
-    private String news_type;
+    private String schoolId;
+    private String newsType;
     private String title;
     private String content;
     private String autors;
     private Date created_at;
 
     public News(NewsRequestDTO data) {
-        this.school_id = data.school_id();
-        this.news_type = data.news_type();
+        this.schoolId = data.schoolId();
+        this.newsType = data.newsType();
         this.title = data.title();
         this.content = data.content();
         this.autors = data.autors();
+        this.created_at = new Date();
     }
 
     public void update(NewsUpdateRequestDTO data) {

@@ -61,10 +61,11 @@ export default function Atendimeneto() {
   const [title, setTitle] = useState("Título");
 
   class Component {
-    constructor(name, value, tag) {
+    constructor(name, value, tag, preview) {
       this.name = name;
       this.value = value;
       this.tag = tag;
+      this.preview = preview;
     }
   }
 
@@ -75,7 +76,7 @@ export default function Atendimeneto() {
 
   const onClickHandler = (e) => {
     e.preventDefault();
-    const newComponent = new Component(e.target.name, e.target.value);
+    const newComponent = new Component(e.target.name, e.target.value, e.target.getAttribute("tagName"), "");
     const newContent = [...content, newComponent];
     setContent(newContent);
   }
@@ -85,9 +86,15 @@ export default function Atendimeneto() {
     const contentCopy = [...content];
     const index = e.target.getAttribute("index");
 
-    contentCopy[index].value = e.target.value;
+    if (e.target.type == "file") {
+      contentCopy[index].value = e.target.files[0];
+      contentCopy[index].preview = URL.createObjectURL( e.target.files[0] );
+    } else {
+      contentCopy[index].value = e.target.value;
+    }
 
     setContent(contentCopy);
+    console.log(JSON.stringify(content));
   }
 
   const moveContent = (e) => {
@@ -130,9 +137,9 @@ export default function Atendimeneto() {
               
               <div>
                 <div>
-                  <button className="optionButton" onClick={onClickHandler} name="subtitulo">Adicionar Subtítulo</button>
-                  <button className="optionButton" onClick={onClickHandler} name="paragrafo">Adicionar Parágrafo</button>
-                  <button className="optionButton" onClick={onClickHandler} name="imagem">Adicionar Imagem</button>
+                  <button className="optionButton" onClick={onClickHandler} name="subtitulo" tagName="h2">Adicionar Subtítulo</button>
+                  <button className="optionButton" onClick={onClickHandler} name="paragrafo" tagName="p">Adicionar Parágrafo</button>
+                  <button className="optionButton" onClick={onClickHandler} name="imagem" tagName="img">Adicionar Imagem</button>
                 </div>
 
                 <div>
@@ -144,7 +151,7 @@ export default function Atendimeneto() {
                           <div key={index}>
                             <label htmlFor={id}>{(index + 1) + " - " + e.name}</label>
                             {e.name == "imagem" ? (
-                              <input className="imageInput" type="file" id={id} onChange={onChangeHandler} index={index} value={e.value} />
+                              <input className="imageInput" type="file" id={id} onChange={onChangeHandler} index={index} />
                             ) : (
                               <textarea id={id} onChange={onChangeHandler} index={index} value={e.value} />
                             )
@@ -174,7 +181,7 @@ export default function Atendimeneto() {
               content.map((e, index) => {
                 return(
                   <div key={index}>
-                    <span className={"noticia " + e.name}>{e.value}</span>
+                    {e.tag == "img" ? (<img className={"noticia " + e.name} src={e.preview} width={"100%"} />) : (<span className={"noticia " + e.name}>{e.value}</span>)}                    
                   </div>
                 )
               })

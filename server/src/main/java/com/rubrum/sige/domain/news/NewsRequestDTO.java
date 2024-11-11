@@ -1,5 +1,7 @@
 package com.rubrum.sige.domain.news;
 
-public record NewsRequestDTO( String school_id, String news_type,  String title, String content, String autors ) {
+import org.springframework.web.multipart.MultipartFile;
+
+public record NewsRequestDTO( String schoolId, String newsType, String title, String content, MultipartFile[] images, String autors ) {
     
 }

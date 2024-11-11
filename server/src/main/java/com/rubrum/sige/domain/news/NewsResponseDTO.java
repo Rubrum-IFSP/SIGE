@@ -1,6 +1,6 @@
 package com.rubrum.sige.domain.news;
 
-import java.sql.Date;
+import java.util.Date;
 
 public record NewsResponseDTO(String id, String title, String content, String autors, Date created_at) {
     public NewsResponseDTO(News news) {
