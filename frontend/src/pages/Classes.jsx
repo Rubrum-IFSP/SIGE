@@ -60,17 +60,11 @@ function getClass(e) {
   
       return classes.map((classItem, index) => (
   
-        <div className="class" key={index}>
+        <Classes nomeClasse={classItem.name} key={index} nomeEscola={state.name}>
   
-          <span className="subjectTitle">{classItem.name}</span>
-  
-          <span className="subjectLink">
-  
-            <Link to="/materia" state={{schoolName: state.name, schoolSubject: classItem.name}} >Acessar a Matéria</Link>
-  
-          </span>
-  
-        </div>
+    
+
+      </Classes>
   
       ));
   
@@ -85,28 +79,29 @@ function getClass(e) {
   
         <div className="mainWrapper">
   
-          <Classes nomeClasse={"3 INFO"} nomeEscola={state.name}>
-  
             {[
   
               getHtmlClasses(), // Call the function to get HTML
+
+              <div className="classWrapper">
   
               <div className="linkFormClasses">
   
                 <Link to="/formclasse" state={{ name: state.name }}>Cadastrar nova Classe</Link>
   
-              </div>,
+              </div>
   
               <div className="linkFormClasses">
   
                 <Link to="/formmateria" state={{ name: state.name }}>Cadastrar nova Matéria</Link>
   
-              </div>,
+              </div>
+              </div>
   
   
             ]}
   
-          </Classes>
+      
   
         </div>
   
