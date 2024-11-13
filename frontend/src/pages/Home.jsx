@@ -58,7 +58,7 @@ function getMonthName(e){
 export default function Home() {
 
   const {state} = useLocation();
-
+  console.log(state.name);
   return(<Layout connected={Cookies.get("user")}>
     <Menu nomeEscola={state.name} idEscola={state.name}></Menu>
     <Calendario monthName={getMonthName(date.getMonth())} content={calendarDays()}></Calendario>
