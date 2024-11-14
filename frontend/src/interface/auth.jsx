@@ -147,3 +147,166 @@ export async function getSchoolByEmail(email) {
   }
 
 }
+
+export const getSubjectsBySchoolClassId = async (schoolClassId) => {
+
+  const response = await fetch(url + `/subject/${schoolClassId}`, {
+
+      method: "GET",
+
+      headers: {
+
+          'Content-Type': 'application/json',
+
+          'schoolClassId': schoolClassId // Include the schoolClassId in the headers
+
+      }
+
+  });
+
+
+  if (!response.ok) {
+
+      throw new Error(`Error: ${response.status} ${response.statusText}`);
+
+  }
+
+
+  const data = await response.json();
+
+  return data;
+
+};
+export const saveSubject = async (subjectData) => {
+
+  try {
+
+      const response = await fetch(url + 'subject/save', {
+
+          method: 'POST',
+
+          headers: {
+
+              'Content-Type': 'application/json',
+
+          },
+
+          body: JSON.stringify(subjectData),
+
+      });
+
+
+      if (response.ok) {
+
+          const message = await response.text();
+
+          console.log(message); // Handle the success message as needed
+
+          return message; // Return the success message
+
+      } else {
+
+          const errorMessage = await response.text();
+
+          console.error('Error:', errorMessage); // Log the error
+
+          throw new Error(errorMessage); // Throw an error for further handling
+
+      }
+
+  } catch (error) {
+
+      console.error('Fetch error:', error);
+
+      throw error; // Rethrow the error for further handling
+
+  }
+
+};
+
+const getSubjectIdByName = async (name) => {
+
+  try {
+
+      const response = await fetch(url + `/subject/get/${name}`, {
+
+          method: 'GET',
+
+          headers: {
+
+              'Content-Type': 'application/json',
+
+          },
+
+      });
+
+
+      if (response.ok) {
+
+          const subjectData = await response.json(); // Parse the JSON response
+
+          return subjectData.id; // Return the subject data
+
+      } else {
+
+          const errorMessage = await response.text();
+
+          console.error('Error:', errorMessage); // Log the error
+
+          throw new Error(errorMessage); // Throw an error for further handling
+
+      }
+
+  } catch (error) {
+
+      console.error('Fetch error:', error);
+
+      throw error; // Rethrow the error for further handling
+
+  }
+
+};
+
+export const getSchoolClassIdByName = async (name) => {
+
+  try {
+
+      const response = await fetch(`/get/${name}`, {
+
+          method: 'GET',
+
+          headers: {
+
+              'Content-Type': 'application/json',
+
+          },
+
+      });
+
+
+      if (response.ok) {
+
+          const schoolClassData = await response.json(); // Parse the JSON response
+
+          return schoolClassData.id; // Return the school class data
+
+      } else {
+
+          const errorMessage = await response.text();
+
+          console.error('Error:', errorMessage); // Log the error
+
+          throw new Error(errorMessage); // Throw an error for further handling
+
+      }
+
+  } catch (error) {
+
+      console.error('Fetch error:', error);
+
+      throw error; // Rethrow the error for further handling
+
+  }
+
+};
+

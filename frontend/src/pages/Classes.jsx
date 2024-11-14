@@ -1,112 +1,141 @@
 import Layout from "../components/Layout"
 import Classes from "../components/Classes"
 import { Link, useLocation } from "react-router-dom";
-import { getClassesBySchoolId, getSchoolIdByName } from "../interface/auth";
+import { getClassesBySchoolId, getSchoolIdByName, getSubjectsBySchoolClassId } from "../interface/auth";
 import Cookie from "js-cookie";
 import { useState, useEffect } from "react";
 import {Toaster, toast} from "react-hot-toast";
-import ConfirmButton from "../components/ConfirmButton";
-
-
-function getClass(e) {
-    let res = [];
-  
-    for (let i = 0; i < 10; i++) {
-      res.push(
-        <div className="class">
-          <span className="subjectTitle">{e + " " + i}</span>
-          <span className="subjectLink">
-            <a href="/#/materia">Acessar a Matéria</a>
-          </span>
-        </div>
-      );
-    }
-    return res;
-  }
 
 
 
-  export default function ClassesPage() {
 
-    const [schoolId, setSchoolId] = useState({});
-  
-    const [classes, setClasses] = useState([]); // State to hold the classes
-  
-    const { state } = useLocation();
-  
-  
-    useEffect(() => {
-  
+
+export default function ClassesPage() {
+
+  const [schoolId, setSchoolId] = useState({});
+
+  const [classes, setClasses] = useState([]); // State to hold the classes
+
+  const [subjectsByClass, setSubjectsByClass] = useState({}); // State to hold subjects for each class
+
+  const { state } = useLocation();
+
+
+  useEffect(() => {
+
       const fetchClasses = async () => {
-  
-        const id = await getSchoolIdByName(state.name);
-  
-        setSchoolId({ schoolId: id });
-  
-  
-        const res = await getClassesBySchoolId(id);
-  
-        setClasses(res); // Store the fetched classes in state
-  
+
+          const id = await getSchoolIdByName(state.name);
+
+          setSchoolId({ schoolId: id });
+
+
+          const res = await getClassesBySchoolId(id);
+
+          setClasses(res); // Store the fetched classes in state
+
+
+          // Fetch subjects for each class
+
+          const subjectsPromises = res.map(async (classItem) => {
+
+              const subjects = await getSubjectsBySchoolClassId(classItem.id);
+
+              return { classId: classItem.id, subjects };
+
+          });
+
+
+          // Wait for all subject fetching to complete
+
+          const subjectsResults = await Promise.all(subjectsPromises);
+
+          // Create a mapping of classId to subjects
+
+          const subjectsMap = subjectsResults.reduce((acc, { classId, subjects }) => {
+
+              acc[classId] = subjects;
+
+              return acc;
+
+          }, {});
+
+
+          setSubjectsByClass(subjectsMap); // Store subjects in state
+
       };
-  
-  
+
+
       fetchClasses();
-  
-    }, [state.name]); // Run effect when state.name changes
-  
-  
-    const getHtmlClasses = () => {
-  
-      return classes.map((classItem, index) => (
-  
-        <Classes nomeClasse={classItem.name} key={index} nomeEscola={state.name}>
-  
-    
 
-      </Classes>
-  
+  }, [state.name]); // Run effect when state.name changes
+
+
+  const getHtmlClasses = () => {
+
+      return classes.map((classItem) => (
+
+          <div key={classItem.id}>
+
+              <Classes nomeClasse={classItem.name} nomeEscola={state.name} />
+
+              {/* Render subjects for each class */}
+
+              {subjectsByClass[classItem.id] && subjectsByClass[classItem.id].length > 0 && (
+
+                  <ul>
+
+                      {subjectsByClass[classItem.id].map((subject) => (
+
+                          <li key={subject.id}>{subject.name}</li>
+
+                      ))}
+
+                  </ul>
+
+              )}
+
+          </div>
+
       ));
-  
-    };
-  
-  
-    return (
-  
-      <Layout connected={Cookie.get("user")}>
-  
-        <Toaster position="top-center" reverseOrder={false} />
-  
-        <div className="mainWrapper">
-  
-            {[
-  
-              getHtmlClasses(), // Call the function to get HTML
 
-              <div className="classWrapper">
-  
-              <div className="linkFormClasses">
-  
-                <Link to="/formclasse" state={{ name: state.name }}>Cadastrar nova Classe</Link>
-  
-              </div>
-  
-              <div className="linkFormClasses">
-  
-                <Link to="/formmateria" state={{ name: state.name }}>Cadastrar nova Matéria</Link>
-  
-              </div>
-              </div>
-  
-  
-            ]}
-  
-      
-  
-        </div>
-  
+  };
+
+
+  return (
+
+      <Layout connected={Cookie.get("user")}>
+
+          <Toaster position="top-center" reverseOrder={false} />
+
+          <div className="mainWrapper">
+
+              {[
+
+                  getHtmlClasses(), // Call the function to get HTML
+
+                  <div className="classWrapper" key="links">
+
+                      <div className="linkFormClasses">
+
+                          <Link to="/formclasse" state={{ name: state.name }}>Cadastrar nova Classe</Link>
+
+                      </div>
+
+                      <div className="linkFormClasses">
+
+                          <Link to="/formmateria" state={{ schoolName: state.name }}>Cadastrar nova Matéria</Link>
+
+                      </div>
+
+                  </div>
+
+              ]}
+
+          </div>
+
       </Layout>
-  
-    );
-  
-  }
+
+  );
+
+}

@@ -11,14 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rubrum.sige.domain.school_class.SchoolClassRepository;
 import com.rubrum.sige.domain.school_class.SchoolClassRequestDTO;
+import com.rubrum.sige.domain.school_class.SchoolClassResponseDTO;
 import com.rubrum.sige.domain.school_class.SchoolClass;
 
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Validated
 @RestController
@@ -41,6 +44,17 @@ public class SchoolClassController {
         SchoolClass schoolClass = new SchoolClass(data);
         repository.save(schoolClass);
         return ResponseEntity.ok("Classe Adicionada");
+    }
+
+    @GetMapping("/get/{name}")
+    public ResponseEntity<SchoolClassResponseDTO> getByName(@PathVariable String name) throws BadRequestException {
+
+        SchoolClass obj = repository.findByName(name);
+        if (obj == null) {
+            throw new BadRequestException("classe não encontrada");
+        }
+        return ResponseEntity.ok(new SchoolClassResponseDTO(obj));
+
     }
 
 }

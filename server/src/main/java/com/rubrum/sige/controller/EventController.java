@@ -23,7 +23,7 @@ import com.rubrum.sige.domain.event.EventRequestDTO;
 @RequestMapping("school/event")
 @Validated
 public class EventController {
-    
+
     @Autowired
     private EventRepository eventRepository;
 
@@ -55,7 +55,7 @@ public class EventController {
 
     @GetMapping
     public List<EventReponseDTO> getSchoolEvents(@RequestHeader String schoolId) {
-        return eventRepository.findAllBySchoolId(schoolId).stream().map(EventReponseDTO :: new).toList();
+        return eventRepository.findAllBySchoolId(schoolId).stream().map(EventReponseDTO::new).toList();
     }
 
     @GetMapping("/all")
