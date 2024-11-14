@@ -13,70 +13,131 @@ const css = `
   }
 `
 
+
 export default function FormMateria() {
 
-  const {state} = useLocation();
+  const { state } = useLocation();
 
-  const [subject,setSubject ]= useState({});
+  
 
-  const [classes,setClasses] = useState([]);
+  const [subject, setSubject] = useState({});
+
+  const [selectedClass, setSelectedClass] = useState(""); // New state for selected class
+
+  const [classes, setClasses] = useState([]);
+
   const [schoolId, setSchoolId] = useState({});
 
-  useEffect(()=>{
-    
-    const fetchClasses = async ()=>{
 
-      console.log(state.schoolName)
+  useEffect(() => {
+
+    const fetchClasses = async () => {
+
+      console.log(state.schoolName);
 
       const id = await getSchoolIdByName(state.schoolName);
 
-      setSchoolId({schoolId:id});
+      setSchoolId({ schoolId: id });
 
       const res = await getClassesBySchoolId(id);
 
-
       setClasses(res);
-    }
 
-    
+    };
+
 
     fetchClasses();
 
-  },[state.schoolName])
+  }, [state.schoolName]);
 
-  const getHtmlClasses = () =>{
 
-    return classes.map((classItem)=>(
-      <option key={classItem.schoolId}>{classItem.name}</option>
-    ))
-  }
+  const getHtmlClasses = () => {
 
-  const onChangeHandler = (e) =>{
-    e.preventDefault();
+    return classes.map((classItem) => (
+
+      <option value={classItem.name}>
+
+        {classItem.name}
+
+      </option>
+
+    ));
+
+  };
+
+
+  const onChangeHandler = (e) => {
 
     const name = e.target.name;
-    const copy = subject;
-    copy[name] = e.target.value;
-    setSubject(copy);
 
-    console.log(copy);
-  }
+    const value = e.target.value;
+
+
+    if (name === "className") {
+
+      setSelectedClass(value); // Update selected class state
+
+    } else {
+
+      setSubject((prevSubject) => ({ ...prevSubject, [name]: value }));
+
+    }
+
+
+    console.log({ ...subject, [name]: value });
+
+  };
+
+
+  const saveSubject = async (e) => {
+
+    e.preventDefault();
+
+    console.log("Saving subject: ", subject);
+
+    console.log("Selected class: ", selectedClass);
+
+    const id = await getSchoolClassIdByName(selectedClass);
+
+    console.log("teste: "+id)
+
+  };
+
+
   return (
+
     <Layout connected={Cookie.get("user")}>
+
       <style>{css}</style>
+
       <div className="atendimentoWrapper">
-        <form>
+
+        <form onSubmit={saveSubject}>
+
           <h1>Matéria</h1>
+
           <label>Nome:</label>
+
           <input onChange={onChangeHandler} type="text" name="title" />
+
           <label>Classe:</label>
-          <select>
+
+          <select name="className" value={selectedClass} onChange={onChangeHandler}>
+
+            <option value="" disabled>Select a class</option>
+
             {getHtmlClasses()}
-            </select>
-          
-          <ConfirmButton text={"Cadastrar Matéria"} />
+
+          </select>
+
+          <ConfirmButton text={"Cadastrar Matéria"} onClick={saveSubject} />
+
         </form>
+
       </div>
+
     </Layout>
+
   );
+
 }

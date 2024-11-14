@@ -271,40 +271,37 @@ export const getSchoolClassIdByName = async (name) => {
 
   try {
 
-      const response = await fetch(`/get/${name}`, {
+    const response = await fetch( url+ `/schoolClass/get/${name}`, {
 
-          method: 'GET',
+      method: 'GET',
 
-          headers: {
+      headers: {
 
-              'Content-Type': 'application/json',
-
-          },
-
-      });
-
-
-      if (response.ok) {
-
-          const schoolClassData = await response.json(); // Parse the JSON response
-
-          return schoolClassData.id; // Return the school class data
-
-      } else {
-
-          const errorMessage = await response.text();
-
-          console.error('Error:', errorMessage); // Log the error
-
-          throw new Error(errorMessage); // Throw an error for further handling
+        'Content-Type': 'application/json',
 
       }
 
+    });
+
+
+    if (!response.ok) {
+
+      const errorMessage = await response.text();
+
+      throw new Error(errorMessage);
+
+    }
+
+
+    const data = await response.json();
+
+    return data.id; // Return the fetched class details
+
   } catch (error) {
 
-      console.error('Fetch error:', error);
+    console.error('Error fetching class details:', error);
 
-      throw error; // Rethrow the error for further handling
+    throw error; // Rethrow the error for further handling
 
   }
 
