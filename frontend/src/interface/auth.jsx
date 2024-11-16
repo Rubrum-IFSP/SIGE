@@ -307,3 +307,30 @@ export const getSchoolClassIdByName = async (name) => {
 
 };
 
+export const deleteSchoolClass = async (className, schoolId) => {
+  const requestBody = {
+      name: className,
+      schoolId: schoolId
+  };
+
+  try {
+      const response = await fetch(url+ '/schoolClass/delete', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+      });
+
+      if (!response.ok) {
+          const errorMessage = await response.text();
+          throw new Error(errorMessage || 'Failed to delete school class');
+      }
+
+      console.log('School class deleted successfully');
+      return true; // Optionally return a success indicator
+  } catch (error) {
+      console.error('Error deleting school class:', error);
+      return false; // Optionally return a failure indicator
+  }
+};

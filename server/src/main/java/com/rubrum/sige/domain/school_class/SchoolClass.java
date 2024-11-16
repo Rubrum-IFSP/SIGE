@@ -33,4 +33,5 @@ public class SchoolClass {
         this.schoolId = data.schoolId();
         this.name = data.name();
     }
+
 }

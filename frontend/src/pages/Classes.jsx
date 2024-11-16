@@ -1,9 +1,9 @@
 import Layout from "../components/Layout"
 import Classes from "../components/Classes"
 import { Link, useLocation } from "react-router-dom";
-import { getClassesBySchoolId, getSchoolIdByName, getSubjectsBySchoolClassId } from "../interface/auth";
+import { getClassesBySchoolId, getSchoolIdByName, getSubjectsBySchoolClassId, deleteSchoolClass } from "../interface/auth";
 import Cookie from "js-cookie";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Children } from "react";
 import {Toaster, toast} from "react-hot-toast";
 
 
@@ -70,38 +70,54 @@ export default function ClassesPage() {
 
   }, [state.name]); // Run effect when state.name changes
 
-
   const getHtmlClasses = () => {
+    return classes.map((classItem) => (
+        <div key={classItem.id}>
+            <Classes 
+                nomeClasse={classItem.name} 
+                nomeEscola={state.name} 
+                children={
+                    <>
+                        <button onClick={(e) => deleteThisSchoolClass(e, classItem.name)}>
+                            Delete Class
+                        </button>
+                        
+                        {/* Render subjects for each class */}
+                        {subjectsByClass[classItem.id] && subjectsByClass[classItem.id].length > 0 && (
+                            <ul>
+                                {subjectsByClass[classItem.id].map((subject) => (
+                                    <li key={subject.id}>{subject.name}</li>
+                                ))}
+                            </ul>
+                        )}
+                    </>
+                }
+            />
+        </div>
+    ));
+};
 
-      return classes.map((classItem) => (
+const deleteThisSchoolClass = async (e, className) => {
+    e.preventDefault();
+    
+    console.log(`Deleting class: ${className}`);
 
-          <div key={classItem.id}>
+    const schoolId = await getSchoolIdByName(state.name);
 
-              <Classes nomeClasse={classItem.name} nomeEscola={state.name} />
+    setSchoolId({schoolId: schoolId})
 
-              {/* Render subjects for each class */}
+    const response = await deleteSchoolClass(className,schoolId);
 
-              {subjectsByClass[classItem.id] && subjectsByClass[classItem.id].length > 0 && (
-
-                  <ul>
-
-                      {subjectsByClass[classItem.id].map((subject) => (
-
-                          <li key={subject.id}>{subject.name}</li>
-
-                      ))}
-
-                  </ul>
-
-              )}
-
-          </div>
-
-      ));
-
-  };
-
-
+    if(response)
+        {
+             window.location.reload();
+        }
+    else
+    {
+        return toast.error("Erro ao Deletar Classe");
+    }
+    
+};
   return (
 
       <Layout connected={Cookie.get("user")}>
