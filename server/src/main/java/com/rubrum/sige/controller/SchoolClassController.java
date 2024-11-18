@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rubrum.sige.domain.school_class.SchoolClassRepository;
 import com.rubrum.sige.domain.school_class.SchoolClassRequestDTO;
 import com.rubrum.sige.domain.school_class.SchoolClassResponseDTO;
+import com.rubrum.sige.domain.subject.SubjectRepository;
+
+import jakarta.transaction.Transactional;
+
 import com.rubrum.sige.domain.school_class.SchoolClass;
 import com.rubrum.sige.domain.school_class.DeleteSchoolClassRequestDTO;
 
@@ -33,6 +37,9 @@ public class SchoolClassController {
 
     @Autowired
     private SchoolClassRepository repository;
+
+    @Autowired
+    private SubjectRepository subjectRepository;
 
     @GetMapping("/{name}")
     public List<SchoolClass> getAllBySchoolId(@RequestHeader String schoolId) throws BadRequestException {
@@ -77,6 +84,7 @@ public class SchoolClassController {
     }
 
     @PostMapping("/delete")
+    @Transactional
     public ResponseEntity<String> removeSchoolClass(@RequestBody DeleteSchoolClassRequestDTO data)
             throws NoSuchElementException {
         SchoolClass schoolClass = repository.findByNameAndSchoolId(data.name(), data.schoolId());
@@ -85,6 +93,7 @@ public class SchoolClassController {
             throw new NoSuchElementException("schoolclass nao encontrada");
         }
 
+        subjectRepository.deleteAllBySchoolClassId(schoolClass.getId());
         repository.delete(schoolClass);
         return ResponseEntity.ok().build();
 

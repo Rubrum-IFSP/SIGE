@@ -14,4 +14,6 @@ public interface SubjectRepository extends JpaRepository<Subject, String> {
     public Subject findByName(String name);
 
     public Subject findByNameAndSchoolClassId(String name, String schoolClassId);
+
+    public void deleteAllBySchoolClassId(String schoolClassId);
 }
