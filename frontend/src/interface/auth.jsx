@@ -181,7 +181,7 @@ export const saveSubject = async (subjectData) => {
 
   try {
 
-      const response = await fetch(url + 'subject/save', {
+      const response = await fetch(url + '/subject/save', {
 
           method: 'POST',
 
@@ -333,4 +333,43 @@ export const deleteSchoolClass = async (className, schoolId) => {
       console.error('Error deleting school class:', error);
       return false; // Optionally return a failure indicator
   }
+};
+
+export const getSchoolClassIdByNameAndSchoolId = async (name, schoolId) => {
+
+  try {
+
+      const res = await fetch(url+`/schoolClass/search?name=${name}&schoolId=${schoolId}`, {
+
+          method: 'GET',
+
+          headers: {
+
+              'Content-Type': 'application/json',
+
+          },
+
+
+      });
+
+
+      if (!res.ok) {
+
+          throw new Error('Something went wrong');
+
+      }
+
+
+      const data = await res.json();
+
+      return data.id; // Return the response data (SchoolClassResponseDTO)
+
+  } catch (err) {
+
+      console.error(err); // Log error to the console for debugging
+
+      throw err; // Re-throw the error to be handled by the calling function
+
+  }
+
 };

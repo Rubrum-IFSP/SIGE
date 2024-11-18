@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-import { getClassesBySchoolId, getSchoolClassIdByName, getSchoolIdByName} from "../interface/auth";
+import { getClassesBySchoolId,getSchoolClassIdByNameAndSchoolId , getSchoolIdByName, saveSubject} from "../interface/auth";
 import Form from "../components/formComponents/Form";
 import ConfirmButton from "../components/ConfirmButton";
 import "./Atendimento.css";
@@ -89,17 +89,27 @@ export default function FormMateria() {
   };
 
 
-  const saveSubject = async (e) => {
+  const saveThisSubject = async (e) => {
 
-    e.preventDefault();
+    e.preventDefault()
 
     console.log("Saving subject: ", subject);
 
     console.log("Selected class: ", selectedClass);
 
-    const id = await getSchoolClassIdByName(selectedClass);
+    const schoolId = await getSchoolIdByName(state.schoolName);
 
-    console.log("teste: "+id)
+    const id = await getSchoolClassIdByNameAndSchoolId(selectedClass,schoolId);
+
+    const subjectData = {
+      name: subject.name,
+      schoolClassId: id
+    }
+
+    const response =  await saveSubject(subjectData);
+
+    console.log(response);
+    
 
   };
 
@@ -118,7 +128,7 @@ export default function FormMateria() {
 
           <label>Nome:</label>
 
-          <input onChange={onChangeHandler} type="text" name="title" />
+          <input onChange={onChangeHandler} type="text" name="name" />
 
           <label>Classe:</label>
 
@@ -130,7 +140,7 @@ export default function FormMateria() {
 
           </select>
 
-          <ConfirmButton text={"Cadastrar Matéria"} onClick={saveSubject} />
+          <ConfirmButton text={"Cadastrar Matéria"} onClick={(e) =>saveThisSubject(e)} />
 
         </form>
 

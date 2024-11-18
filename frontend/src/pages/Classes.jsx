@@ -84,11 +84,11 @@ export default function ClassesPage() {
                         
                         {/* Render subjects for each class */}
                         {subjectsByClass[classItem.id] && subjectsByClass[classItem.id].length > 0 && (
-                            <ul>
+                            <div className="linkMateria">
                                 {subjectsByClass[classItem.id].map((subject) => (
-                                    <li key={subject.id}>{subject.name}</li>
+                                    <Link to={"/materia"} state={{subjectName: subject.name, schoolClassId: classItem.id}} key={subject.id}>{subject.name}</Link>
                                 ))}
-                            </ul>
+                            </div>
                         )}
                     </>
                 }

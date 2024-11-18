@@ -66,6 +66,16 @@ public class SchoolClassController {
 
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<SchoolClassResponseDTO> getSchoolClassIdByNameAndSchoolId(@RequestParam String name,
+            @RequestParam String schoolId) throws BadRequestException {
+        SchoolClass obj = repository.findByNameAndSchoolId(name, schoolId);
+        if (obj == null) {
+            throw new BadRequestException("algo deu errado");
+        }
+        return ResponseEntity.ok(new SchoolClassResponseDTO(obj));
+    }
+
     @PostMapping("/delete")
     public ResponseEntity<String> removeSchoolClass(@RequestBody DeleteSchoolClassRequestDTO data)
             throws NoSuchElementException {

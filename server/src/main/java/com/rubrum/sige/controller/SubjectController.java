@@ -44,9 +44,16 @@ public class SubjectController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<String> saveSubject(@RequestBody SubjectRequestDTO data) {
-        Subject obj = new Subject(data);
-        repository.save(obj);
+    public ResponseEntity<String> saveSubject(@RequestBody SubjectRequestDTO data) throws BadRequestException {
+        Subject subject = new Subject(data);
+
+        Subject obj = repository.findByName(data.name());
+
+        if (obj != null && obj.getSchoolClassId().equalsIgnoreCase(data.schoolClassId())) {
+            throw new BadRequestException("subject nao adicionada");
+        }
+
+        repository.save(subject);
         return ResponseEntity.ok("Materia Adicionada");
     }
 
