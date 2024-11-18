@@ -19,7 +19,7 @@ export default function Noticias(props) {
             datePublished={"12/09"}
             author={"123"}
           ></Content>,
-          <div className="centerWrapper"><Link to="/formnoticias">Publicar uma Notícia</Link></div>
+          <div className="centerWrapper"><Link to="/formnoticias" state={{schoolName: state.name}}>Publicar uma Notícia</Link></div>
         ]}
       ></NoticiasWrapper>
     </Layout>

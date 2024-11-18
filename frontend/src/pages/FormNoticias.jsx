@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import "./Atendimento.css";
 import Cookie from "js-cookie";
+import { useLocation } from "react-router-dom";
+import { uploadNews } from "../interface/news";
+import Cookies from "js-cookie";
 const css = `
   .atendimentoWrapper{
     box-shadow: 4px 4px 10px ;
@@ -57,6 +60,7 @@ const css = `
 `
 
 export default function Atendimeneto() {
+  const {state} = useLocation();
   const [content, setContent] = useState([]);
   const [title, setTitle] = useState("Título");
 
@@ -120,6 +124,35 @@ export default function Atendimeneto() {
     setContent(contentCopy);
   }
 
+  const submitNews = async (e) => {
+    e.preventDefault();
+
+    let images = content.filter(e => {
+      return e.tag === "img";
+    });
+
+    images = images.map(e => {
+      return e.value;
+    });
+
+    const schoolId = await getSchoolIdByName(schoolName);
+    const user = JSON.parse( Cookies.get("user") );
+
+    const news = {
+      schoolId: schoolId, 
+      newsType: "DIRECTION",
+      title: title,
+      content: JSON.stringify(content),
+      authors: user.name
+    }
+
+    const formData = new FormData();
+    formData.append("data", JSON.stringify(news));
+    formData.append("images", images);
+
+    uploadNews(formData, state.schoolName, user.token);
+  }
+
   return (
     <Layout connected={Cookie.get("user")}>
       <style>{css}</style>
@@ -165,10 +198,10 @@ export default function Atendimeneto() {
 
                       })
                     ) : ( <div></div> )}
-                    <div>* O nome de sua conta será vinculado  automáticamente à notícia</div>
+                    <div>* O nome de sua conta será vinculado automáticamente à notícia</div>
                 </div>
               </div>
-              <input className="submitButton" type="submit" value="Enviar" />
+              <input className="submitButton" type="submit" value="Enviar" onClick={submitNews} />
             </form>
           </div>
         </div>

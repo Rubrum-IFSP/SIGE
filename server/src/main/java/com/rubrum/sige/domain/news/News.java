@@ -32,7 +32,7 @@ public class News {
     private String newsType;
     private String title;
     private String content;
-    private String autors;
+    private String authors;
     private Date created_at;
 
     public News(NewsRequestDTO data) {
@@ -40,13 +40,13 @@ public class News {
         this.newsType = data.newsType();
         this.title = data.title();
         this.content = data.content();
-        this.autors = data.autors();
+        this.authors = data.authors();
         this.created_at = new Date();
     }
 
     public void update(NewsUpdateRequestDTO data) {
         this.title = data.title();
         this.content = data.content();
-        this.autors = data.autors();
+        this.authors = data.authors();
     }
 }

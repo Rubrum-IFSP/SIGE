@@ -1,7 +1,8 @@
-const url = "http://localhost:8081";
 import Cookie from "js-cookie";
 import { useState, useEffect } from "react";
+import { url } from "./resources";
 
+const url = url;
 
 export class User {
   constructor(name, email, password) {

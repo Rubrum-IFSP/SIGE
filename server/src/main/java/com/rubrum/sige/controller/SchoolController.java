@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.rubrum.sige.domain.news.News;
 import com.rubrum.sige.domain.news.NewsRepository;
@@ -143,7 +144,7 @@ public class SchoolController {
     }
 
     @PostMapping("/news/save")
-    public ResponseEntity<String> saveSchoolNews(@RequestBody NewsRequestDTO data, @RequestHeader String schoolId) throws BadRequestException {
+    public ResponseEntity<String> saveSchoolNews(@RequestBody NewsRequestDTO data, @RequestBody MultipartFile[] images, @RequestHeader String schoolId) throws BadRequestException {
         School school = repository.findById(schoolId).get();
         if (school == null) throw new BadRequestException("Escola não encontrada");
         
