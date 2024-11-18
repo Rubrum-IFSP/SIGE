@@ -20,6 +20,40 @@ export default function ClassesPage() {
 
   const { state } = useLocation();
 
+  const css =`
+    .subject{
+    display:block;
+    font-size:1.2em;
+    text-decoration:none;
+    color:white;
+    font-weight:bold;
+    margin-bottom:10px;
+    border:3px solid white;
+    padding:5px;
+    text-align:center;
+    border-radius:0.8em;
+    margin-top:5px;
+    }
+    .subject:hover{
+        background-color:white;
+        color:black;
+        transition:0.4s;
+    }
+    .deleteClassButton{
+        text-align:center;
+        width: 100%;
+        background-color:black;
+        border:solid white 3px;
+        border-radius:0.8em;
+        padding:10px;
+        color:white;
+        font-weight:bold;   
+    }
+    .deleteClassButton:hover{
+  background-color:rgb(230,26,26);
+  transition:0.4s;
+    }
+  `
 
   useEffect(() => {
 
@@ -78,18 +112,19 @@ export default function ClassesPage() {
                 nomeEscola={state.name} 
                 children={
                     <>
-                        <button onClick={(e) => deleteThisSchoolClass(e, classItem.name)}>
-                            Delete Class
-                        </button>
+                        
                         
                         {/* Render subjects for each class */}
                         {subjectsByClass[classItem.id] && subjectsByClass[classItem.id].length > 0 && (
-                            <div className="linkMateria">
+                            <div >
                                 {subjectsByClass[classItem.id].map((subject) => (
-                                    <Link to={"/materia"} state={{subjectName: subject.name, schoolClassId: classItem.id}} key={subject.id}>{subject.name}</Link>
+                                    <Link className="subject" to={"/materia"} state={{ schoolName: state.name ,subjectName: subject.name, schoolClassId: classItem.id}} key={subject.id}>{subject.name}</Link>
                                 ))}
                             </div>
                         )}
+                        <button className="deleteClassButton" onClick={(e) => deleteThisSchoolClass(e, classItem.name)}>
+                            Delete Class
+                        </button>
                     </>
                 }
             />
@@ -121,7 +156,7 @@ const deleteThisSchoolClass = async (e, className) => {
   return (
 
       <Layout connected={Cookie.get("user")}>
-
+        <style>{css}</style>
           <Toaster position="top-center" reverseOrder={false} />
 
           <div className="mainWrapper">

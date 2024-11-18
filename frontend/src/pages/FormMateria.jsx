@@ -6,6 +6,7 @@ import "./Atendimento.css";
 import Cookie from "js-cookie";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import {Toaster, toast} from "react-hot-toast";
 
 const css = `
   .atendimentoWrapper{
@@ -108,7 +109,13 @@ export default function FormMateria() {
 
     const response =  await saveSubject(subjectData);
 
-    console.log(response);
+    if(response){
+      return toast.success("Matéria Adicionada");
+    }
+   
+      return toast.error("Algo deu errado!");
+  
+
     
 
   };
@@ -117,6 +124,7 @@ export default function FormMateria() {
   return (
 
     <Layout connected={Cookie.get("user")}>
+         <Toaster position="top-center" reverseOrder={false} />
 
       <style>{css}</style>
 

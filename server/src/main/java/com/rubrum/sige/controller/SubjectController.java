@@ -2,6 +2,7 @@ package com.rubrum.sige.controller;
 
 import java.lang.annotation.Repeatable;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.apache.catalina.connector.Response;
@@ -18,6 +19,7 @@ import com.rubrum.sige.domain.subject.SubjectRepository;
 import com.rubrum.sige.domain.subject.SubjectRequestDTO;
 import com.rubrum.sige.domain.subject.SubjectResponseDTO;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,6 +67,16 @@ public class SubjectController {
             throw new BadRequestException("nome nao encontrado");
         }
         return ResponseEntity.ok(new SubjectResponseDTO(obj));
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<String> delete(@RequestBody DeleteSubjectRequestDTO data) throws NoSuchElementException {
+        Subject subject = repository.findByNameAndSchoolClassId(data.name(), data.schoolClassId());
+        if (subject == null) {
+            throw new NoSuchElementException("subject não encontrada");
+        }
+        repository.delete(subject);
+        return ResponseEntity.ok().build();
     }
 
 }

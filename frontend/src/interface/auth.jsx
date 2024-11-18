@@ -202,7 +202,7 @@ export const saveSubject = async (subjectData) => {
 
           console.log(message); // Handle the success message as needed
 
-          return message; // Return the success message
+          return response; // Return the success message
 
       } else {
 
@@ -372,4 +372,43 @@ export const getSchoolClassIdByNameAndSchoolId = async (name, schoolId) => {
 
   }
 
+};
+export const deleteSubject = async (subjectName, schoolClassId) => {
+
+  const deleteData = {
+    schoolClassId: schoolClassId,
+    name: subjectName
+  }
+
+try{
+      const response = await fetch(url +'/subject/delete', {
+
+          method: 'POST',
+
+          headers: {
+
+              'Content-Type': 'application/json',
+
+          },
+
+          body: JSON.stringify(deleteData) // Send subjectName as JSON
+
+          // schoolClassId should be sent as a query parameter or included in the body if needed
+
+
+      });
+
+      if(!response.ok){
+        const errorMessage = await response.text();
+        throw new Error(errorMessage || 'failed to delete subject');
+      }
+      console.log("subject deleted successfully");
+      return true;
+    }
+    catch(error){
+      console.error("erro pra deleter subject", error);
+      return false
+    }
+
+  
 };
