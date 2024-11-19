@@ -1,7 +1,9 @@
 import Layout from "../components/Layout";
 import "./Atendimento.css";
 import Cookie from "js-cookie";
-
+import { saveLession, getSubjectIdByNameAndSchoolClassId } from "../interface/auth";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
 const css = `
   .atendimentoWrapper{
     box-shadow: 4px 4px 10px ;
@@ -9,6 +11,42 @@ const css = `
 `
 
 export default function FormAtividade() {
+
+  const[lession, setLession] = useState ({})
+
+  const {state} = useLocation();
+
+  const onChangeHandler = (e) =>{
+    e.preventDefault();
+
+    const name =  e.target.getAttribute("name");
+    const copy = lession;
+
+    copy[name] = e.target.value;
+    setLession(copy);
+    console.log(lession);
+  }
+
+  const saveThisLession = async (e)=>{
+    e.preventDefault();
+
+    const id = await getSubjectIdByNameAndSchoolClassId(state.subjectName, state.schoolClassId);
+
+    const copy = lession;
+
+    copy["subjectId"] = id;
+
+    setLession(copy);
+
+    const response = await saveLession(lession);
+
+    console.log(response);
+
+  }
+
+  console.log(state.subjectName)
+  console.log(lession.title + " - ZZ - "+ state.schoolClassId);
+
   return (
     <Layout connected={Cookie.get("user")}>
       <style>{css}</style>
@@ -16,12 +54,10 @@ export default function FormAtividade() {
         <form>
           <h1>Nova Atividade</h1>
           <label>Título:</label>
-          <input type="text" name="title" />
-          <label>Data:</label>
-          <input type="date" name="deliveryDate" />
+          <input onChange={onChangeHandler} type="text" name="title" />
           <label>Descrição:</label>
-          <textarea></textarea>
-          <input className="submitButton" type="submit" value="Enviar" />
+          <textarea onChange={onChangeHandler} name="desc"></textarea>
+          <input onClick={saveThisLession} className="submitButton" type="submit" value="Enviar" />
         </form>
       </div>
     </Layout>

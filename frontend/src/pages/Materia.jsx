@@ -36,6 +36,11 @@ export default function Materia(){
         background-color:black;
         color:white;
         transition:0.4s;
+
+    }
+    .linkFormAtividade a
+    {
+        color:black;
     }
     `
 
@@ -67,8 +72,13 @@ export default function Materia(){
                 <Atividade titulo={atv.titulo} descricao={atv.descricao} data={atv.data}></Atividade>
                 <Atividade titulo={atv.titulo} descricao={atv.descricao} data={atv.data}></Atividade>               
                 <Atividade titulo={atv.titulo} descricao={atv.descricao} data={atv.data}></Atividade>
-                <button className="deleteSubjectButton" onClick={deleteThisSubject}>Deletar Matéria</button>
+               
+                <div className="linkFormAtividade">
+        <Link to="/formatividade" state={{ subjectName: state.subjectName, schoolClassId: state.schoolClassId}}>Cadastrar Nova Atividade</Link>
+      </div>
+      <button className="deleteSubjectButton" onClick={deleteThisSubject}>Deletar Matéria</button>
             </MateriaWrapper>
+            
         </Layout>
     )
 }

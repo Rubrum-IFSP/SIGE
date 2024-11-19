@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rubrum.sige.domain.subject.DeleteSubjectRequestDTO;
@@ -72,6 +73,16 @@ public class SubjectController {
         }
         repository.delete(subject);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<SubjectResponseDTO> searchByNameAndSchoolClassId(@RequestParam String name,
+            @RequestParam String schoolClassId) throws BadRequestException {
+        Subject subject = repository.findByNameAndSchoolClassId(name, schoolClassId);
+        if (subject == null) {
+            throw new BadRequestException("algo deu errado ");
+        }
+        return ResponseEntity.ok(new SubjectResponseDTO(subject));
     }
 
 }

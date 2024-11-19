@@ -2,7 +2,7 @@ import Cookie from "js-cookie";
 import { useState, useEffect } from "react";
 import { url } from "./resources";
 
-const url = url;
+const urlCopy = url;
 
 export class User {
   constructor(name, email, password) {
@@ -16,7 +16,7 @@ export const getSchoolIdByName = async (name) => {
 
   try {
 
-      const response = await fetch(url+`/school/get/${encodeURIComponent(name)}`, {
+      const response = await fetch(urlCopy+`/school/get/${encodeURIComponent(name)}`, {
 
           method: "GET",
 
@@ -54,7 +54,7 @@ export const getSchoolIdByName = async (name) => {
 
 export const getClassesBySchoolId = async (id) =>{
 
-    const response = await fetch(url + `/schoolClass/${id}`,{
+    const response = await fetch(urlCopy + `/schoolClass/${id}`,{
       method:"GET",
       headers:{
         'Content-type':'application/json',
@@ -72,7 +72,7 @@ export const getClassesBySchoolId = async (id) =>{
 
 export const register = async (user) => {
 
-  return await fetch(url + "/auth/register", {
+  return await fetch(urlCopy + "/auth/register", {
     headers: {
       "Content-type": "application/json; charset=UTF-8",
       Accept: "application/json",
@@ -84,7 +84,7 @@ export const register = async (user) => {
 
 export const login = async (user) => {
 
-  return await fetch(url + "/auth/login", {
+  return await fetch(urlCopy + "/auth/login", {
     headers: {
       "Content-type": "application/json; charset=UTF-8",
       Accept: "application/json",
@@ -97,7 +97,7 @@ export const login = async (user) => {
 
 export const saveSchool = async (school) => {
 
-  return await fetch(url + "/school/save", {
+  return await fetch(urlCopy + "/school/save", {
     headers: {
       "Content-type": "application/json; charset=UTF-8",
       Accept: "application/json",
@@ -109,7 +109,7 @@ export const saveSchool = async (school) => {
 };
 
 export const saveClass = async (schoolClass) =>{
-  return await fetch(url+ "/schoolClass/save",{
+  return await fetch(urlCopy+ "/schoolClass/save",{
     headers:{
       "Content-type" : "application/json; charset=UTF-8",
       Accept: "application/json",
@@ -125,7 +125,7 @@ export const saveClass = async (schoolClass) =>{
 export async function getSchoolByEmail(email) {
   
   try {
-      const response = await fetch(url + "/school/user", {
+      const response = await fetch(urlCopy + "/school/user", {
           method: 'GET',
           headers: {
               'Content-Type': 'application/json',
@@ -151,7 +151,7 @@ export async function getSchoolByEmail(email) {
 
 export const getSubjectsBySchoolClassId = async (schoolClassId) => {
 
-  const response = await fetch(url + `/subject/${schoolClassId}`, {
+  const response = await fetch(urlCopy + `/subject/${schoolClassId}`, {
 
       method: "GET",
 
@@ -182,7 +182,7 @@ export const saveSubject = async (subjectData) => {
 
   try {
 
-      const response = await fetch(url + '/subject/save', {
+      const response = await fetch(urlCopy + '/subject/save', {
 
           method: 'POST',
 
@@ -229,7 +229,7 @@ const getSubjectIdByName = async (name) => {
 
   try {
 
-      const response = await fetch(url + `/subject/get/${name}`, {
+      const response = await fetch(urlCopy + `/subject/get/${name}`, {
 
           method: 'GET',
 
@@ -272,7 +272,7 @@ export const getSchoolClassIdByName = async (name) => {
 
   try {
 
-    const response = await fetch( url+ `/schoolClass/get/${name}`, {
+    const response = await fetch( urlCopy+ `/schoolClass/get/${name}`, {
 
       method: 'GET',
 
@@ -315,7 +315,7 @@ export const deleteSchoolClass = async (className, schoolId) => {
   };
 
   try {
-      const response = await fetch(url+ '/schoolClass/delete', {
+      const response = await fetch(urlCopy+ '/schoolClass/delete', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
@@ -340,7 +340,7 @@ export const getSchoolClassIdByNameAndSchoolId = async (name, schoolId) => {
 
   try {
 
-      const res = await fetch(url+`/schoolClass/search?name=${name}&schoolId=${schoolId}`, {
+      const res = await fetch(urlCopy+`/schoolClass/search?name=${name}&schoolId=${schoolId}`, {
 
           method: 'GET',
 
@@ -374,6 +374,32 @@ export const getSchoolClassIdByNameAndSchoolId = async (name, schoolId) => {
   }
 
 };
+
+export const getSubjectIdByNameAndSchoolClassId = async (name, schoolClassId) =>{
+
+  try
+  {
+    const res =  await fetch(urlCopy + `/subject/search?name=${name}&schoolClassId=${schoolClassId}`,
+      {
+        method: 'GET',
+        headers:
+        {
+          'Content-Type': 'application/json',
+        }
+      })    
+      if(!res.ok){
+        throw new Error("algo deu errado")
+      }
+      const data = await res.json();
+      return data.id;
+  }
+  catch(err)
+  {
+    console.error(err);
+    throw err;
+  }
+}
+
 export const deleteSubject = async (subjectName, schoolClassId) => {
 
   const deleteData = {
@@ -382,7 +408,7 @@ export const deleteSubject = async (subjectName, schoolClassId) => {
   }
 
 try{
-      const response = await fetch(url +'/subject/delete', {
+      const response = await fetch(urlCopy +'/subject/delete', {
 
           method: 'POST',
 
@@ -413,3 +439,31 @@ try{
 
   
 };
+
+export const saveLession = async (data) =>{
+
+  try
+  {
+    const response =  await fetch(urlCopy+ "/lession/save",
+      {
+        method: 'POST',
+        headers:{
+          'Content-type' : "application/json",
+          
+        },
+        body: JSON.stringify(data)
+      })
+  
+    if(!response.ok)
+    {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage || 'failed to save lession')
+    }
+    return true;
+  }
+  catch(error)
+  {
+    console.error("erro ao salvar lession",error)
+    return false
+  }
+}
