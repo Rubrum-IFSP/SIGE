@@ -2,8 +2,10 @@ import Layout from "../components/Layout";
 import DiaCalendario from "../components/DiaCalendario";
 import Calendario from "../components/Calendario";
 import Menu from "../components/Menu";
+import {fetchRoles, getSchoolIdByName, fetchUserIdByEmail} from "../interface/auth";
 import { useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
+import { useState } from "react";
 
 const date = new Date();
 
@@ -57,10 +59,27 @@ function getMonthName(e){
 
 export default function Home() {
 
+  const [role,setRole] = useState ("");
   const {state} = useLocation();
-  console.log(state.name);
+
+
+  const getRole = async () =>{
+    const schoolName =  state.name;
+    const userName = JSON.parse( Cookies.get("user")).email;
+
+    const schoolId = await getSchoolIdByName(schoolName);
+    const userId = await fetchUserIdByEmail(userName);
+
+    const response = await fetchRoles(userId,schoolId)
+    
+    setRole(response);
+  }
+
+  getRole();
+  console.log(Cookies.get("role"));
+ 
   return(<Layout connected={Cookies.get("user")}>
-    <Menu nomeEscola={state.name} idEscola={state.name}></Menu>
+    <Menu role={"PROVOST"} nomeEscola={state.name} idEscola={state.name}></Menu>
     <Calendario monthName={getMonthName(date.getMonth())} content={calendarDays()}></Calendario>
   </Layout>)
 }

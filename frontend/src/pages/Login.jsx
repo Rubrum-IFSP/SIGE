@@ -29,8 +29,11 @@ export default function Login() {
 
     if(!res.error){
       navigate("/landingpage")
+      console.log(res)
+
 
       Cookie.set("user",JSON.stringify(res));
+      console.log(Cookie.get("user"))
     }
     else console.log("login deu errado")
    

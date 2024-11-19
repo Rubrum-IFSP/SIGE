@@ -7,8 +7,7 @@ import { useLocation, Link } from "react-router-dom";
 export default function Noticias(props) {
   let { state } = useLocation();
 
-  var isProfessor = true;
-  if(isProfessor){
+  if(state.role ==="PROVOST" || state.role === "ADMIN"){
   return (
     <Layout connected={Cookie.get("user")}>
       <NoticiasWrapper

@@ -136,7 +136,8 @@ public class SchoolController {
     @GetMapping("/news")
     public List<NewsResponseDTO> getSchoolNews(@RequestHeader String schoolId) throws BadRequestException {
         School school = repository.findById(schoolId).get();
-        if (school == null) throw new BadRequestException("Escola não encontrada");
+        if (school == null)
+            throw new BadRequestException("Escola não encontrada");
 
         List<News> news = newsRepository.findAllBySchoolId(schoolId);
 
@@ -144,10 +145,12 @@ public class SchoolController {
     }
 
     @PostMapping("/news/save")
-    public ResponseEntity<String> saveSchoolNews(@RequestBody NewsRequestDTO data, @RequestBody MultipartFile[] images, @RequestHeader String schoolId) throws BadRequestException {
+    public ResponseEntity<String> saveSchoolNews(@RequestBody NewsRequestDTO data, @RequestBody MultipartFile[] images,
+            @RequestHeader String schoolId) throws BadRequestException {
         School school = repository.findById(schoolId).get();
-        if (school == null) throw new BadRequestException("Escola não encontrada");
-        
+        if (school == null)
+            throw new BadRequestException("Escola não encontrada");
+
         News news = new News(data);
         newsRepository.save(news);
         return ResponseEntity.ok("Notícia adicionada com sucesso!");
@@ -161,7 +164,8 @@ public class SchoolController {
     }
 
     @PostMapping("/news/edit")
-    public ResponseEntity<String> editNews(@RequestBody NewsUpdateRequestDTO data, @RequestHeader String newsId) throws BadRequestException {
+    public ResponseEntity<String> editNews(@RequestBody NewsUpdateRequestDTO data, @RequestHeader String newsId)
+            throws BadRequestException {
         News news = newsRepository.findById(newsId).get();
         news.update(data);
         newsRepository.save(news);

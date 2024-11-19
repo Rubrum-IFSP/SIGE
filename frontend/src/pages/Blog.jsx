@@ -8,7 +8,7 @@ var isGremio = true;
 
 export default function BlogPage(props) {
   let { state } = useLocation();
-  if(isGremio){
+  if(state.role === "GREMIO"){
   return (
     <Layout connected={Cookie.get("user")}>
       

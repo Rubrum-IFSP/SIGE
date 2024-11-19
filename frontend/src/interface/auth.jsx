@@ -12,6 +12,47 @@ export class User {
   }
 }
 
+
+export const fetchUserIdByEmail = async (email) => {
+
+  try {
+
+      const response = await fetch(urlCopy +`/user/id?email=${encodeURIComponent(email)}`, {
+
+          method: 'GET',
+
+          headers: {
+
+              'Content-Type': 'application/json',
+
+          },
+
+      });
+
+
+      if (!response.ok) {
+
+          throw new Error('Network response was not ok');
+
+      }
+
+
+      const userId = await response.text();
+
+      console.log('User  ID:', userId);
+
+      return userId; // Return the user ID or handle it as needed
+
+  } catch (error) {
+
+      console.error('Error fetching user ID:', error);
+
+      // Handle the error appropriately, e.g., show a message to the user
+
+  }
+
+};
+
 export const getSchoolIdByName = async (name) => {
 
   try {
@@ -92,6 +133,46 @@ export const login = async (user) => {
     method: "POST",
     body: JSON.stringify(user),
   }).then((res) => res.json());
+};
+
+export const fetchRoles = async (userId, schoolId) => {
+
+  try {
+
+      const response = await fetch( urlCopy + `/schoolMember/getRoles?userId=${userId}&schoolId=${schoolId}`, {
+
+          method: 'GET',
+
+          headers: {
+
+              'Content-Type': 'application/json',
+
+          },
+
+      });
+
+
+      if (!response.ok) {
+
+          throw new Error('Network response was not ok');
+
+      }
+
+
+      const role = await response.text();
+
+      console.log('Role:', role);
+
+      return role; // Return the role or handle it as needed
+
+  } catch (error) {
+
+      console.error('Error fetching role:', error);
+
+      // Handle the error appropriately, e.g., show a message to the user
+
+  }
+
 };
 
 

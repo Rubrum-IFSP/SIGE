@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 export default function EventosPage(props) {
   let { state } = useLocation();
 
+  if(state.role === "PROVOST" || state.role ==="ADMIN"){
   return (
     <Layout connected={Cookie.get("user")}>
       <NoticiasWrapper
@@ -23,4 +24,21 @@ export default function EventosPage(props) {
       />
     </Layout>
   );
+  }
+  else{
+    return (
+      <Layout connected={Cookie.get("user")}>
+        <NoticiasWrapper
+          children={[
+            <Noticias
+              title={state.nome}
+              content={state.nome}
+              datePublished={state.nome}
+              author={state.nome}
+            />,
+          ]}
+        />
+      </Layout>
+    );
+  }
 }
