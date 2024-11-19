@@ -1,0 +1,64 @@
+@import "./root.css";
+
+.person{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid black;
+    padding:1em;
+    border-radius:0.8em;
+    background-color:white;
+}
+.person p{
+    margin:0;
+}
+.person select {
+
+    padding: 0.5em; /* Padding inside the select */
+
+    border: 1px solid #ccc; /* Border color */
+
+    border-radius: 0.4em; /* Rounded corners */
+
+    background-color: white; /* Background color */
+
+    font-size: 1em; /* Font size */
+
+    cursor: pointer; /* Pointer cursor on hover */
+
+    transition: border-color 0.3s; /* Smooth transition for border color */
+
+}
+
+
+/* Change border color on focus */
+
+.person select:focus {
+
+    border-color:var(--primary); /* Change border color on focus */
+
+    outline: none; /* Remove default outline */
+
+}
+
+
+/* Style options (note: not all browsers support styling options) */
+
+option {
+
+    padding: 0.5em; /* Padding inside options */
+
+    background-color: white; /* Background color */
+
+    color: black; /* Text color */
+
+}
+
+
+/* Optional: Add a hover effect for options (works in some browsers) */
+
+.person select:hover {
+
+    border-color: var(--primary); /* Change border color on hover */
+
+}

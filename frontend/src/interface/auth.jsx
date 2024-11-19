@@ -13,6 +13,41 @@ export class User {
 }
 
 
+export const getSchoolMembersBySchoolId = async (schoolId) =>{
+  try{
+    const response =  await fetch(urlCopy + `/schoolMember/getMembers?schoolId=${schoolId}`,{
+      method: "GET",
+      headers:{
+        'Content-type' : 'application/json'
+      }
+    })
+
+    const data = await response.json();
+    return data;
+
+  }
+  catch(e){
+    console.error(e);
+  }
+}
+
+export const getUserById = async (id) =>{
+  try{
+    const response =  await fetch(urlCopy + `/user/getUser?id=${id}`,{
+      method: "GET",
+      headers:{
+        'Content-type' : 'application/json'
+      }
+    })
+  
+  const data = await response.json();
+  return data;
+  }
+  catch(e){
+    console.error(e);
+  }
+}
+
 export const fetchUserIdByEmail = async (email) => {
 
   try {
@@ -306,48 +341,6 @@ export const saveSubject = async (subjectData) => {
 
 };
 
-const getSubjectIdByName = async (name) => {
-
-  try {
-
-      const response = await fetch(urlCopy + `/subject/get/${name}`, {
-
-          method: 'GET',
-
-          headers: {
-
-              'Content-Type': 'application/json',
-
-          },
-
-      });
-
-
-      if (response.ok) {
-
-          const subjectData = await response.json(); // Parse the JSON response
-
-          return subjectData.id; // Return the subject data
-
-      } else {
-
-          const errorMessage = await response.text();
-
-          console.error('Error:', errorMessage); // Log the error
-
-          throw new Error(errorMessage); // Throw an error for further handling
-
-      }
-
-  } catch (error) {
-
-      console.error('Fetch error:', error);
-
-      throw error; // Rethrow the error for further handling
-
-  }
-
-};
 
 export const getSchoolClassIdByName = async (name) => {
 

@@ -1,6 +1,7 @@
 package com.rubrum.sige.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,17 @@ public class UserController {
             throw new BadRequestException("usuario nn encontrado");
         }
         return ResponseEntity.ok(user.getId());
+    }
+
+    @GetMapping("/getUser")
+    public ResponseEntity<UserResponseDTO> getUserById(@RequestParam String id) throws BadRequestException {
+        Optional<User> optionalUser = repository.findById(id);
+
+        if (!optionalUser.isPresent()) {
+            throw new BadRequestException("no user found");
+        }
+        User user = optionalUser.get();
+        return ResponseEntity.ok(new UserResponseDTO(user));
     }
 
 }

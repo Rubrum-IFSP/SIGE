@@ -22,6 +22,7 @@ import FormAtividade from "./pages/FormAtividade"
 import FormClasse from "./pages/FormClasse"
 import FormMateria from "./pages/FormMateria"
 import FormEventos from "./pages/FormEventos"
+import Administracao from "./pages/Administracao"
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
         <Route path="/formclasse" element={<FormClasse/>}/>
         <Route path="/formmateria" element={<FormMateria/>}/>
         <Route path="/formeventos" element={<FormEventos/>}/>
+        <Route path="/administracao" element ={<Administracao/>}/>
       </Routes>
     </Router>
   );

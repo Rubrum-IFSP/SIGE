@@ -1,0 +1,13 @@
+@import "./root.css";
+
+.admWrapper{
+    background-color:var(--secondary-dark);
+    color:black;
+    width:95%;
+    margin: 2em auto 2em auto;
+    border-radius:0.8em;
+    height:fit-content;
+    padding:1em;
+    box-shadow:2px 2px 7px rgba(1, 1, 45, 0.656);
+    border:3px solid var(--primary);
+}

@@ -8,4 +8,6 @@ public interface SchoolMemberRepository extends JpaRepository<SchoolMember, Stri
     public SchoolMember findBySchoolIdAndUserId(String schoolId, String userId);
 
     public List<SchoolMember> findAllByUserId(String userId);
+
+    public List<SchoolMember> findAllBySchoolId(String schoolId);
 }

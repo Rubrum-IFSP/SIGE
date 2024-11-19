@@ -1,5 +1,7 @@
 package com.rubrum.sige.controller;
 
+import java.util.List;
+
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +33,13 @@ public class SchoolMemberController {
             throw new BadRequestException("erro");
         }
         return ResponseEntity.ok(member.getRole().toString());
+    }
+
+    @GetMapping("/getMembers")
+    public List<SchoolMember> getSchoolMembersBySchoolId(@RequestParam String schoolId) throws BadRequestException {
+        List<SchoolMember> list = repository.findAllBySchoolId(schoolId);
+
+        return list;
+
     }
 }
