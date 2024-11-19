@@ -50,7 +50,7 @@ CREATE TABLE "subject" (
   "id" varchar PRIMARY KEY NOT NULL,
   "school_class_id" varchar NOT NULL,
   "name" varchar(255) NOT NULL,
-  "professor_id" varchar ,
+  "professor_id" varchar DEFAULT NULL,
 );
 
 CREATE TABLE "subject_message" (

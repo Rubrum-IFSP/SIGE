@@ -24,6 +24,7 @@ import FormMateria from "./pages/FormMateria"
 import FormEventos from "./pages/FormEventos"
 import Administracao from "./pages/Administracao"
 import Convite from "./pages/Convite";
+import CadastroProfessor from "./pages/CadastroProfessor";
 
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
         <Route path="/formeventos" element={<FormEventos/>}/>
         <Route path="/administracao" element ={<Administracao/>}/>
         <Route path="/convite" element={<Convite/>}/>
+        <Route path="/cadastroprofessor" element={<CadastroProfessor/>}/>
       </Routes>
     </Router>
   );

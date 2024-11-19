@@ -580,13 +580,13 @@ export const generateSchoolInvite = async (schoolId, userEmail) => {
 
       const invite = await response.text();
 
-      return invite; // Return the generated invite
+      return invite;
 
   } catch (error) {
 
       console.error('Error:', error);
 
-      throw error; // Rethrow the error for further handling
+      throw error; 
 
   }
 

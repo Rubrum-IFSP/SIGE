@@ -5,13 +5,14 @@ interface Props {
   dia: string;
   isEvent: boolean;
   idEscola: any;
+  role: string;
 }
 
-export default function DiaCalendario({ dia, isEvent, idEscola }: Props) {
+export default function DiaCalendario({ dia, isEvent, idEscola, role }: Props) {
   if (isEvent) {
     return (
       <div className="dayWrapperActive">
-        <Link to="/eventos" state={{ id: idEscola }}>
+        <Link to="/eventos" state={{ id: idEscola, role: role }}>
           <span>{dia}</span>
         </Link>
       </div>

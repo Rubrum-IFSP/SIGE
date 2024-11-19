@@ -20,7 +20,8 @@ export default function ClassesPage() {
 
   const { state } = useLocation();
 
-  const role = state.role;
+  const role = state.role; 
+    console.log(state.role)
 
   const css =`
     .subject{
@@ -120,7 +121,7 @@ export default function ClassesPage() {
                             {subjectsByClass[classItem.id] && subjectsByClass[classItem.id].length > 0 && (
                                 <div >
                                     {subjectsByClass[classItem.id].map((subject) => (
-                                        <Link className="subject" to={"/materia"} state={{ schoolName: state.name ,subjectName: subject.name, schoolClassId: classItem.id}} key={subject.id}>{subject.name}</Link>
+                                        <Link className="subject" to={"/materia"} state={{ schoolName: state.name ,subjectName: subject.name, schoolClassId: classItem.id, role: state.role}} key={subject.id}>{subject.name}</Link>
                                     ))}
                                 </div>
                             )}
