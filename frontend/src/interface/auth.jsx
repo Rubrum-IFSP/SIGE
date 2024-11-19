@@ -541,3 +541,53 @@ export const saveLession = async (data) =>{
     return false
   }
 }
+
+export const generateSchoolInvite = async (schoolId, userEmail) => {
+
+  const inviteRequestDTO = {
+
+      schoolId: schoolId,
+
+      userEmail: userEmail
+
+  };
+
+
+  try {
+
+      const response = await fetch(urlCopy+'/invite/create', {
+
+          method: 'POST',
+
+          headers: {
+
+              'Content-Type': 'application/json',
+              Authorization: "Bearer " + JSON.parse( Cookie.get("user")).token,
+
+          },
+
+          body: JSON.stringify(inviteRequestDTO),
+
+      });
+
+
+      if (!response.ok) {
+
+          throw new Error('Failed to generate invite');
+
+      }
+
+
+      const invite = await response.text();
+
+      return invite; // Return the generated invite
+
+  } catch (error) {
+
+      console.error('Error:', error);
+
+      throw error; // Rethrow the error for further handling
+
+  }
+
+};

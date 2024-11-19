@@ -28,7 +28,7 @@ import com.rubrum.sige.infra.security.TokenService;
 import com.rubrum.sige.services.InviteService;
 
 @RestController
-@RequestMapping("invite")
+@RequestMapping("/invite")
 @Validated
 public class InviteController {
 
@@ -40,7 +40,7 @@ public class InviteController {
 
     @Autowired
     private SchoolMemberRepository memberRepository;
-    
+
     @Autowired
     private InviteService inviteService;
 
@@ -50,29 +50,31 @@ public class InviteController {
     @PostMapping("/create")
     public ResponseEntity<String> generateSchoolInvite(@RequestBody InviteRequestDTO data) {
         School school = schoolRepository.findById(data.schoolId()).get();
-        if (school == null) return ResponseEntity.badRequest().build();
+        if (school == null)
+            return ResponseEntity.badRequest().build();
 
         String invite = inviteService.generateInvite(school, data.userEmail());
         return ResponseEntity.ok(invite);
     }
 
     @PostMapping("/join")
-    public ResponseEntity<String> joinSchool(@RequestBody JoinSchoolRequestDTO data, @RequestHeader String Authorization) {
+    public ResponseEntity<String> joinSchool(@RequestBody JoinSchoolRequestDTO data,
+            @RequestHeader String Authorization) {
         String schoolId = inviteService.validateInvite(data.invite());
 
         try {
-            String userEmail = tokenService.validateToken( tokenService.recoverToken(Authorization) );
+            String userEmail = tokenService.validateToken(tokenService.recoverToken(Authorization));
             User user = userRepository.findByEmail(userEmail);
             if (user == null) {
                 throw new Exception("Usuario não encontrado.");
             }
-            
+
             School school = schoolRepository.findById(schoolId).get();
             if (school == null) {
                 throw new Exception("Escola não encontrada.");
             }
 
-            if (memberRepository.findBySchoolIdAndUserId(school.getId(), user.getId()) != null ) {
+            if (memberRepository.findBySchoolIdAndUserId(school.getId(), user.getId()) != null) {
                 throw new MemberAlreadyExistsException("O usuário já está registrado nesta escola.");
             }
 
@@ -89,10 +91,12 @@ public class InviteController {
     @GetMapping("/validate/{invite}")
     public ResponseEntity<InviteResponseDTO> validateSchoolInvite(@PathVariable String invite) {
         var schoolId = inviteService.validateInvite(invite);
-        if (schoolId == null) return ResponseEntity.badRequest().build();
+        if (schoolId == null)
+            return ResponseEntity.badRequest().build();
 
         School school = schoolRepository.findById(schoolId).get();
-        if (school == null) return ResponseEntity.badRequest().build();
+        if (school == null)
+            return ResponseEntity.badRequest().build();
 
         String userEmail = inviteService.getSenderEmail(invite);
         User sender = userRepository.findByEmail(userEmail);
@@ -109,4 +113,3 @@ public class InviteController {
         }
     }
 }
-

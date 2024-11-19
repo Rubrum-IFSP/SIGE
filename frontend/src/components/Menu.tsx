@@ -29,6 +29,9 @@ export default function Menu({ nomeEscola, role }: Props) {
             <Link to="/administracao" state={{ name: nomeEscola, role: role }}>
               Administração
             </Link>
+            <Link to="/convite" state={{ name: nomeEscola, role: role }}>
+              Convidar
+            </Link>
           </div>
         </div>
       </div>
