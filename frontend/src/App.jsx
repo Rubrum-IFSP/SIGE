@@ -10,7 +10,6 @@ import CadastroEscola from "./pages/CadastroEscola";
 import Atendimento from "./pages/Atendimento";
 import MeuPerfil from "./pages/MeuPerfil";
 import SobreNos from "./pages/SobreNos";
-import CadastrarAtividade from "./pages/CadastrarAtividade";
 import CadastrarClasse from "./pages/CadastrarClasse";
 import Index from "./pages/Index";
 import CadastrarMateria from "./pages/CadastrarMateria";
@@ -44,7 +43,6 @@ function App() {
         <Route path="/noticias" element={<NoticiasPage />} />
         <Route path="/perfil" element={<MeuPerfil />} />
         <Route path="/sobrenos" element={<SobreNos />} />
-        <Route path="/cadastroatividade" element={<CadastrarAtividade/>}/>
         <Route path="/cadastroclasse" element={<CadastrarClasse/>}/>
         <Route path="/cadastromateria" element={<CadastrarMateria/>}/>
         <Route path="/classes" element={<Classes/>}/>

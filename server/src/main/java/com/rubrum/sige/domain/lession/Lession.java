@@ -34,12 +34,12 @@ public class Lession {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "desc")
-    private String desc;
+    @Column(name = "descricao")
+    private String descricao;
 
     public Lession(LessionRequestDTO data) {
         this.subjectId = data.subjectId();
         this.title = data.title();
-        this.desc = data.desc();
+        this.descricao = data.descricao();
     }
 }

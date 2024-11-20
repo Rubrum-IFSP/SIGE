@@ -1,5 +1,5 @@
 package com.rubrum.sige.domain.school;
 
-public record SchoolRequestDTO(String name, String palette) {
+public record SchoolRequestDTO(String name) {
 
 }

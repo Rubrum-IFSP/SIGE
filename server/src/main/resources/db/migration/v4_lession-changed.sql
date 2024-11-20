@@ -63,7 +63,7 @@ CREATE TABLE "lession" (
   "id" varchar PRIMARY KEY NOT NULL,
   "subject_id" varchar NOT NULL,
   "title" varchar NOT NULL,
-  "desc" varchar NOT NULL,
+  "descricao" varchar NOT NULL,
 );
 
 CREATE TABLE "news" (
@@ -109,3 +109,5 @@ ALTER TABLE "lession" ADD FOREIGN KEY ("subject_id") REFERENCES "subject" ("id")
 ALTER TABLE "news" ADD FOREIGN KEY ("school_id") REFERENCES "school" ("id");
 
 ALTER TABLE "news_comment" ADD FOREIGN KEY ("news_id") REFERENCES "news" ("id");
+
+ALTER TABLE "lession" DROP COLUMN "delivery_time";

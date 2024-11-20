@@ -2,7 +2,8 @@ import Layout from "../components/Layout"
 import MateriaWrapper from "../components/MateriaWrapper";
 import Atividade from "../components/Atividades";
 import { Link, useLocation , useNavigate} from "react-router-dom";
-import {deleteSubject} from "../interface/auth.jsx";
+import { useState, useEffect } from "react";
+import {deleteSubject, getLessonsBySubjectId} from "../interface/auth.jsx";
 import Cookie from "js-cookie";
 import {Toaster, toast} from "react-hot-toast";
 
@@ -62,45 +63,105 @@ export default function Materia(){
         }
     }
 
-    console.log(state.subjectName, state.schoolClassId)
-    if(state.role === "PROVOST"){
+    const [lessons, setLessons] = useState([]);
 
 
-        return(
-            <Layout connected={Cookie.get("user")}>
-                <Toaster position="top-center" reverseOrder={false} />
-                <style>{css}</style>
-                <MateriaWrapper nomeMateria={state.subjectName}>
-                    <Atividade titulo={atv.titulo} descricao={atv.descricao} data={atv.data} role={state.role}></Atividade>
-                    <Atividade titulo={atv.titulo} descricao={atv.descricao} data={atv.data} role={state.role}></Atividade>
-                
-                    <div className="linkFormAtividade">
-            <Link to="/formatividade" state={{ subjectName: state.subjectName, schoolClassId: state.schoolClassId}}>Cadastrar Nova Atividade</Link>
-        </div>
-        <div className="linkFormAtividade">
-            <Link to="/cadastroprofessor" state={{ subjectName: state.subjectName, schoolClassId: state.schoolClassId, schoolName :state.schoolName}}>Alterar Professor</Link>
-        </div>
-        <button className="deleteSubjectButton" onClick={deleteThisSubject}>Deletar Matéria</button>
-                </MateriaWrapper>
-                
-            </Layout>
-        )
+    const getLessons = async () => {
+
+        console.log(state.subjectId);
+
+        const response = await getLessonsBySubjectId(state.subjectId);
+
+        console.log(response);
+
+        setLessons(response); // Store the response in state
+
     }
-    else{
-        return(
+
+
+    useEffect(() => {
+
+        getLessons(); // Call the function on component mount
+
+    }, [state.subjectId]); // Re-run if subjectId changes
+
+
+    console.log(state.subjectName, state.schoolClassId);
+
+
+    if (state.role === "PROVOST") {
+
+        return (
+
             <Layout connected={Cookie.get("user")}>
+
                 <Toaster position="top-center" reverseOrder={false} />
+
                 <style>{css}</style>
+
                 <MateriaWrapper nomeMateria={state.subjectName}>
-                <Atividade titulo={atv.titulo} descricao={atv.descricao} data={atv.data} role={state.role}></Atividade>
-                <Atividade titulo={atv.titulo} descricao={atv.descricao} data={atv.data} role={state.role}></Atividade>
-                
+
+                    {lessons.map((atv, index) => (
+
+                        <Atividade key={index} subjectId={state.subjectId} titulo={atv.title} descricao={atv.descricao} role={state.role} />
+
+                    ))}
+
+                    
+
                     <div className="linkFormAtividade">
-            <Link to="/formatividade" state={{ subjectName: state.subjectName, schoolClassId: state.schoolClassId}}>Cadastrar Nova Atividade</Link>
-        </div>
+
+                        <Link to="/formatividade" state={{ subjectName: state.subjectName, schoolClassId: state.schoolClassId }}>Cadastrar Nova Atividade</Link>
+
+                    </div>
+
+                    <div className="linkFormAtividade">
+
+                        <Link to="/cadastroprofessor" state={{ subjectName: state.subjectName, schoolClassId: state.schoolClassId, schoolName: state.schoolName }}>Alterar Professor</Link>
+
+                    </div>
+
+                    <button className="deleteSubjectButton" onClick={deleteThisSubject}>Deletar Matéria</button>
+
                 </MateriaWrapper>
-                
+
             </Layout>
-        )
+
+        );
+
+    }
+
+    else {
+    
+        return (
+    
+            <Layout connected={Cookie.get("user")}>
+    
+                <Toaster position="top-center" reverseOrder={false} />
+    
+                <style>{css}</style>
+    
+                <MateriaWrapper nomeMateria={state.subjectName}>
+    
+                    {lessons.map((atv, index) => (
+    
+                        <Atividade key={index} subjectId={state.subjectId} titulo={atv.title} descricao={atv.descricao} role={state.role} />
+    
+                    ))}
+    
+                    
+    
+                    <div className="linkFormAtividade">
+    
+                        <Link to="/formatividade" state={{ subjectName: state.subjectName, schoolClassId: state.schoolClassId }}>Cadastrar Nova Atividade</Link>
+    
+                    </div>
+    
+                </MateriaWrapper>
+    
+            </Layout>
+    
+        );
+    
     }
 }

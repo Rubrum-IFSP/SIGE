@@ -1,5 +1,5 @@
 package com.rubrum.sige.domain.lession;
 
-public record DeleteLessionRequestDTO(String subjectId, String title, String desc) {
+public record DeleteLessionRequestDTO(String subjectId, String title, String descricao) {
 
 }

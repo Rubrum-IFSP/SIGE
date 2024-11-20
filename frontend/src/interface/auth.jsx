@@ -591,3 +591,58 @@ export const generateSchoolInvite = async (schoolId, userEmail) => {
   }
 
 };
+
+export const getLessonsBySubjectId = async (subjectId) => {
+
+  try {
+
+    const response = await fetch(urlCopy +`/lession/get?subjectId=${subjectId}`);
+
+    if (!response.ok) {
+
+      throw new Error('Network response was not ok');
+
+    }
+
+    const data = await response.json();
+
+    return data; // This will be the list of lessons
+
+  } catch (err) {
+
+    console.error('Fetch error:', err);
+
+    throw err; // Rethrow the error if needed
+
+  }
+
+};
+
+export const deleteLesson = async (title, subjectId, descricao) => {
+
+  const data ={
+    subjectId: subjectId,
+    title: title,
+    descricao: descricao
+  }
+
+  try {
+      const response = await fetch(urlCopy+'/lession/delete', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data), // Sending the title in the request body
+      });
+
+      if (!response.ok) {
+          throw new Error('Failed to delete lesson');
+      }
+
+      const result = await response.json();
+      console.log('Lesson deleted successfully:', result);
+      // Optionally, you can update your state here to remove the lesson from the UI
+  } catch (error) {
+      console.error('Error deleting lesson:', error);
+  }
+};

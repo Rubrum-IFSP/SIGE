@@ -47,8 +47,6 @@ export default function CadastroEscola() {
       <label>Nome da Escola</label>
       <input onChange={onChangeHandler} name={"name"} type={"text"}></input>
 
-      <label>Paleta de Cores</label>
-      <input onChange={onChangeHandler} name={"palette"} type={"text"}></input>
     </div>
 
     <ConfirmButton onClick={registerSchool} text={"Cadastrar"} />

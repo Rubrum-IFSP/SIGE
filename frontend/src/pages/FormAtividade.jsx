@@ -56,7 +56,7 @@ export default function FormAtividade() {
           <label>Título:</label>
           <input onChange={onChangeHandler} type="text" name="title" />
           <label>Descrição:</label>
-          <textarea onChange={onChangeHandler} name="desc"></textarea>
+          <textarea onChange={onChangeHandler} name="descricao"></textarea>
           <input onClick={saveThisLession} className="submitButton" type="submit" value="Enviar" />
         </form>
       </div>

@@ -33,10 +33,7 @@ public class School {
     @NotBlank(message = "preencha o nome.")
     private String name;
 
-    private String palette;
-
     public School(@Valid SchoolRequestDTO data) {
         this.name = data.name();
-        this.palette = data.palette();
     }
 }
