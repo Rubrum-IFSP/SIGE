@@ -57,9 +57,6 @@ function BasicExample({ connected }: Props) {
               <a href="#/sobrenos" className="link">
                 Sobre Nós
               </a>
-              <a href="#/atendimento" className="link">
-                FAQ/Atendimento
-              </a>
 
               <Nav.Link href="#link">
                 <a href="#/login" className="buttonEntrar">
