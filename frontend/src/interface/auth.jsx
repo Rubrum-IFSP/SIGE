@@ -674,3 +674,40 @@ export const savePassword = async (schoolId, password) => {
       return { success: false, message: err.message };
   }
 };
+
+export const enterSchool = async (schoolId, password, userId) => {
+
+  try {
+
+      const response = await fetch(urlCopy+`/password/enter?schoolId=${schoolId}&password=${password}&userId=${userId}`, {
+
+          method: 'POST',
+
+          headers: {
+
+              'Content-Type': 'application/json',
+
+          },
+
+
+      });
+
+
+      if (!response.ok) {
+
+          throw new Error('Network response was not ok');
+
+      }
+
+
+      const data = await response.text();
+
+      return data; // Success message
+
+  } catch (err) {
+
+      throw new Error(err.message || 'Something went wrong'); // Handle errors
+
+  }
+
+};

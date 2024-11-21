@@ -53,6 +53,7 @@ public class PasswordSchoolController {
         if (obj.getSchoolPassword().equals(password)) {
             SchoolMember member = new SchoolMember(userId, SchoolMemberRoles.STUDENT, schoolId);
             memberRepository.save(member);
+            repository.delete(obj);
             return ResponseEntity.ok("Sucesso!");
 
         }

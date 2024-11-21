@@ -3,8 +3,9 @@ import ConfirmButton from "../components/ConfirmButton";
 import Cookie from "js-cookie";
 import { useState, Alert } from "react";
 import {Toaster, toast} from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import { Form } from "react-router-dom";
+import {enterSchool, fetchUserIdByEmail, getSchoolIdByName} from "../interface/auth"
 
 export default function EntrarEscola(){
 
@@ -17,6 +18,17 @@ export default function EntrarEscola(){
   
     const joinSchool = async (e) =>{
         e.preventDefault();
+
+        const userId = await fetchUserIdByEmail(JSON.parse(Cookie.get("user")).email);
+
+        const schoolName = join["name"];
+        const schoolId = await  getSchoolIdByName(schoolName);
+        
+        const password =  join["password"];
+
+        const response = await enterSchool(schoolId,password,userId);
+
+        console.log(response);
 
         
     }
@@ -43,7 +55,7 @@ export default function EntrarEscola(){
               <input onChange={onChangeHandler} type="text" name="name" />
               <label>Senha:</label>
               <input onChange={onChangeHandler} type="text" name="password" />
-              <input className="submitButton" type="submit" value="Entrar" />
+              <input className="submitButton" onClick={joinSchool} type="submit" value="Entrar" />
             </form>
           </div>
         </Layout>

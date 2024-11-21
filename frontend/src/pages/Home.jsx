@@ -79,7 +79,7 @@ export default function Home() {
   console.log(Cookies.get("role"));
  
   return(<Layout connected={Cookies.get("user")}>
-    <Menu role={"PROVOST"} nomeEscola={state.name} idEscola={state.name}></Menu>
+    <Menu role={role} nomeEscola={state.name} idEscola={state.name}></Menu>
     <Calendario monthName={getMonthName(date.getMonth())} content={calendarDays()}></Calendario>
   </Layout>)
 }
