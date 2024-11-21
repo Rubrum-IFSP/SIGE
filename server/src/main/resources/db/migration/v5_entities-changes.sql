@@ -65,7 +65,7 @@ CREATE TABLE "lession" (
   "id" varchar PRIMARY KEY NOT NULL,
   "subject_id" varchar NOT NULL,
   "title" varchar NOT NULL,
-  "desc" varchar NOT NULL,
+  "descricao" varchar NOT NULL,
 );
 
 CREATE TABLE "news" (
@@ -85,6 +85,12 @@ CREATE TABLE "news_comment" (
   "content" text,
   "created_at" TIMESTAMP DEFAULT (now())
 );
+
+CREATE TABLE "password" (
+  "id" varchar PRIMARY KEY NOT NULL,
+  "school_id" varchar NOT NULL,
+  "password" varchar(255) NOT NULL,
+)
 
 COMMENT ON COLUMN "school_member"."data" IS 'Guardar os dados desta coluna em JSON.';
 
@@ -113,3 +119,5 @@ ALTER TABLE "news" ADD FOREIGN KEY ("school_id") REFERENCES "school" ("id");
 ALTER TABLE "news_comment" ADD FOREIGN KEY ("news_id") REFERENCES "news" ("id");
 
 ALTER TABLE "subject" ADD FOREIGN KEY ("professor_id") REFERENCES "school_member" ("id");
+
+ALTER TABLE "passwordSchool" ADD FOREIGN KEY("school_id") REFERENCES "school" ("id");
