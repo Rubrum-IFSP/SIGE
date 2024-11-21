@@ -86,7 +86,7 @@ CREATE TABLE "news_comment" (
   "created_at" TIMESTAMP DEFAULT (now())
 );
 
-CREATE TABLE "password" (
+CREATE TABLE "password_school" (
   "id" varchar PRIMARY KEY NOT NULL,
   "school_id" varchar NOT NULL,
   "password" varchar(255) NOT NULL,
@@ -120,4 +120,4 @@ ALTER TABLE "news_comment" ADD FOREIGN KEY ("news_id") REFERENCES "news" ("id");
 
 ALTER TABLE "subject" ADD FOREIGN KEY ("professor_id") REFERENCES "school_member" ("id");
 
-ALTER TABLE "passwordSchool" ADD FOREIGN KEY("school_id") REFERENCES "school" ("id");
+ALTER TABLE "password_school" ADD FOREIGN KEY("school_id") REFERENCES "school" ("id");

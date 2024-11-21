@@ -42,7 +42,7 @@ public class PasswordSchoolController {
             throw new BadRequestException("senha não foi criada");
         }
         repository.save(passwordSchool);
-        return ResponseEntity.ok(data.password());
+        return ResponseEntity.ok(data.schoolPassword());
     }
 
     @PostMapping("/enter")
@@ -50,7 +50,7 @@ public class PasswordSchoolController {
             @RequestParam String userId)
             throws BadRequestException {
         PasswordSchool obj = repository.findBySchoolId(schoolId);
-        if (obj.getPassword().equals(password)) {
+        if (obj.getSchoolPassword().equals(password)) {
             SchoolMember member = new SchoolMember(userId, SchoolMemberRoles.STUDENT, schoolId);
             memberRepository.save(member);
             return ResponseEntity.ok("Sucesso!");

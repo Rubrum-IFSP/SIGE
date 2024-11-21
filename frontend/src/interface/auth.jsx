@@ -646,3 +646,31 @@ export const deleteLesson = async (title, subjectId, descricao) => {
       console.error('Error deleting lesson:', error);
   }
 };
+
+export const savePassword = async (schoolId, password) => {
+  const data = {
+      schoolId: schoolId,
+      schoolPassword: password,
+  };
+
+  try {
+      const response = await fetch(urlCopy+'/password/save', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+      });
+      console.log(JSON.stringify(data));
+
+      if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Something went wrong');
+      }
+
+      const result = await response.text();
+      return { success: true, message: result };
+  } catch (err) {
+      return { success: false, message: err.message };
+  }
+};

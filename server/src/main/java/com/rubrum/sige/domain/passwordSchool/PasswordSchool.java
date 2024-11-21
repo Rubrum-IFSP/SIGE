@@ -3,6 +3,7 @@ package com.rubrum.sige.domain.passwordSchool;
 import org.springframework.validation.annotation.Validated;
 
 import jakarta.annotation.Generated;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,8 +15,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "passwordSchool")
-@Entity(name = "passwordSchool")
+@Table(name = "password_school")
+@Entity(name = "password_school")
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,11 +29,13 @@ public class PasswordSchool {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @Column(name = "school_id")
     private String schoolId;
-    private String password;
+    @Column(name = "school_password")
+    private String schoolPassword;
 
     public PasswordSchool(PasswordSchoolRequestDTO data) {
         this.schoolId = data.schoolId();
-        this.password = data.password();
+        this.schoolPassword = data.schoolPassword();
     }
 }
