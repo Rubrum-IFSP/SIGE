@@ -70,7 +70,7 @@ public class SchoolController {
         repository.save(school);
 
         String schoolId = repository.findByName(school.getName()).getId();
-        SchoolMember member = new SchoolMember(user.getId(), SchoolMemberRoles.PROVOST, schoolId);
+        SchoolMember member = new SchoolMember(user.getId(), SchoolMemberRoles.PROVOST, schoolId, null);
         memberRepository.save(member);
         return ResponseEntity.ok("escola criada com sucesso!");
     }

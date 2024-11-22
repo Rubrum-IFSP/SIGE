@@ -758,3 +758,20 @@ export const getMemberClassByUserIdAndSchoolId = async (userId,schoolId) =>{
     const result = await response.text();
     return result; // Return success message
 }
+
+export const getAllTeachersBySchoolId = async (schoolId) =>{
+
+  const response =  await fetch(urlCopy+`/schoolMember/searchTeachers?schoolId=${schoolId}`,{
+    method:"GET",
+    headers:{
+      'Content-type': 'application/json',
+    },
+  });
+
+  if(!response.ok){
+    throw new Error("eita");
+  }
+
+  const result =  await response.json();
+  return result;
+}

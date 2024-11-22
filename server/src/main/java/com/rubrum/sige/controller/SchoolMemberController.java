@@ -1,5 +1,6 @@
 package com.rubrum.sige.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.coyote.BadRequestException;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rubrum.sige.domain.schoolMember.SchoolMember;
 import com.rubrum.sige.domain.schoolMember.SchoolMemberRepository;
 import com.rubrum.sige.domain.schoolMember.SchoolMemberRequestDTO;
+import com.rubrum.sige.domain.schoolMember.SchoolMemberRoles;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -73,6 +75,26 @@ public class SchoolMemberController {
             throw new BadRequestException("algo deu errado");
 
         return ResponseEntity.ok(res);
+    }
+
+    @GetMapping("/searchTeachers")
+    public List<SchoolMember> getAllTeachersBySchoolId(@RequestParam String schoolId) throws BadRequestException {
+
+        List<SchoolMember> list = repository.findAllBySchoolId(schoolId);
+
+        if (list.isEmpty())
+            throw new BadRequestException("algo deu errado");
+
+        List<SchoolMember> copy = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getRole().getRole().equals("PROFESSOR")) {
+                copy.add(list.get(i));
+            }
+        }
+        System.out.println(copy);
+
+        return copy;
     }
 
 }

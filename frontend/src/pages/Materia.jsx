@@ -89,7 +89,7 @@ export default function Materia(){
     console.log(state.subjectName, state.schoolClassId);
 
 
-    if (state.role === "PROVOST") {
+    if (state.role === "PROVOST" || state.role === "ADMIN") {
 
         return (
 

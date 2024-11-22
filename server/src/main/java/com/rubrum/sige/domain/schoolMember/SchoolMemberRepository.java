@@ -11,4 +11,6 @@ public interface SchoolMemberRepository extends JpaRepository<SchoolMember, Stri
 
     public List<SchoolMember> findAllBySchoolId(String schoolId);
 
+    // public List<SchoolMember> findAllBySchoolIdAndRole(String schoolId, String
+    // role);
 }

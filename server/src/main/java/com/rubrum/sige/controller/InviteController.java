@@ -78,7 +78,7 @@ public class InviteController {
                 throw new MemberAlreadyExistsException("O usuário já está registrado nesta escola.");
             }
 
-            SchoolMember member = new SchoolMember(user.getId(), SchoolMemberRoles.STUDENT, school.getId());
+            SchoolMember member = new SchoolMember(user.getId(), SchoolMemberRoles.STUDENT, school.getId(), null);
             memberRepository.save(member);
         } catch (Exception e) {
             e.printStackTrace();

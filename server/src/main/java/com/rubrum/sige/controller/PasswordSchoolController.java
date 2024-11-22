@@ -51,7 +51,7 @@ public class PasswordSchoolController {
             throws BadRequestException {
         PasswordSchool obj = repository.findBySchoolId(schoolId);
         if (obj.getSchoolPassword().equals(password)) {
-            SchoolMember member = new SchoolMember(userId, SchoolMemberRoles.STUDENT, schoolId);
+            SchoolMember member = new SchoolMember(userId, SchoolMemberRoles.STUDENT, schoolId, null);
             memberRepository.save(member);
             repository.delete(obj);
             return ResponseEntity.ok("Sucesso!");
