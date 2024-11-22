@@ -25,6 +25,7 @@ import Administracao from "./pages/Administracao"
 import Convite from "./pages/Convite";
 import CadastroProfessor from "./pages/CadastroProfessor";
 import EntrarEscola from "./pages/EntrarEscola";
+import AlterarMembro from "./pages/AlterarMembro";
 
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
         <Route path="/convite" element={<Convite/>}/>
         <Route path="/cadastroprofessor" element={<CadastroProfessor/>}/>
         <Route path="/entrarescola" element={<EntrarEscola/>}/>
+        <Route path="/alterarmembro" element={<AlterarMembro/>}/>
       </Routes>
     </Router>
   );

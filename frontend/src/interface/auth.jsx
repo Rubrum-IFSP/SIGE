@@ -711,3 +711,50 @@ export const enterSchool = async (schoolId, password, userId) => {
   }
 
 };
+
+
+export const updateSchoolMember = async (userId, schoolId, role, data) => {
+    const requestData = {
+        userId,
+        schoolId,
+        role,
+        data,
+    };
+
+    try {
+        const response = await fetch(urlCopy+'/schoolMember/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestData),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to update the member');
+        }
+
+        const result = await response.text();
+        return result; // Return success message
+    } catch (error) {
+        console.error('Error:', error);
+        throw error; // Re-throw the error for further handling
+    }
+};
+
+export const getMemberClassByUserIdAndSchoolId = async (userId,schoolId) =>{
+
+    const response = await fetch(urlCopy+`/schoolMember/searchClass?userId=${userId}&schoolId=${schoolId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to update the member');
+    }
+
+    const result = await response.text();
+    return result; // Return success message
+}

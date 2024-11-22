@@ -55,7 +55,7 @@ export default function Administracao() {
 
                 {schoolMembers.map((member, index) => (
 
-                    <AdmPerson key={index} userNumber={"Usuário "+(index+1)+": "} email={member.email} role={member.role} />
+                    <AdmPerson key={index} userNumber={"Usuário "+(index+1)+": "} email={member.email} role={member.role} schoolName={state.name} />
 
                 ))}
 

@@ -1,18 +1,20 @@
 import { useState } from "react";
 import "./AdmPerson.css";
+import { Link } from "react-router-dom";
 
 interface Props {
   email: string;
   role: string;
   userNumber: string;
+  schoolName: string;
 }
 
-export default function AdmPerson({ email, role, userNumber }: Props) {
-  const [selectedValue, setSelectedValue] = useState<string>(role);
-
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedValue(event.target.value);
-  };
+export default function AdmPerson({
+  email,
+  role,
+  userNumber,
+  schoolName,
+}: Props) {
   if (role !== "PROVOST") {
     return (
       <div className="person">
@@ -20,13 +22,12 @@ export default function AdmPerson({ email, role, userNumber }: Props) {
           {userNumber}
           {email}
         </p>
-        <select value={selectedValue} onChange={handleChange}>
-          <option value="ADMIN">Admin</option>
-          <option value="GREMIO">Grêmio</option>
-          <option value="PROFESSOR">Professor</option>
-          <option value="STUDENT">Aluno</option>
-        </select>
-        <button>Alterar</button>
+        <Link
+          to="/alterarmembro"
+          state={{ name: schoolName, email: email, role: role }}
+        >
+          Atualizar
+        </Link>
       </div>
     );
   } else {

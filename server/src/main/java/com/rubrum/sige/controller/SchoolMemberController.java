@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rubrum.sige.domain.schoolMember.SchoolMember;
 import com.rubrum.sige.domain.schoolMember.SchoolMemberRepository;
+import com.rubrum.sige.domain.schoolMember.SchoolMemberRequestDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,4 +45,34 @@ public class SchoolMemberController {
         return list;
 
     }
+
+    @PostMapping("/update")
+    public ResponseEntity<String> updateMember(@RequestBody SchoolMemberRequestDTO data) throws BadRequestException {
+
+        SchoolMember obj = repository.findBySchoolIdAndUserId(data.schoolId(), data.userId());
+
+        if (obj == null)
+            throw new BadRequestException("algo deu errado");
+
+        obj.setRole(data.role());
+        obj.setData(data.data());
+
+        repository.save(obj);
+
+        return ResponseEntity.ok("deu certo");
+
+    }
+
+    @GetMapping("/searchClass")
+    public ResponseEntity<String> getMemberClassByUserId(@RequestParam String userId, @RequestParam String schoolId)
+            throws BadRequestException {
+
+        String res = repository.findBySchoolIdAndUserId(schoolId, userId).getData();
+
+        if (res == null)
+            throw new BadRequestException("algo deu errado");
+
+        return ResponseEntity.ok(res);
+    }
+
 }
