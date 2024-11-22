@@ -807,3 +807,32 @@ export const fetchTeacherEmailBySubjectNameAndSchoolClassId = async (subjectName
   const result = await response.text();
   return result;
 }
+
+export const getSchoolClassById = async (schoolClassId) =>{
+
+  const response = await fetch(urlCopy+`/schoolClass/searchById?schoolClassId=${schoolClassId}`,{
+    method: "GET",
+    headers:{
+      'Content-type': 'application/json'
+    }
+  });
+
+  if(!response.ok){
+    throw new Error("error");
+  }
+  const result = await response.json();
+  return result;
+}
+
+export const getAllSubjectsByTeacherUserId = async (userId) =>{
+
+  const response = await fetch(urlCopy+`/subject/getByTeacherId?userId=${userId}`,{
+    method: 'GET',
+    headers:{
+      'Content-type':'application/json',
+    },
+  })
+
+  const data = await response.json();
+  return data;
+}

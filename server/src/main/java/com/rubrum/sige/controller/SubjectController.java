@@ -46,6 +46,13 @@ public class SubjectController {
         return response;
     }
 
+    @GetMapping("/getByTeacherId")
+    public List<Subject> getAllSubjectsByTeacherId(@RequestParam String userId) {
+        List<Subject> list = repository.findAllByProfessorId(userId);
+
+        return list;
+    }
+
     @PostMapping("/save")
     public ResponseEntity<String> saveSubject(@RequestBody SubjectRequestDTO data) throws BadRequestException {
         Subject subject = new Subject(data);

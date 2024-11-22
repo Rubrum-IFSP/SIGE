@@ -93,6 +93,7 @@ export default function AlterarMembro () {
               <h1>Alterar Usuário</h1>
               <label>Email: {state.email}</label>
               <select name="role" value={role} onChange={onChangeHandler}>
+              
                     <option value="ADMIN">Admin</option>
                     <option value="PROFESSOR">Professor</option>
                     <option value="GREMIO">Grêmio</option>
@@ -100,6 +101,7 @@ export default function AlterarMembro () {
                     
               </select>
               <select name="classe" value={optionClass} onChange={onChangeHandlerClass}>
+              <option value="" disabled selected>Select an option</option>
                     {getHtmlClasses()}
                     
               </select>

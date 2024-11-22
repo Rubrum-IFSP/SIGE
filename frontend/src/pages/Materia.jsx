@@ -151,7 +151,7 @@ export default function Materia(){
 
     }
 
-    else {
+    else if (state.role === "PROFESSOR") {
     
         return (
     
@@ -161,7 +161,7 @@ export default function Materia(){
     
                 <style>{css}</style>
     
-                <MateriaWrapper nomeMateria={state.subjectName}>
+                <MateriaWrapper nomeMateria={state.subjectName} nomeProfessor={professorEmail}>
     
                     {lessons.map((atv, index) => (
     
@@ -183,5 +183,29 @@ export default function Materia(){
     
         );
     
+    }
+    else{
+        return (
+    
+            <Layout connected={Cookie.get("user")}>
+    
+                <Toaster position="top-center" reverseOrder={false} />
+    
+                <style>{css}</style>
+    
+                <MateriaWrapper nomeMateria={state.subjectName} nomeProfessor={professorEmail}>
+    
+                    {lessons.map((atv, index) => (
+    
+                        <Atividade key={index} subjectId={state.subjectId} titulo={atv.title} descricao={atv.descricao} role={state.role} />
+    
+                    ))}
+    
+    
+                </MateriaWrapper>
+    
+            </Layout>
+    
+        );
     }
 }

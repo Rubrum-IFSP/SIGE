@@ -5,18 +5,38 @@ import Menu from "../components/Menu";
 import {fetchRoles, getSchoolIdByName, fetchUserIdByEmail} from "../interface/auth";
 import { useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const date = new Date();
+
+
+
+export default function Home() {
+
+  const [role,setRole] = useState ("");
+  const {state} = useLocation();
+
+  const date = new Date();
+  const [schoolId,setSchoolId] = useState("");
 
 function daysInMonth(month, year) {
   return new Date(year, month, 0).getDate();
 }
+
+  useEffect(()=>{
+    const getSchoolIdByName = async (schoolname) =>{
+      const thisSchoolId = await getSchoolIdByName(schoolname);
+      setSchoolId(thisSchoolId)
+    }
+    getSchoolIdByName();
+  },state.name)
+  
+
 function calendarDays(){
   let result = [];
   let dia = " ";
   let isEvent = false;
-  let idEscola = 123;
+  let idEscola = schoolId;
+
 
   let month = date.getMonth()+1;
   let year = date.getFullYear();
@@ -31,7 +51,6 @@ function calendarDays(){
   for (let i = 1; i <= dayNum; i++) {
     if (i < 10) {
       dia = "0";
-      isEvent=true;
     } else {dia = ""; isEvent=false;}
     result.push(
       <DiaCalendario
@@ -55,12 +74,6 @@ function getMonthName(e){
 
   return meses[e];
 }
-
-
-export default function Home() {
-
-  const [role,setRole] = useState ("");
-  const {state} = useLocation();
 
 
   const getRole = async () =>{

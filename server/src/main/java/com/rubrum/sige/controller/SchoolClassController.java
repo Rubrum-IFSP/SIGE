@@ -99,4 +99,11 @@ public class SchoolClassController {
 
     }
 
+    @GetMapping("/searchById")
+    public ResponseEntity<SchoolClassResponseDTO> searchSchoolClassById(@RequestParam String schoolClassId) {
+        SchoolClass obj = repository.findById(schoolClassId).get();
+
+        return ResponseEntity.ok(new SchoolClassResponseDTO(obj));
+    }
+
 }

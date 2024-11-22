@@ -1,7 +1,7 @@
 import Layout from "../components/Layout"
 import Classes from "../components/Classes"
 import { Link, useLocation } from "react-router-dom";
-import { getClassesBySchoolId, getSchoolIdByName, getSubjectsBySchoolClassId, deleteSchoolClass } from "../interface/auth";
+import { getClassesBySchoolId, getSchoolIdByName, getSubjectsBySchoolClassId, deleteSchoolClass, fetchUserIdByEmail, getSchoolMembersBySchoolId, getMemberClassByUserIdAndSchoolId, getSchoolClassById, getAllSubjectsByTeacherUserId } from "../interface/auth";
 import Cookie from "js-cookie";
 import { useState, useEffect, Children } from "react";
 import {Toaster, toast} from "react-hot-toast";
@@ -21,7 +21,6 @@ export default function ClassesPage() {
   const { state } = useLocation();
 
   const role = state.role; 
-    console.log(state.role)
 
   const css =`
     .subject{
@@ -57,6 +56,7 @@ export default function ClassesPage() {
   transition:0.4s;
     }
   `
+ 
     if(role === "PROVOST" || role === "ADMIN"){
     useEffect(() => {
 
@@ -196,6 +196,25 @@ export default function ClassesPage() {
 
     else if(role  === "PROFESSOR")
     {
+        const user = JSON.parse(Cookie.get("user"));
+        const [subjects, setSubjects] = useState([]);
+
+        useEffect(()=>{
+            const thisGetAllSubjectsByTeacherUserId = async ()=>{
+                const email = user.email;
+                
+                const userId = await fetchUserIdByEmail(email);
+                const response = await getAllSubjectsByTeacherUserId(userId);
+
+                setSubjects(response);
+                console.log(response);
+                
+
+            }
+
+            thisGetAllSubjectsByTeacherUserId();
+        },[state.name])
+
         return (
 
             <Layout connected={Cookie.get("user")}>
@@ -204,7 +223,29 @@ export default function ClassesPage() {
     
                 <div className="mainWrapper">
     
-                    {"PROFESSOR"}
+                    <Classes nomeEscola={state.name} nomeClasse={"Suas Matérias"}>
+                    {subjects.length > 0 ? (
+        
+        subjects.map((subject) => (
+
+            <div key={subject.id}>
+
+                <Link className="subject" to={"/materia"} state={{ schoolName: state.name, subjectName: subject.name, subjectId: subject.id, schoolClassId: subject.schoolClassId, role: state.role }}>
+
+                    {subject.name}
+
+                </Link>
+
+            </div>
+
+        ))
+
+    ) : (
+
+        <div>No subjects available.</div> // Optional: Message when no subjects are available
+
+    )}
+                    </Classes>
     
                 </div>
     
@@ -213,20 +254,95 @@ export default function ClassesPage() {
         );
     }
     else{
+        const user = JSON.parse(Cookie.get("user"));
+        const [classe, setClasse] = useState({});
+        const [subjects, setSubjects] = useState([]);
+        
+        useEffect(() => {
+
+            const getClassByUserIdAndSchoolId = async () => {
+        
+                const userId = await fetchUserIdByEmail(user.email);
+        
+                const schoolId = await getSchoolIdByName(state.name);
+        
+                const schoolClassId = await getMemberClassByUserIdAndSchoolId(userId, schoolId);
+        
+                const schoolClass = await getSchoolClassById(schoolClassId);
+
+                setClasse(schoolClass);
+
+                console.log(schoolClass);
+        
+            };
+        
+        
+            getClassByUserIdAndSchoolId();
+        
+        }, [state.name]);
+        
+        
+        useEffect(() => {
+        
+            const getAllSubjectsByClassId = async () => {
+        
+                if (classe.id) { // Ensure classe.id is defined before fetching
+        
+                    const response = await getSubjectsBySchoolClassId(classe.id);
+        
+                    setSubjects(response);
+                    console.log(response)
+        
+                }
+        
+            };
+        
+        
+            getAllSubjectsByClassId();
+        
+        }, [classe]); 
+
+
         return (
 
             <Layout connected={Cookie.get("user")}>
+        
                 <style>{css}</style>
+        
                 <Toaster position="top-center" reverseOrder={false} />
-    
+        
                 <div className="mainWrapper">
-    
-                  {"RESTO"}
-    
+        
+                    <Classes nomeClasse={classe.name} nomeEscola={state.name}>
+        
+                        {subjects.length > 0 ? (
+        
+                            subjects.map((subject) => (
+        
+                                <div key={subject.id}>
+        
+                                    <Link className="subject" to={"/materia"} state={{ schoolName: state.name, subjectName: subject.name, subjectId: subject.id, schoolClassId: classe.id, role: state.role }}>
+        
+                                        {subject.name}
+        
+                                    </Link>
+        
+                                </div>
+        
+                            ))
+        
+                        ) : (
+        
+                            <div>No subjects available.</div> // Optional: Message when no subjects are available
+        
+                        )}
+        
+                    </Classes>
+        
                 </div>
-    
+        
             </Layout>
-    
+        
         );
     }
 }
