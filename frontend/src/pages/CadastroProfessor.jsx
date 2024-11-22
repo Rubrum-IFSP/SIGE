@@ -61,6 +61,7 @@ export default function CadastroProfessor() {
                     <h1>Alterar Professor</h1>
                     <label>Matéria: {state.subjectName}</label>
                     <select value={optionTeacher} onChange={onChangeHandler}>
+                    <option value="" disabled selected>Select an option</option>
                         {teachers.map((teacher) => (
                             <option key={teacher.id} value={teacher.email}>
                                 {teacher.email}
