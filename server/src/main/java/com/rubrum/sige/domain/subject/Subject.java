@@ -28,10 +28,11 @@ public class Subject {
     private String id;
     private String schoolClassId;
     private String name;
+    private String professorId;
 
     public Subject(SubjectRequestDTO data) {
         this.schoolClassId = data.schoolClassId();
         this.name = data.name();
-
+        this.professorId = data.professorId();
     }
 }

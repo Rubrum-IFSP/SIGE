@@ -21,6 +21,8 @@ import com.rubrum.sige.domain.subject.Subject;
 import com.rubrum.sige.domain.subject.SubjectRepository;
 import com.rubrum.sige.domain.subject.SubjectRequestDTO;
 import com.rubrum.sige.domain.subject.SubjectResponseDTO;
+import com.rubrum.sige.domain.user.User;
+import com.rubrum.sige.domain.user.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,6 +34,9 @@ public class SubjectController {
 
     @Autowired
     private SubjectRepository repository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/{name}")
     public List<Subject> getAllSubjectBySchoolClassId(@RequestHeader String schoolClassId) throws BadRequestException {
@@ -83,6 +88,33 @@ public class SubjectController {
             throw new BadRequestException("algo deu errado ");
         }
         return ResponseEntity.ok(new SubjectResponseDTO(subject));
+    }
+
+    @GetMapping("/saveProfessor")
+    public ResponseEntity<String> updateSubject(@RequestParam String professorId, @RequestParam String subjectName,
+            @RequestParam String schoolClassId) throws BadRequestException {
+        Subject obj = repository.findByNameAndSchoolClassId(subjectName, schoolClassId);
+
+        if (obj == null)
+            throw new BadRequestException("algo deu errado");
+
+        obj.setProfessorId(professorId);
+        repository.save(obj);
+
+        return ResponseEntity.ok("deu certo");
+    }
+
+    @GetMapping("/getProfessor")
+    public ResponseEntity<String> getProfessorBySubjectNameAndSchoolClassId(@RequestParam String subjectName,
+            @RequestParam String schoolClassId) throws BadRequestException {
+
+        String response = repository.findByNameAndSchoolClassId(subjectName, schoolClassId).getProfessorId();
+        User user = userRepository.findById(response).get();
+
+        if (user == null)
+            throw new BadRequestException("algo deu errado");
+
+        return ResponseEntity.ok(user.getEmail());
     }
 
 }

@@ -775,3 +775,35 @@ export const getAllTeachersBySchoolId = async (schoolId) =>{
   const result =  await response.json();
   return result;
 }
+
+export const updateTeacher = async (professorId, subjectName, schoolClassId) =>{
+
+  const response = await fetch(urlCopy+`/subject/saveProfessor?professorId=${professorId}&subjectName=${subjectName}&schoolClassId=${schoolClassId}`,{
+    method: "GET",
+    header :{
+      'Content-type' : 'application/json',
+    },
+  });
+
+  if(!response.ok){
+    throw new Error("eita")
+  }
+  const result = await response.text();
+  return result;
+}
+
+export const fetchTeacherEmailBySubjectNameAndSchoolClassId = async (subjectName, schoolClassId) =>{
+
+  const response = await fetch(urlCopy+`/subject/getProfessor?subjectName=${subjectName}&schoolClassId=${schoolClassId}`,{
+    method: 'GET',
+    header:{
+      'Content-type': 'application/json'
+    },
+  });
+
+  if(!response.ok){
+    throw new Error("error")
+  }
+  const result = await response.text();
+  return result;
+}

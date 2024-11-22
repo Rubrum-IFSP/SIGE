@@ -3,7 +3,7 @@ import MateriaWrapper from "../components/MateriaWrapper";
 import Atividade from "../components/Atividades";
 import { Link, useLocation , useNavigate} from "react-router-dom";
 import { useState, useEffect } from "react";
-import {deleteSubject, getLessonsBySubjectId} from "../interface/auth.jsx";
+import {deleteSubject, fetchTeacherEmailBySubjectNameAndSchoolClassId, getLessonsBySubjectId} from "../interface/auth.jsx";
 import Cookie from "js-cookie";
 import {Toaster, toast} from "react-hot-toast";
 
@@ -18,6 +18,8 @@ export default function Materia(){
     const {state} = useLocation();
 
     const navigate = useNavigate();
+
+    const [professorEmail, setProfessorEmail] = useState("");
 
     const css = 
     `
@@ -88,10 +90,28 @@ export default function Materia(){
 
     console.log(state.subjectName, state.schoolClassId);
 
+    useEffect(()=>{
+        const getProfessorEmail = async ()=>{
+            const schoolClassId = state.schoolClassId;
+            const subjectName = state.subjectName;
+    
+            const result = await fetchTeacherEmailBySubjectNameAndSchoolClassId(subjectName,schoolClassId);
+    
+            const copy = result;
+            setProfessorEmail(copy);
+            console.log(copy)
+        }
+        getProfessorEmail();
+    },[state.subjectId])
+
+   
+
+    
 
     if (state.role === "PROVOST" || state.role === "ADMIN") {
 
         return (
+
 
             <Layout connected={Cookie.get("user")}>
 
@@ -99,7 +119,7 @@ export default function Materia(){
 
                 <style>{css}</style>
 
-                <MateriaWrapper nomeMateria={state.subjectName}>
+                <MateriaWrapper nomeMateria={state.subjectName} nomeProfessor={professorEmail}>
 
                     {lessons.map((atv, index) => (
 
