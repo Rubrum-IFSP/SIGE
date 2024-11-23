@@ -28,7 +28,12 @@ export default function EntrarEscola(){
 
         const response = await enterSchool(schoolId,password,userId);
 
-        console.log(response);
+        if(response === "Sucesso!"){
+          return toast.success("Você entrou com Êxito!")
+        }
+        else{
+          return toast.error("Algo deu Errado!");
+        }
 
         
     }
@@ -48,6 +53,10 @@ export default function EntrarEscola(){
     return (
         <Layout connected={Cookie.get("user")}>
           <style>{css}</style>
+          <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
           <div className="atendimentoWrapper">
             <form>
               <h1>Entrar em Uma Escola</h1>

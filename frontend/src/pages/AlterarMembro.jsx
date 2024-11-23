@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {Toaster, toast} from "react-hot-toast";
-import { fetchUserIdByEmail, getClassesBySchoolId, getMemberClassByUserIdAndSchoolId, getSchoolIdByName, updateSchoolMember } from "../interface/auth";
+import { deleteSchoolMemberByUserIdAndSchoolId, fetchUserIdByEmail, getClassesBySchoolId, getMemberClassByUserIdAndSchoolId, getSchoolIdByName, updateSchoolMember } from "../interface/auth";
 
 export default function AlterarMembro () {
 
@@ -14,6 +14,23 @@ export default function AlterarMembro () {
     select
     {
         margin-top:10px;
+    }
+    .deleteButton
+    {
+        width:100%;
+        border: 2px solid black;
+        background-color: rgb( 255, 21, 21 );
+        margin-top:10px;
+        border-radius:0.8em;
+        padding: 5px 0px 5px 0px;
+        font-weight:bolder;
+        color:white;
+    }
+    .deleteButton:hover
+    {
+        background-color:black;
+        color:white;
+        transition:0.3s;
     }
 `
     const {state} = useLocation();
@@ -89,6 +106,21 @@ export default function AlterarMembro () {
         else return toast.error("Algo deu Errado! Tente Novamente Depois")
     }
 
+    const deletarUsuario = async (e)=>{
+        e.preventDefault();
+        const userId = await fetchUserIdByEmail(state.email);
+        const schoolId = await getSchoolIdByName(schoolName);
+
+        const res = await deleteSchoolMemberByUserIdAndSchoolId(userId,schoolId);
+
+        if(res==="deu certo"){
+            return toast.success("Usuário Excluído")
+        }
+        else{
+            return toast.error("Algo deu Errado")
+        }
+    }
+
     return (
         <Layout connected={Cookie.get("user")}>
           <style>{css}</style>
@@ -115,6 +147,7 @@ export default function AlterarMembro () {
               </select>
                
               <input className="submitButton" onClick={alterarUsuario} type="submit" value="Enviar" />
+            <button className="deleteButton" onClick={deletarUsuario}>Deletar Usuário</button>
             </form>
           </div>
         </Layout>

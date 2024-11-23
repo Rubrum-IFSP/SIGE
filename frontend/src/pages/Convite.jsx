@@ -52,7 +52,7 @@ export default function Convite() {
       const res = await savePassword(schoolId, senha["password"]);
 
       if(res.success){
-        return toast.sucess("Senha Criada com Êxito!")
+        return toast.success("Senha Criada com Êxito!")
       }
       else{
         const schoolId = await getSchoolIdByName(state.name);

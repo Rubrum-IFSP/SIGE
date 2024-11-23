@@ -18,6 +18,7 @@ import com.rubrum.sige.domain.schoolMember.SchoolMember;
 import com.rubrum.sige.domain.schoolMember.SchoolMemberRepository;
 import com.rubrum.sige.domain.schoolMember.SchoolMemberRequestDTO;
 import com.rubrum.sige.domain.schoolMember.SchoolMemberRoles;
+import com.rubrum.sige.domain.school_class.DeleteSchoolClassRequestDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -95,6 +96,20 @@ public class SchoolMemberController {
         System.out.println(copy);
 
         return copy;
+    }
+
+    @GetMapping("/delete")
+    public ResponseEntity<String> deletByUserIdAndSchoolId(@RequestParam String userId, @RequestParam String schoolId)
+            throws BadRequestException {
+
+        SchoolMember member = repository.findBySchoolIdAndUserId(schoolId, userId);
+
+        if (member == null)
+            throw new BadRequestException("algo deu errado");
+
+        repository.deleteById(member.getId());
+
+        return ResponseEntity.ok("deu certo");
     }
 
 }

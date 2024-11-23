@@ -870,3 +870,17 @@ export const getPasswordBySchoolId = async(schoolId)=>{
 
   return data;
 }
+
+export const deleteSchoolMemberByUserIdAndSchoolId = async (userId,schoolId)=>{
+
+  const response = await fetch(urlCopy+`/schoolMember/delete?userId=${userId}&schoolId=${schoolId}`,{
+    method: 'GET',
+    headers:{
+      'Content-type': 'application/json'
+    }
+  })
+  
+  const data = await response.text();
+
+  return data;
+}
