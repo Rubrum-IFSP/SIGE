@@ -49,6 +49,10 @@ export default function Convite() {
       const schoolId = await getSchoolIdByName(state.name);
       console.log(schoolId)
 
+      if(senha["password"].length <8){
+        return toast.error("Senha Muito Curta! 8 Caractéres min.")
+      }
+
       const res = await savePassword(schoolId, senha["password"]);
 
       if(res.success){
@@ -76,7 +80,7 @@ export default function Convite() {
         <form>
         <h1>Criar Convite</h1>
         <label>Senha:</label>
-        <input onChange={onChangeHandler} type="text" name="password" />
+        <input onChange={onChangeHandler} type="text" name="password" minLength={3} />
           
           <button className="submitButton"  onClick={criarSenha} >Convidar</button>
           <label>{senhaResponse? senhaResponse:senhaResponse}</label>
