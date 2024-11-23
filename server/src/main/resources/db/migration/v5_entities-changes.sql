@@ -89,7 +89,13 @@ CREATE TABLE "news_comment" (
 CREATE TABLE "password_school" (
   "id" varchar PRIMARY KEY NOT NULL,
   "school_id" varchar NOT NULL,
-  "password" varchar(255) NOT NULL,
+  "school_password" varchar(255) NOT NULL,
+)
+
+CREATE TABLE "faq_message" (
+  "id" varchar PRIMARY KEY NOT NULL,
+  "sender_id" varchar NOT NULL,
+  "message" varchar,
 )
 
 COMMENT ON COLUMN "school_member"."data" IS 'Guardar os dados desta coluna em JSON.';
@@ -121,3 +127,5 @@ ALTER TABLE "news_comment" ADD FOREIGN KEY ("news_id") REFERENCES "news" ("id");
 ALTER TABLE "subject" ADD FOREIGN KEY ("professor_id") REFERENCES "school_member" ("id");
 
 ALTER TABLE "password_school" ADD FOREIGN KEY("school_id") REFERENCES "school" ("id");
+
+ALTER TABLE "faq_message" ADD FOREIGN KEY("sender_id") REFERENCES "users" ("id");

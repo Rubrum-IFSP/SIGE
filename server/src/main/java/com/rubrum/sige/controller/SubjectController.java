@@ -57,9 +57,9 @@ public class SubjectController {
     public ResponseEntity<String> saveSubject(@RequestBody SubjectRequestDTO data) throws BadRequestException {
         Subject subject = new Subject(data);
 
-        Subject obj = repository.findByName(data.name());
+        Subject obj = repository.findByNameAndSchoolClassId(data.name(), data.schoolClassId());
 
-        if (obj != null && obj.getSchoolClassId().equalsIgnoreCase(data.schoolClassId())) {
+        if (obj != null) {
             throw new BadRequestException("subject nao adicionada");
         }
 

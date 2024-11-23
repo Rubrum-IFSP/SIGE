@@ -2,6 +2,7 @@ import Cookie from "js-cookie"
 import Layout from "../components/Layout";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import {Toaster, toast} from "react-hot-toast";
 import { fetchUserIdByEmail, getClassesBySchoolId, getMemberClassByUserIdAndSchoolId, getSchoolIdByName, updateSchoolMember } from "../interface/auth";
 
 export default function AlterarMembro () {
@@ -82,12 +83,19 @@ export default function AlterarMembro () {
         const schoolId = await getSchoolIdByName(schoolName);
         const res =  await updateSchoolMember(userId,schoolId,role,optionClass);
 
-        console.log(res);
+        if(res === "deu certo"){
+            return toast.success("Usuário Alterado com Sucesso!")
+        }
+        else return toast.error("Algo deu Errado! Tente Novamente Depois")
     }
 
     return (
         <Layout connected={Cookie.get("user")}>
           <style>{css}</style>
+          <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
           <div className="atendimentoWrapper">
             <form>
               <h1>Alterar Usuário</h1>

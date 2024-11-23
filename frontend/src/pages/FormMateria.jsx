@@ -109,12 +109,14 @@ export default function FormMateria() {
 
     const response =  await saveSubject(subjectData);
 
-    if(response){
+    if(response.ok){
+      console.log(response)
       return toast.success("Matéria Adicionada");
+      
     }
-   
-      return toast.error("Algo deu errado!");
-  
+    else{
+    return toast.error("Algo deu errado!");
+    }
 
     
 

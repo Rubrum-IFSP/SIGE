@@ -18,6 +18,7 @@ import com.rubrum.sige.domain.schoolMember.SchoolMemberRoles;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Validated
 @RestController
@@ -59,6 +60,16 @@ public class PasswordSchoolController {
         }
         throw new BadRequestException("algo deu errado");
 
+    }
+
+    @GetMapping("/getBySchoolId")
+    public ResponseEntity<String> getPasswordBySchoolId(@RequestParam String schoolId) throws BadRequestException {
+        PasswordSchool obj = repository.findBySchoolId(schoolId);
+
+        if (obj == null) {
+            throw new BadRequestException("nao existe senha");
+        }
+        return ResponseEntity.ok(obj.getSchoolPassword());
     }
 
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import Layout from "../components/Layout"
+import {Toaster, toast} from "react-hot-toast";
 import { getSchoolIdByName, getAllTeachersBySchoolId, getUserById, fetchUserIdByEmail, updateTeacher } from "../interface/auth"
 
 export default function CadastroProfessor() {
@@ -42,7 +43,10 @@ export default function CadastroProfessor() {
 
       const response = await updateTeacher(professorId, subjectName, schoolClassId);
 
-      console.log(response);
+      if(response === "deu certo"){
+        return toast.success("Professor Alterado com Sucesso!");
+      }
+      else return toast.error("Algo deu Errado!")
     }
 
     const onChangeHandler = (e) =>{
@@ -56,6 +60,10 @@ export default function CadastroProfessor() {
     return (
         <Layout connected={Cookies.get("user")}>
             <style>{css}</style>
+            <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
             <div className="atendimentoWrapper">
                 <form>
                     <h1>Alterar Professor</h1>

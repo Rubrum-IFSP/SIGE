@@ -4,6 +4,8 @@ import Cookie from "js-cookie";
 import { saveLession, getSubjectIdByNameAndSchoolClassId } from "../interface/auth";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import {Toaster, toast} from "react-hot-toast";
+
 const css = `
   .atendimentoWrapper{
     box-shadow: 4px 4px 10px ;
@@ -40,7 +42,12 @@ export default function FormAtividade() {
 
     const response = await saveLession(lession);
 
-    console.log(response);
+    if(response){
+      return toast.sucess("Atividade Adicionada")
+    }
+    else{
+      return toast.error("Algo deu Errado!")
+    }
 
   }
 
@@ -50,6 +57,10 @@ export default function FormAtividade() {
   return (
     <Layout connected={Cookie.get("user")}>
       <style>{css}</style>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
       <div className="atendimentoWrapper">
         <form>
           <h1>Nova Atividade</h1>

@@ -836,3 +836,37 @@ export const getAllSubjectsByTeacherUserId = async (userId) =>{
   const data = await response.json();
   return data;
 }
+
+export const saveFaqMessage = async (userId,message) =>{
+
+  const faqMessage = {
+    senderId: userId,
+    message: message,
+  }
+
+  const response = await fetch(urlCopy+"/faqMessage/save",{
+    method: 'POST',
+    body: JSON.stringify(faqMessage),
+    headers:{
+      'Content-type':'application/json'
+      
+    }
+  })
+
+  const data = await response.text();
+  return data;
+}
+
+export const getPasswordBySchoolId = async(schoolId)=>{
+
+  const response = await fetch(urlCopy+`/password/getBySchoolId?schoolId=${schoolId}`,{
+    method: 'GET',
+    headers:{
+      'Content-type': 'application/json'
+    }
+  });
+
+  const data = await response.text();
+
+  return data;
+}
