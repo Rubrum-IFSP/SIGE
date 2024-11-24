@@ -59,17 +59,24 @@ export default function BlogPage(props) {
 }
 else{
   return (
-    <Layout connected={true}>
-      <Blog
-        content={[
+    <Layout connected={Cookie.get("user")}>
+      
+      <Blog>
+      
+      {blogPosts.length > 0 ?(
+        
+        blogPosts.map((post)=>(
           <BlogContent
-            title={state.id}
-            author={state.id}
-            date={state.id}
-            content={state.id}
-          />,
-        ]}
-      />
+            title={post.title}
+            author={post.author}
+            content={post.content}
+          />
+        ))
+      ):(
+        <div>Ainda não Há Posts</div>
+      )}
+
+      </Blog>
     </Layout>
   );
 }

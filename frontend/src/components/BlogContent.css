@@ -25,10 +25,10 @@
     font-weight:lighter;
 }
 
-.buttonWrapper{
+.blogContentButtonWrapper{
     margin-top:10px;
 }
-.buttonWrapper button{
+.blogContentButtonWrapper button{
     width:100%;
     font-size:0.8em;
     padding:4px;
@@ -37,7 +37,7 @@
     font-weight:bolder;
 }
 
-.buttonWrapper button:hover{
+.blogContentButtonWrapper button:hover{
     background-color:rgb(255, 21, 21);
     transition:0.3s;
 }

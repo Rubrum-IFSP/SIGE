@@ -4,7 +4,7 @@ interface Props {
   title: string;
   author: string;
   content: string;
-  onClickFunc: any;
+  onClickFunc?: any;
 }
 
 export default function BlogContent({
@@ -18,8 +18,8 @@ export default function BlogContent({
       <h1>{title}</h1>
       <span className="content">{content}</span>
       <span className="details">{author}</span>
-      <div className="buttonWrapper">
-        <button onClick={onClickFunc}>Excluir</button>
+      <div className="blogContentButtonWrapper">
+        {onClickFunc && <button onClick={onClickFunc}>Excluir</button>}
       </div>
     </div>
   );
