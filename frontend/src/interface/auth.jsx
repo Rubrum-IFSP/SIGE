@@ -884,3 +884,48 @@ export const deleteSchoolMemberByUserIdAndSchoolId = async (userId,schoolId)=>{
 
   return data;
 }
+
+export const saveBlogPost = async (blogPost) =>{
+
+
+  const response = await fetch(urlCopy+`/blogPost/save`,{
+    method: 'POST',
+    body: JSON.stringify(blogPost),
+    headers:{
+      'Content-type': 'application/json'
+    }
+  })
+
+  const data = await response.text();
+
+  return data;
+}
+
+export const getAllBlogPostBySchoolId = async (schoolId) =>{
+
+  const response = await fetch(urlCopy+`/blogPost/getBySchoolId?schoolId=${schoolId}`,{
+    method: 'GET',
+    headers:{
+      'Content-type': 'application/json'
+    }
+  })
+
+  const data = await response.json();
+  return data;
+
+}
+
+export const deleteBlogPostById = async(id) =>{
+
+  const response =  await fetch(urlCopy+`/blogPost/deleteById?id=${id}`,{
+
+    method: 'GET',
+    headers:{
+      'Content-type': 'application/json'
+    }
+  })
+
+  const data = await response.text();
+
+  return data;
+}

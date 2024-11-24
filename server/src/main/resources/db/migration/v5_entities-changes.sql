@@ -98,6 +98,15 @@ CREATE TABLE "faq_message" (
   "message" varchar,
 )
 
+CREATE TABLE "blog_post" (
+ "id" varchar PRIMARY KEY NOT NULL,
+ "school_id" varchar NOT NULL,
+ "title" varchar,
+ "author" varchar NOT NULL,
+ "content" varchar
+
+)
+
 COMMENT ON COLUMN "school_member"."data" IS 'Guardar os dados desta coluna em JSON.';
 
 COMMENT ON COLUMN "news_comment"."sender" IS 'Apenas o nome de quem comentou.';
@@ -129,3 +138,5 @@ ALTER TABLE "subject" ADD FOREIGN KEY ("professor_id") REFERENCES "school_member
 ALTER TABLE "password_school" ADD FOREIGN KEY("school_id") REFERENCES "school" ("id");
 
 ALTER TABLE "faq_message" ADD FOREIGN KEY("sender_id") REFERENCES "users" ("id");
+
+ALTER TABLE "blog_post" ADD FOREIGN KEY("school_id") REFERENCES "school" ("id");

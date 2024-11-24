@@ -24,3 +24,20 @@
     text-decoration:underline;
     font-weight:lighter;
 }
+
+.buttonWrapper{
+    margin-top:10px;
+}
+.buttonWrapper button{
+    width:100%;
+    font-size:0.8em;
+    padding:4px;
+    background-color: black;
+    color:white;
+    font-weight:bolder;
+}
+
+.buttonWrapper button:hover{
+    background-color:rgb(255, 21, 21);
+    transition:0.3s;
+}
