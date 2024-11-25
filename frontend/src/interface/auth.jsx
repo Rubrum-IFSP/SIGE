@@ -187,24 +187,14 @@ export const fetchRoles = async (userId, schoolId) => {
       });
 
 
-      if (!response.ok) {
-
-          throw new Error('Network response was not ok');
-
-      }
-
-
-      const role = await response.text();
-
-      console.log('Role:', role);
-
-      return role; // Return the role or handle it as needed
+      const role = await response.body;
+      
+      return role;
 
   } catch (error) {
 
       console.error('Error fetching role:', error);
 
-      // Handle the error appropriately, e.g., show a message to the user
 
   }
 

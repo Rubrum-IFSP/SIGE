@@ -26,11 +26,7 @@ import Convite from "./pages/Convite";
 import CadastroProfessor from "./pages/CadastroProfessor";
 import EntrarEscola from "./pages/EntrarEscola";
 import AlterarMembro from "./pages/AlterarMembro";
-<<<<<<< Updated upstream
-import RecebeConvite from "./pages/RecebeConvite";
-=======
 import SpecificClass from "./pages/SpecificClass";
->>>>>>> Stashed changes
 import RecebeConvite from "./pages/RecebeConvite";
 
 function App() {
@@ -65,11 +61,8 @@ function App() {
         <Route path="/cadastroprofessor" element={<CadastroProfessor/>}/>
         <Route path="/entrarescola" element={<EntrarEscola/>}/>
         <Route path="/alterarmembro" element={<AlterarMembro/>}/>
-<<<<<<< Updated upstream
         <Route path="/recebeconvite" element={<RecebeConvite/>} />
-=======
         <Route path="/specificclass" element={<SpecificClass/>}/>
->>>>>>> Stashed changes
       </Routes>
     </Router>
   );

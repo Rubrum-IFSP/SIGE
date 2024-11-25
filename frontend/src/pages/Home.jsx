@@ -11,85 +11,89 @@ import { useEffect, useState } from "react";
 
 
 export default function Home() {
-
+  
   const [role,setRole] = useState ("");
   const {state} = useLocation();
-
+  const[schoolId, setSchoolId] = useState("");
   const date = new Date();
-  const [schoolId,setSchoolId] = useState("");
 
-function daysInMonth(month, year) {
-  return new Date(year, month, 0).getDate();
-}
-
-  useEffect(()=>{
-    const getSchoolIdByName = async (schoolname) =>{
-      const thisSchoolId = await getSchoolIdByName(schoolname);
-      setSchoolId(thisSchoolId)
-    }
-    getSchoolIdByName();
-  },state.name)
-  
-
-function calendarDays(){
-  let result = [];
-  let dia = " ";
-  let isEvent = false;
-  let idEscola = schoolId;
-
-
-  let month = date.getMonth()+1;
-  let year = date.getFullYear();
-  let dayNum = daysInMonth(month,year);
-  if(month <10){
-    "0".concat(month);
+  function daysInMonth(month, year) {
+    return new Date(year, month, 0).getDate();
   }
 
 
+    
+
+  function calendarDays(){
+    let result = [];
+    let dia = " ";
+    let isEvent = false;
+    let idEscola = schoolId;
 
 
-  for (let i = 1; i <= dayNum; i++) {
-    if (i < 10) {
-      dia = "0";
-    } else {dia = ""; isEvent=false;}
-    result.push(
-      <DiaCalendario
-        dia={dia + i +"/"+ month}
-        isEvent={isEvent}
-        idEscola={idEscola}
-        key={i}
-      ></DiaCalendario>
+    let month = date.getMonth()+1;
+    let year = date.getFullYear();
+    let dayNum = daysInMonth(month,year);
+    if(month <10){
+      "0".concat(month);
+    }
+
+
+
+
+    for (let i = 1; i <= dayNum; i++) {
+      if (i < 10) {
+        dia = "0";
+      } else {dia = ""; isEvent=false;}
+      result.push(
+        <DiaCalendario
+          dia={dia + i +"/"+ month}
+          isEvent={isEvent}
+          idEscola={idEscola}
+          key={i}
+        ></DiaCalendario>
+      );
+    }
+
+
+
+    return (
+      result
     );
   }
 
+  function getMonthName(e){
+    const meses =["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"]
 
-
-  return (
-    result
-  );
-}
-
-function getMonthName(e){
-  const meses =["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"]
-
-  return meses[e];
-}
-
-
-  const getRole = async () =>{
-    const schoolName =  state.name;
-    const userName = JSON.parse( Cookies.get("user")).email;
-
-    const schoolId = await getSchoolIdByName(schoolName);
-    const userId = await fetchUserIdByEmail(userName);
-
-    const response = await fetchRoles(userId,schoolId)
-    
-    setRole(response);
+    return meses[e];
   }
 
-  getRole();
-  console.log(Cookies.get("role"));
+  useEffect(()=>{
+    const setSchoolIdFunction = async () =>{
+      const schoolId = await getSchoolIdByName(state.name);
+      setSchoolId(schoolId);
+    }
+    setSchoolIdFunction();
+  },[state.name])
+
+  useEffect(()=>{
+    const getRole = async () =>{
+    
+      const userName = JSON.parse( Cookies.get("user")).email;
+      const userId = await fetchUserIdByEmail(userName);
+  
+      console.log(userId)
+      console.log(schoolId);
+  
+      const response = await fetchRoles(userId,schoolId)
+      
+      setRole(response);
+    }
+  
+    getRole();
+  },[schoolId])
+
+  
  
   return(<Layout connected={Cookies.get("user")}>
     <Menu role={role} nomeEscola={state.name} idEscola={state.name}></Menu>
