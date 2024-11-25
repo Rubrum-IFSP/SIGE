@@ -1,6 +1,5 @@
 package com.rubrum.sige.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.apache.coyote.BadRequestException;

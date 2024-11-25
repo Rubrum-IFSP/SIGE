@@ -27,3 +27,24 @@
     text-decoration:underline;
     font-weight:lighter;
 }
+
+.centerWrapper.loading {
+    font-weight: 700;
+    font-size: 1.5em;
+}
+
+h1, h2, p {
+    text-align: justify;
+}
+
+figure {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+img {
+    max-height: 50vh;
+    max-width: 100%;
+}

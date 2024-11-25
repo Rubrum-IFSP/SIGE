@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rubrum.sige.domain.schoolMember.SchoolMember;
 import com.rubrum.sige.domain.schoolMember.SchoolMemberRepository;
 import com.rubrum.sige.domain.schoolMember.SchoolMemberRequestDTO;
-import com.rubrum.sige.domain.schoolMember.SchoolMemberRoles;
-import com.rubrum.sige.domain.school_class.DeleteSchoolClassRequestDTO;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -13,12 +13,27 @@ export default function Noticias({
   datePublished,
   author,
 }: Props) {
+  const jsonContent = JSON.parse(content);
+  let formatedContent = "<div></div>";
+
+  if (typeof jsonContent == "object") {
+    formatedContent = jsonContent.map((e : any) => {
+      if (e.tag == "img") {
+        return "<figure><" + e.tag + " src='" + e.value + "'" + " /></figure>";
+      }
+
+      return "<" + e.tag + ">" + e.value + "</" + e.tag + ">";
+    }).join(" ");
+  }
+
+
+
   return (
     <div className="newsWrapper">
       <h1>{title}</h1>
-      <span className="content">{content}</span>
+      <span className="content"><div dangerouslySetInnerHTML={{__html: formatedContent}}></div></span>
       <span className="details">
-        {datePublished} - {author}
+        {datePublished.split("T")[0]} - {author}
       </span>
     </div>
   );

@@ -1,7 +1,7 @@
--- SELECT 'CREATE DATABASE sige'
--- WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'sige')\gexec
+SELECT 'CREATE DATABASE sige'
+WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'sige')\gexec
 
--- \c sige
+\c sige
 
 CREATE TABLE "users" (
   "id" varchar PRIMARY KEY NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE "users" (
 
 CREATE TABLE "school" (
   "id" varchar PRIMARY KEY NOT NULL,
-  "name" varchar(255) NOT NULL UNIQUE,
+  "name" varchar(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE "calendary_event" (
@@ -34,22 +34,20 @@ CREATE TABLE "school_member" (
   "user_id" varchar NOT NULL,
   "school_id" varchar NOT NULL,
   "role" text DEFAULT 'GUEST',
-  "data" text,
-  
+  "data" text
 );
 
 CREATE TABLE "school_class" (
   "id" varchar PRIMARY KEY NOT NULL,
   "school_id" varchar NOT NULL,
   "name" varchar(255) NOT NULL
-  
 );
 
 CREATE TABLE "subject" (
   "id" varchar PRIMARY KEY NOT NULL,
   "school_class_id" varchar NOT NULL,
   "name" varchar(255) NOT NULL,
-  "professor_id" varchar DEFAULT NULL,
+  "professor_id" varchar DEFAULT NULL
 );
 
 CREATE TABLE "subject_message" (
@@ -65,7 +63,7 @@ CREATE TABLE "lession" (
   "id" varchar PRIMARY KEY NOT NULL,
   "subject_id" varchar NOT NULL,
   "title" varchar NOT NULL,
-  "descricao" varchar NOT NULL,
+  "descricao" varchar NOT NULL
 );
 
 CREATE TABLE "news" (
@@ -74,7 +72,7 @@ CREATE TABLE "news" (
   "news_type" text,
   "title" text NOT NULL,
   "content" text,
-  "autors" text,
+  "authors" text,
   "created_at" date DEFAULT (now())
 );
 
@@ -89,24 +87,20 @@ CREATE TABLE "news_comment" (
 CREATE TABLE "password_school" (
   "id" varchar PRIMARY KEY NOT NULL,
   "school_id" varchar NOT NULL,
-  "school_password" varchar(255) NOT NULL,
-)
+  "school_password" varchar(255) NOT NULL
+);
 
 CREATE TABLE "faq_message" (
   "id" varchar PRIMARY KEY NOT NULL,
   "sender_id" varchar NOT NULL,
-  "message" varchar,
-)
-
-COMMENT ON COLUMN "school_member"."data" IS 'Guardar os dados desta coluna em JSON.';
-
-COMMENT ON COLUMN "news_comment"."sender" IS 'Apenas o nome de quem comentou.';
+  "message" varchar
+);
 
 ALTER TABLE "calendary_event" ADD FOREIGN KEY ("school_id") REFERENCES "school" ("id");
 
 ALTER TABLE "menu" ADD FOREIGN KEY ("school_id") REFERENCES "school" ("id");
 
-ALTER TABLE "school_member" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
+ALTER TABLE "school_member" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
 ALTER TABLE "school_member" ADD FOREIGN KEY ("school_id") REFERENCES "school" ("id");
 
@@ -114,7 +108,7 @@ ALTER TABLE "school_class" ADD FOREIGN KEY ("school_id") REFERENCES "school" ("i
 
 ALTER TABLE "subject" ADD FOREIGN KEY ("school_class_id") REFERENCES "school_class" ("id");
 
-ALTER TABLE "subject_message" ADD FOREIGN KEY ("sender_id") REFERENCES "user" ("id");
+ALTER TABLE "subject_message" ADD FOREIGN KEY ("sender_id") REFERENCES "users" ("id");
 
 ALTER TABLE "subject_message" ADD FOREIGN KEY ("subject_id") REFERENCES "subject" ("id");
 

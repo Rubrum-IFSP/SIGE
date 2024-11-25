@@ -5,6 +5,7 @@ import Cookie from "js-cookie";
 import { useLocation } from "react-router-dom";
 import { uploadNews } from "../interface/news";
 import Cookies from "js-cookie";
+import { getSchoolIdByName } from "../interface/auth";
 const css = `
   .atendimentoWrapper{
     box-shadow: 4px 4px 10px ;
@@ -15,6 +16,22 @@ const css = `
     gap: 1em;
     justify-content: center;
     align-items: center;
+  }
+
+  h1, .noticia.subtitulo, .noticia.paragrafo {
+    text-align: justify;
+  }
+
+  figure {
+      width: 100%;
+      display: flex;
+      justify-content: start;
+      align-items: center;
+  }
+
+  img {
+      max-height: 50vh;
+      max-width: 100%;
   }
 
   .noticia.subtitulo {
@@ -135,22 +152,22 @@ export default function Atendimeneto() {
       return e.value;
     });
 
-    const schoolId = await getSchoolIdByName(schoolName);
+    const schoolId = await getSchoolIdByName(state.schoolName);
     const user = JSON.parse( Cookies.get("user") );
 
-    const news = {
-      schoolId: schoolId, 
-      newsType: "DIRECTION",
-      title: title,
-      content: JSON.stringify(content),
-      authors: user.name
+    const formData = new FormData();
+    formData.append("schoolId", schoolId);
+    formData.append("newsType", "DIRECTION");
+    formData.append("title", title);
+    formData.append("authors", user.name);
+    formData.append("content", JSON.stringify(content));
+
+    for (const i of images) {
+      i["preview"] = "";
+      formData.append("images", i);
     }
 
-    const formData = new FormData();
-    formData.append("data", JSON.stringify(news));
-    formData.append("images", images);
-
-    uploadNews(formData, state.schoolName, user.token);
+    console.log(await uploadNews(formData, schoolId, user.token));
   }
 
   return (
@@ -214,7 +231,7 @@ export default function Atendimeneto() {
               content.map((e, index) => {
                 return(
                   <div key={index}>
-                    {e.tag == "img" ? (<img className={"noticia " + e.name} src={e.preview} width={"100%"} />) : (<span className={"noticia " + e.name}>{e.value}</span>)}                    
+                    {e.tag == "img" ? (<figure><img className={"noticia " + e.name} src={e.preview} /></figure>) : (<span className={"noticia " + e.name}>{e.value}</span>)}                    
                   </div>
                 )
               })
