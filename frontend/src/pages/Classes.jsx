@@ -313,9 +313,7 @@ export default function ClassesPage() {
         
                 <div className="mainWrapper">
         
-                    <Classes nomeClasse={classe.name!=null ? (
-                        classe.name): 
-                        ("Você ainda não é Membro desta Instituição.")} nomeEscola={state.name}>
+                    <Classes nomeClasse={classe.name} nomeEscola={state.name}>
         
                         {subjects.length > 0 ? (
         

@@ -1,0 +1,32 @@
+@import "./root.css";
+
+.AlunosClasseWrapper {
+    display:flex;
+    padding:0.6em;
+    font-weight:bold;
+    color:black;
+    background-color:var(--secondary-dark);
+    flex-direction:row;
+    justify-content:space-between;
+    border:solid black 2px;
+    border-radius:0.8em;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.62);
+}
+
+.AlunosClasseWrapper span{
+    margin-right:1em;
+}
+
+.AlunosClasseContentWrapper {
+    background-color:var(--news-background);
+    position:relative;
+    top:2em;
+    width:95%;
+    margin:0 auto 0 auto;
+    height:fit-content;
+    padding:1em;
+    border:2px solid black;
+    border-radius:0.8em;
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.62);
+
+}

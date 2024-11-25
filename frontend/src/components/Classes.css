@@ -6,7 +6,13 @@
     color:black;
     font-weight:bolder;
     margin: 0em 0 1em 0;
+    display:inline-block;
     }
+.title:hover{
+    color:var(--secondary);
+    text-decoration: underline var(--secondary);
+    transition: 0.45s;
+}
 .classWrapper{
         background-color: var(--news-background);
         width:90%;
@@ -63,4 +69,9 @@
 }
 .subject{
     display:block;
+}
+.ClassesLinkToSpecificClass{
+    text-decoration: none;
+
+
 }

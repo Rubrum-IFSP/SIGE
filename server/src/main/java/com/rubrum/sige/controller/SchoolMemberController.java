@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rubrum.sige.domain.schoolMember.SchoolMember;
 import com.rubrum.sige.domain.schoolMember.SchoolMemberRepository;
 import com.rubrum.sige.domain.schoolMember.SchoolMemberRequestDTO;
+import com.rubrum.sige.domain.school_class.SchoolClass;
+import com.rubrum.sige.domain.school_class.SchoolClassRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,6 +39,16 @@ public class SchoolMemberController {
             throw new BadRequestException("erro");
         }
         return ResponseEntity.ok(member.getRole().toString());
+    }
+
+    @GetMapping("/getMembers/class")
+    public List<SchoolMember> getAllMembersBySchoolClass(@RequestParam String schoolId,
+            @RequestParam String schoolClassName) {
+
+        List<SchoolMember> list = repository.findAllBySchoolIdAndData(schoolId, schoolClassName);
+
+        return list;
+
     }
 
     @GetMapping("/getMembers")

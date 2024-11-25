@@ -931,3 +931,17 @@ export const deleteBlogPostById = async(id) =>{
 
   return data;
 }
+
+export const getAllMembersBySchoolClass = async(schoolId, schoolClassName) =>{
+
+  const response = await fetch(urlCopy+`/schoolMember/getMembers/class?schoolId=${schoolId}&schoolClassName=${schoolClassName}`,{
+    method: 'GET',
+    headers:{
+      'Content-type':'application/json'
+    }
+  })
+
+  const data = await response.json();
+
+  return data;
+}
