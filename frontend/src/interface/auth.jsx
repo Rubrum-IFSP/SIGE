@@ -187,7 +187,7 @@ export const fetchRoles = async (userId, schoolId) => {
       });
 
 
-      const role = await response.body;
+      const role = await response.text();
       
       return role;
 
