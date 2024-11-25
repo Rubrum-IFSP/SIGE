@@ -5,13 +5,14 @@ import Cookie from "js-cookie";
 import { useLocation, Link, json } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { deleteNews, getSchoolNews } from "../interface/news";
-import { getSchoolIdByName } from "../interface/auth";
+import { fetchRoles, fetchUserIdByEmail, getSchoolIdByName, getUserById } from "../interface/auth";
 import {Toaster, toast} from "react-hot-toast";
 
 export default function Noticias(props) {
   let { state } = useLocation();
   const [loading, setLoading] = useState(false);
   const [news, setNews] = useState([]);
+  const [userRole, setUserRole] = useState("");
   const user = JSON.parse(Cookie.get("user"));
   const schoolName = state.name;
 
@@ -25,6 +26,12 @@ export default function Noticias(props) {
         setNews(data.reverse());
       }
       setLoading(false);
+
+      const userId =  await fetchUserIdByEmail(user.email)
+      const userRole = await fetchRoles(userId,schoolId);
+
+     setUserRole(userRole);
+      
     } 
 
     fetchNews();
@@ -76,7 +83,7 @@ export default function Noticias(props) {
                   datePublished={e.created_at}
                   author={e.authors}
                   onClickFunction={(event)=>deleteThisNew(event,e.id)}
-                  role={user.role}
+                  role={userRole}
                 />
               )
             })

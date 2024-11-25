@@ -126,7 +126,7 @@ export default function ClassesPage() {
                                 </div>
                             )}
                             <button className="deleteClassButton" onClick={(e) => deleteThisSchoolClass(e, classItem.name)}>
-                                Delete Class
+                                Deletar Classe
                             </button>
                         </>
                     }
@@ -313,7 +313,9 @@ export default function ClassesPage() {
         
                 <div className="mainWrapper">
         
-                    <Classes nomeClasse={classe.name} nomeEscola={state.name}>
+                    <Classes nomeClasse={classe.name!=null ? (
+                        classe.name): 
+                        ("Você ainda não é Membro desta Instituição.")} nomeEscola={state.name}>
         
                         {subjects.length > 0 ? (
         
@@ -333,7 +335,7 @@ export default function ClassesPage() {
         
                         ) : (
         
-                            <div>No subjects available.</div> // Optional: Message when no subjects are available
+                            <div>Não há matérias cadastradas ainda.</div> // Optional: Message when no subjects are available
         
                         )}
         

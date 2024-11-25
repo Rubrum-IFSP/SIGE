@@ -43,7 +43,7 @@ export default function FormAtividade() {
     const response = await saveLession(lession);
 
     if(response){
-      return toast.sucess("Atividade Adicionada")
+      return toast.success("Atividade Adicionada")
     }
     else{
       return toast.error("Algo deu Errado!")
