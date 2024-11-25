@@ -1,14 +1,13 @@
 import Layout from "../components/Layout";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { getPasswordBySchoolId, getSchoolIdByName, savePassword } from "../interface/auth";
+import { generateSchoolInvite, getPasswordBySchoolId, getSchoolIdByName, savePassword } from "../interface/auth";
 import Cookie from "js-cookie"
 import {Toaster, toast} from "react-hot-toast";
 
 export default function Convite() {
 
-  const [senha, setSenha] = useState({});
-  const[senhaResponse, setSenhaResponse] = useState("");
+  const [invite, setInvite] = useState("");
 
   const {state} = useLocation();
 
@@ -33,40 +32,31 @@ export default function Convite() {
     }
 `
   
-    const onChangeHandler = (e) => {
+
+    const criarConvite = async (e) =>{
       e.preventDefault();
 
-      const copy = senha;
-      const name = e.target.getAttribute("name");
-      copy[name] = e.target.value;
-      setSenha(copy);
-      console.log(senha);
-    };
+     const schoolId = await getSchoolIdByName(state.name);
+     const userEmail = JSON.parse(Cookie.get("user")).email;
+     
 
-    const criarSenha = async (e) =>{
-      e.preventDefault();
+     const response = await generateSchoolInvite(schoolId, userEmail);
 
-      const schoolId = await getSchoolIdByName(state.name);
-      console.log(schoolId)
+     setInvite(response);
 
-      if(senha["password"].length <8){
-        return toast.error("Senha Muito Curta! 8 Caractéres min.")
-      }
-
-      const res = await savePassword(schoolId, senha["password"]);
-
-      if(res.success){
-        return toast.success("Senha Criada com Êxito!")
-      }
-      else{
-        const schoolId = await getSchoolIdByName(state.name);
-        console.log(schoolId);
-        const response = await getPasswordBySchoolId(schoolId);
-        console.log(response);
-        setSenhaResponse("Senha: "+response);
-        return toast.error("Já existe uma senha de Uso Único!");
-      }
+     return toast.success("Seu convite Chegou!")
+     
       
+    }
+
+    const copyToClipBoard = (e) =>{
+      e.preventDefault();
+
+      const copyText = document.getElementById("valueInvite");
+      console.log(copyText.value);
+      navigator.clipboard.writeText(copyText.value);
+
+      return toast.success("Copiado!");
     }
 
   return (
@@ -78,12 +68,12 @@ export default function Convite() {
       />
       <div className="atendimentoWrapper">
         <form>
-        <h1>Criar Convite</h1>
-        <label>Senha:</label>
-        <input onChange={onChangeHandler} type="text" name="password" minLength={3} />
+        <h1>Criar Convite</h1>      
           
-          <button className="submitButton"  onClick={criarSenha} >Convidar</button>
-          <label>{senhaResponse? senhaResponse:senhaResponse}</label>
+          <button className="submitButton"  onClick={criarConvite} >Criar Convite</button>
+          <label>{invite? ( <><input type="text" id="valueInvite" value={invite} readOnly></input><button className="submitButton" onClick={copyToClipBoard}>Copiar</button></>):invite}</label>
+        
+        
         </form>
       </div>
     </Layout>

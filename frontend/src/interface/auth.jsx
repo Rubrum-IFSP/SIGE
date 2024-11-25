@@ -552,9 +552,11 @@ export const generateSchoolInvite = async (schoolId, userEmail) => {
 
   };
 
+  console.log(urlCopy);
+
 
   try {
-
+      
       const response = await fetch(urlCopy+'/invite/create', {
 
           method: 'POST',
@@ -563,7 +565,7 @@ export const generateSchoolInvite = async (schoolId, userEmail) => {
 
               'Content-Type': 'application/json',
               Authorization: "Bearer " + JSON.parse( Cookie.get("user")).token,
-
+              schoolId: schoolId
           },
 
           body: JSON.stringify(inviteRequestDTO),
