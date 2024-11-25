@@ -23,9 +23,6 @@ export default function Menu({ nomeEscola, role }: Props) {
             <Link to="/blog" state={{ name: nomeEscola, role: role }}>
               Blog do Grêmio
             </Link>
-            <Link to="/eventos" state={{ name: nomeEscola, role: role }}>
-              Eventos
-            </Link>
             <Link to="/administracao" state={{ name: nomeEscola, role: role }}>
               Administração
             </Link>
@@ -51,9 +48,6 @@ export default function Menu({ nomeEscola, role }: Props) {
             </Link>
             <Link to="/blog" state={{ name: nomeEscola, role: role }}>
               Blog do Grêmio
-            </Link>
-            <Link to="/eventos" state={{ name: nomeEscola, role: role }}>
-              Eventos
             </Link>
           </div>
         </div>
