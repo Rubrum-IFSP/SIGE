@@ -1,0 +1,67 @@
+div.receive-invite-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 100vh;
+    min-width: 100vw;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+div.receive-invite-wrapper {
+    background-color: var(--primary);
+    padding: 3em;
+    border-radius: 10px;
+    color: white;
+    box-shadow: 2px 2px 10px 10px rgba(0, 0, 0, 0.26);
+}
+
+div.receive-invite-page, div.receive-invite-wrapper, div.receive-invite-wrapper figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+}
+
+div.receive-images-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+}
+
+div.receive-invite-wrapper figure {
+    position: relative;
+    border: 9px solid white;
+    border-radius: 50%;
+    overflow: hidden;
+    height: 10em;
+    width: 10em;
+    box-shadow: 0px 0px 15px 10px rgba(255, 255, 255, 0.068);
+}
+
+div.receive-invite-wrapper img {
+    height: 100%;
+    width: auto;
+}
+
+div.receive-invite-wrapper span {
+    font-weight: 800;
+}
+
+div.receive-invite-wrapper button {
+    padding: .5em 5em;
+    border: 0;
+    border-radius: 5px;
+    font-weight: 700;
+    background-color: rgb(255, 238, 208);
+    transition: .5s ease;
+    color: var(--primary);
+}
+
+div.receive-invite-wrapper button:hover {
+    background-color: #939b4f;
+    color: white;
+    box-shadow: 0px 0px 15px 10px rgba(255, 255, 255, 0.068);
+}

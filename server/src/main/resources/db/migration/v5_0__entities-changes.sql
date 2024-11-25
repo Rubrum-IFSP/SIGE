@@ -94,7 +94,7 @@ CREATE TABLE "faq_message" (
   "id" varchar PRIMARY KEY NOT NULL,
   "sender_id" varchar NOT NULL,
   "message" varchar
-)
+);
 
 CREATE TABLE "blog_post" (
  "id" varchar PRIMARY KEY NOT NULL,

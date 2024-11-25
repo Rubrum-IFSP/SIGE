@@ -1,8 +1,9 @@
 .layoutWrapper{
+    display: flex;
+    flex-direction: column;
     position:relative;
     min-height:100vh;
 }
 .contentWrapper{
     padding-bottom:8%;
-    position:relative;
 }
