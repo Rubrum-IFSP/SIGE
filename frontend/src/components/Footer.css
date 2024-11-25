@@ -11,7 +11,7 @@
     background-color:var(--primary);
     height:4em;
     width:100%;
-    text-align:center;
+    
     color:var(--secondary);
     font-weight:bolder;
     font-style:italic;
@@ -20,6 +20,7 @@
 }
 .footerContent{
    margin-top:1em;
+   text-align:center;
 }
 .footer a{
     color:var(--secondary)
