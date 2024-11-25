@@ -1,6 +1,7 @@
 import Layout from "../components/Layout";
 import Form from "../components/formComponents/Form";
 import ConfirmButton from "../components/ConfirmButton";
+import {Toaster, toast} from "react-hot-toast";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -35,12 +36,18 @@ export default function Login() {
       Cookie.set("user",JSON.stringify(res));
       console.log(Cookie.get("user"))
     }
-    else console.log("login deu errado")
+    else {
+      toast.error("Algo deu Errado")
+    }
    
   };
 
   return (
     <Layout connected={false}>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
       <Form
         inputFields={[
           <div className="inputFieldWrapper">

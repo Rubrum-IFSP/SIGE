@@ -24,3 +24,20 @@
     text-decoration:underline;
     font-weight:lighter;
 }
+
+.blogContentButtonWrapper{
+    margin-top:10px;
+}
+.blogContentButtonWrapper button{
+    width:100%;
+    font-size:0.8em;
+    padding:4px;
+    background-color: black;
+    color:white;
+    font-weight:bolder;
+}
+
+.blogContentButtonWrapper button:hover{
+    background-color:rgb(255, 21, 21);
+    transition:0.3s;
+}

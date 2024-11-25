@@ -1,9 +1,9 @@
 import "./Blog.css";
 
 interface Props {
-  content: any;
+  children: any;
 }
 
-export default function Blog({ content }: Props) {
-  return <div className="wrapper">{content}</div>;
+export default function Blog({ children }: Props) {
+  return <div className="wrapper">{children}</div>;
 }
