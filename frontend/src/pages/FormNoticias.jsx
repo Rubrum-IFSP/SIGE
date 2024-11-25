@@ -5,6 +5,7 @@ import Cookie from "js-cookie";
 import { useLocation } from "react-router-dom";
 import { uploadNews } from "../interface/news";
 import Cookies from "js-cookie";
+import {Toaster, toast} from "react-hot-toast";
 import { getSchoolIdByName } from "../interface/auth";
 const css = `
   .atendimentoWrapper{
@@ -167,13 +168,25 @@ export default function Atendimeneto() {
       formData.append("images", i);
     }
 
-    console.log(await uploadNews(formData, schoolId, user.token));
+    const response = await uploadNews(formData, schoolId, user.token);
+
+    if(response === "Notícia adicionada com sucesso!"){
+      return toast.success("Notícia adicionada com sucesso!");
+    }
+    else{
+      return toast.error("Algo deu errado!");
+    }
+
+
   }
 
   return (
     <Layout connected={Cookie.get("user")}>
       <style>{css}</style>
-
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
       <div className="main-wrappers">
         <div className="atendimentoWrapper">
           <h1>Notícias</h1>

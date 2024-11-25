@@ -23,3 +23,14 @@ export const getSchoolNews = async (schoolId, userToken) => {
         method: 'get'
     }).then(res => res.json());
 }
+
+export const deleteNews = async (newsId) =>{
+
+    return await fetch(urlCopy+"/school/news/delete",{
+        method: 'POST',
+        headers:{
+            'Content-type': 'application/json'
+        },
+        body: newsId
+    }).then((res)=>res);
+}

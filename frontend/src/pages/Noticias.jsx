@@ -4,8 +4,9 @@ import Content from "../components/Noticias";
 import Cookie from "js-cookie";
 import { useLocation, Link, json } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getSchoolNews } from "../interface/news";
+import { deleteNews, getSchoolNews } from "../interface/news";
 import { getSchoolIdByName } from "../interface/auth";
+import {Toaster, toast} from "react-hot-toast";
 
 export default function Noticias(props) {
   let { state } = useLocation();
@@ -29,9 +30,26 @@ export default function Noticias(props) {
     fetchNews();
   }, []);
 
+  const deleteThisNew = async(event,id)=>{
+    event.preventDefault();
+    
+    const response = await deleteNews(id);
+
+    if(response.ok){
+      window.location.reload();
+    }
+    else{
+      return toast.error("Algo deu errado!");
+    }
+  }
+
   if (loading) {
     return(
       <Layout>
+        <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
         <div className="wrapper">
           <div className="centerWrapper loading">Carregando...</div>
         </div>
@@ -41,12 +59,12 @@ export default function Noticias(props) {
   
   return (
     <Layout connected={Cookie.get("user")}>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
       <div className="wrapper">
-        {(state.role === "PROVOST" || state.role === "ADMIN") ? (
-          <div className="centerWrapper"><Link to="/formnoticias" state={{schoolName: state.name}}>Publicar uma Notícia</Link></div>
-        ) : (
-          <div></div>
-        )}
+        
         {
           (news.length > 0) ? (
             news.map((e, key) => {
@@ -57,6 +75,8 @@ export default function Noticias(props) {
                   content={e.content}
                   datePublished={e.created_at}
                   author={e.authors}
+                  onClickFunction={(event)=>deleteThisNew(event,e.id)}
+                  role={user.role}
                 />
               )
             })
@@ -64,7 +84,11 @@ export default function Noticias(props) {
             <div>Nenhuma notícia publicada ainda...</div>
           )
         }
-        
+        {(state.role === "PROVOST" || state.role === "ADMIN") ? (
+          <div className="centerWrapper"><Link to="/formnoticias" state={{schoolName: state.name}}>Publicar uma Notícia</Link></div>
+        ) : (
+          <div></div>
+        )}
       </div>
     </Layout>
   );

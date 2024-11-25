@@ -154,11 +154,12 @@ public class SchoolController {
     }
 
     @PostMapping("/news/save")
-    public ResponseEntity<String> saveSchoolNews(@ModelAttribute NewsRequestDTO data, @RequestHeader String schoolId) throws BadRequestException {
+    public ResponseEntity<String> saveSchoolNews(@ModelAttribute NewsRequestDTO data, @RequestHeader String schoolId)
+            throws BadRequestException {
         School school = repository.findById(schoolId).get();
         if (school == null)
             throw new BadRequestException("Escola não encontrada");
-        
+
         try {
             JSONArray content = new JSONArray(data.content());
 
@@ -180,7 +181,7 @@ public class SchoolController {
             return ResponseEntity.ok("Notícia adicionada com sucesso!");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("eita");
         }
     }
 

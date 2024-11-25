@@ -48,3 +48,21 @@ img {
     max-height: 50vh;
     max-width: 100%;
 }
+
+.divWrapperNewsDeleteButton {
+    margin-top:10px;
+}
+.divWrapperNewsDeleteButton button{
+    width:100%;
+    background-color:black;
+    color:white;
+    font-weight:bolder;
+    padding:5px;
+    border:solid white 3px;
+    border-radius:0.8em;
+}
+
+.divWrapperNewsDeleteButton button:hover{
+    background-color:rgb(189, 22, 22);
+    transition: 0.3s;
+}
