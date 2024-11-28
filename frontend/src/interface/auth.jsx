@@ -935,3 +935,20 @@ export const getAllMembersBySchoolClass = async(schoolId, schoolClassName) =>{
 
   return data;
 }
+
+export const saveEvent = async (event) =>{
+
+  const response = await fetch(urlCopy+"/school/event/save",{
+    method: 'POST',
+    headers:{
+      'Content-type': 'application/json',
+      Authorization: "Bearer " + JSON.parse( Cookie.get("user")).token,
+      schoolId: event.schoolId
+
+    },
+    body: JSON.stringify( event)
+  })
+
+  const data = await response.text();
+  return data;
+}

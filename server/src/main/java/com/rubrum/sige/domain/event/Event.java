@@ -32,19 +32,17 @@ import lombok.Setter;
 @Validated
 public class Event {
 
-    @NotBlank
     @NotNull
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "event_date")
     private Date date;
 
-    private String desc;
+    private String description;
 
-    @NotBlank
     @NotNull
     private String name;
 
-    @NotBlank
     @NotNull
     @Column(name = "school_id")
     private String schoolId;
@@ -57,6 +55,6 @@ public class Event {
         this.schoolId = data.schoolId();
         this.name = data.name();
         this.date = new Date();
-        this.desc = data.desc();
+        this.description = data.description();
     }
 }

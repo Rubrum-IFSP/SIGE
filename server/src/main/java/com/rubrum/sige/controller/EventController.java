@@ -20,7 +20,7 @@ import com.rubrum.sige.domain.event.EventRepository;
 import com.rubrum.sige.domain.event.EventRequestDTO;
 
 @RestController
-@RequestMapping("school/event")
+@RequestMapping("/school/event")
 @Validated
 public class EventController {
 
@@ -38,7 +38,7 @@ public class EventController {
     public ResponseEntity<String> editEvent(@RequestBody EditEventRequestDTO data) {
         Event event = eventRepository.findById(data.id()).get();
         event.setName(data.name());
-        event.setDesc(data.desc());
+        event.setDescription(data.description());
         event.setDate(data.date());
         eventRepository.save(event);
 

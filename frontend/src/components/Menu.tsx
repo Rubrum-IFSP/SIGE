@@ -20,6 +20,9 @@ export default function Menu({ nomeEscola, role }: Props) {
             <Link to="/noticias" state={{ name: nomeEscola, role: role }}>
               Notícias
             </Link>
+            <Link to="/eventos" state={{ name: nomeEscola, role: role }}>
+              Eventos
+            </Link>
             <Link to="/blog" state={{ name: nomeEscola, role: role }}>
               Blog do Grêmio
             </Link>
@@ -45,6 +48,9 @@ export default function Menu({ nomeEscola, role }: Props) {
             </Link>
             <Link to="/noticias" state={{ name: nomeEscola, role: role }}>
               Notícias
+            </Link>
+            <Link to="/eventos" state={{ name: nomeEscola, role: role }}>
+              Eventos
             </Link>
             <Link to="/blog" state={{ name: nomeEscola, role: role }}>
               Blog do Grêmio

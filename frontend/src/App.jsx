@@ -10,9 +10,7 @@ import CadastroEscola from "./pages/CadastroEscola";
 import Atendimento from "./pages/Atendimento";
 import MeuPerfil from "./pages/MeuPerfil";
 import SobreNos from "./pages/SobreNos";
-import CadastrarClasse from "./pages/CadastrarClasse";
 import Index from "./pages/Index";
-import CadastrarMateria from "./pages/CadastrarMateria";
 import Classes from "./pages/Classes";
 import FormBlog from "./pages/FormBlog";
 import FormNoticia from "./pages/FormNoticias"
@@ -46,8 +44,6 @@ function App() {
         <Route path="/noticias" element={<NoticiasPage />} />
         <Route path="/perfil" element={<MeuPerfil />} />
         <Route path="/sobrenos" element={<SobreNos />} />
-        <Route path="/cadastroclasse" element={<CadastrarClasse/>}/>
-        <Route path="/cadastromateria" element={<CadastrarMateria/>}/>
         <Route path="/classes" element={<Classes/>}/>
         <Route path="/formblog" element={<FormBlog/>}/>
         <Route path="/formnoticias" element={<FormNoticia/>}/>

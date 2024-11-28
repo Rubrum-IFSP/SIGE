@@ -19,8 +19,8 @@ CREATE TABLE "calendary_event" (
   "id" varchar PRIMARY KEY NOT NULL,
   "school_id" varchar NOT NULL,
   "name" varchar(255) NOT NULL,
-  "date" date NOT NULL,
-  "desc" text
+  "event_date" date NOT NULL,
+  "description" varchar
 );
 
 CREATE TABLE "menu" (
