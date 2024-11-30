@@ -33,20 +33,15 @@ export default function Atendimeneto() {
     console.log(schoolId);
 
     event["schoolId"] = schoolId;
-    event["date"] = getCurrentDate();
     
     const response = await saveEvent(event);
-    console.log(response);
+  
+    if(response === "Evento adicionado com sucesso!"){
+      return toast.success("Evento Adicionado!")
+    }
+    else return toast.error("Algo Deu errado!");  
   }
 
-  const getCurrentDate = () =>{
-    const current = new Date();
-    const year = current.getFullYear();
-    const month = String(current.getMonth()+1).padStart(2,'0');
-    const day = String(current.getDate()).padStart(2,'0');
-
-    return `${year}-${month}-${day}`;
-  }
 
   return (
     <Layout connected={Cookie.get("user")}>
@@ -60,6 +55,8 @@ export default function Atendimeneto() {
           <h1>Eventos</h1>
           <label>Título:</label>
           <input type="text" name="name" onChange={onChangeHandler}></input>
+          <label>Data do Eveneto:</label>
+          <input type="date" name="date" onChange={onChangeHandler}></input>
           <label>Descrição:</label>
           <textarea name="description" onChange={onChangeHandler}></textarea>
           <input className="submitButton" onClick={saveThisEvent}  type="submit" value="Enviar" />

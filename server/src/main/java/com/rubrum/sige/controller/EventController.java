@@ -50,12 +50,12 @@ public class EventController {
         Event event = eventRepository.findById(data.eventId()).get();
         eventRepository.delete(event);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("deu certo");
     }
 
-    @GetMapping
-    public List<EventReponseDTO> getSchoolEvents(@RequestHeader String schoolId) {
-        return eventRepository.findAllBySchoolId(schoolId).stream().map(EventReponseDTO::new).toList();
+    @GetMapping("/getBySchoolId")
+    public List<Event> getSchoolEvents(@RequestHeader String schoolId) {
+        return eventRepository.findAllBySchoolId(schoolId);
     }
 
     @GetMapping("/all")

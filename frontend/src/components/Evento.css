@@ -1,0 +1,44 @@
+@import "./root.css";
+
+.calendaryEventWrapper{
+    background-color:var(--secondary);
+    border:solid black 2px;
+    margin-bottom:1em;
+    padding:0.5em;
+    border-radius: 0.8em;
+
+}
+
+.calendaryEventWrapper h1{
+    font-weight:600;
+    font-style: italic;
+}
+
+.calendaryEventContent{
+    font-size: 1.2em;
+
+}
+
+.calendaryEventDetails{
+    font-weight:lighter;
+    font-style:italic;
+    display:block;
+    text-decoration: underline;
+}
+
+.calendaryEventWrapper button{
+
+    display:flex;
+    margin-top:1em;
+    color:white;
+    background-color: black;
+    font-weight: bold;
+    border:solid white 2px;
+    border-radius: 0.8em;
+    padding:5px 15px 5px 15px;
+}
+
+.calendaryEventWrapper button:hover{
+    background-color:red;
+    transition:ease 0.3s;
+}

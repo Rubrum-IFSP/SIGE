@@ -2,7 +2,7 @@ import Layout from "../components/Layout";
 import DiaCalendario from "../components/DiaCalendario";
 import Calendario from "../components/Calendario";
 import Menu from "../components/Menu";
-import {fetchRoles, getSchoolIdByName, fetchUserIdByEmail} from "../interface/auth";
+import {fetchRoles, getSchoolIdByName, fetchUserIdByEmail, getEventsBySchoolId} from "../interface/auth";
 import { useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
@@ -15,6 +15,7 @@ export default function Home() {
   const [role,setRole] = useState ("");
   const {state} = useLocation();
   const[schoolId, setSchoolId] = useState("");
+  const [eventDays, setEventDays] = useState([]);
   const date = new Date();
 
   function daysInMonth(month, year) {
@@ -24,11 +25,10 @@ export default function Home() {
 
     
 
-  function calendarDays(){
+  function calendarDays (){
     let result = [];
     let dia = " ";
     let isEvent = false;
-    let idEscola = schoolId;
 
 
     let month = date.getMonth()+1;
@@ -44,13 +44,26 @@ export default function Home() {
     for (let i = 1; i <= dayNum; i++) {
       if (i < 10) {
         dia = "0";
-      } else {dia = ""; isEvent=false;}
+      } 
+      else 
+      {
+        dia = ""; 
+      }
+
+      if(eventDays.includes(i.toString()) || eventDays.includes("0"+i.toString())){
+        isEvent = true;
+      }
+      else{
+        isEvent = false;
+      }
+
       result.push(
         <DiaCalendario
           dia={dia + i +"/"+ month}
           isEvent={isEvent}
-          idEscola={idEscola}
+          nomeEscola={state.name}
           key={i}
+          role={role}
         ></DiaCalendario>
       );
     }
@@ -69,18 +82,11 @@ export default function Home() {
   }
 
   useEffect(()=>{
-    const setSchoolIdFunction = async () =>{
-      const schoolId = await getSchoolIdByName(state.name);
-      setSchoolId(schoolId);
-    }
-    setSchoolIdFunction();
-  },[state.name])
-
-  useEffect(()=>{
     const getRole = async () =>{
     
       const userName = JSON.parse( Cookies.get("user")).email;
       const userId = await fetchUserIdByEmail(userName);
+      const schoolId = await getSchoolIdByName(state.name);
   
       console.log(userId)
       console.log(schoolId);
@@ -89,9 +95,31 @@ export default function Home() {
       
       setRole(response);
     }
+
+    const getEventDays = async () =>{
+      const schoolId = await getSchoolIdByName(state.name)
+      const response = await getEventsBySchoolId(schoolId);
+      const ThisEventDays = [];
+
+      console.log(response);
+
+      for(let i =0;i<response.length;i++){
+        const [year,month,day] = response[i].date.split("-");
+        
+        if(year === date.getFullYear().toString() && month === (date.getMonth()+1).toString() ){
+          ThisEventDays.push(day);
+        }
+
+      }
+      console.log(ThisEventDays)
+
+      setEventDays(ThisEventDays);
+    }
+
+    getEventDays();
   
     getRole();
-  },[schoolId])
+  },[state.name])
 
   
  

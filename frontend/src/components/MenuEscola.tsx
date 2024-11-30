@@ -12,11 +12,6 @@ export default function MenuEscola({ schools }: Props) {
           <span>Criar Escola...</span>
         </a>
       </div>
-      <div className="adicionarEscolaOption">
-        <a href="#/entrarescola">
-          <span>Entrar em uma Escola...</span>
-        </a>
-      </div>
       {schools}
     </div>
   );

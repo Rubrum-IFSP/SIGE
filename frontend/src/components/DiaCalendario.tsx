@@ -4,15 +4,20 @@ import { Link } from "react-router-dom";
 interface Props {
   dia: string;
   isEvent: boolean;
-  idEscola: any;
+  nomeEscola: any;
   role: string;
 }
 
-export default function DiaCalendario({ dia, isEvent, idEscola, role }: Props) {
+export default function DiaCalendario({
+  dia,
+  isEvent,
+  nomeEscola,
+  role,
+}: Props) {
   if (isEvent) {
     return (
       <div className="dayWrapperActive">
-        <Link to="/eventos" state={{ id: idEscola, role: role }}>
+        <Link to="/eventos" state={{ name: nomeEscola, role: role }}>
           <span>{dia}</span>
         </Link>
       </div>

@@ -1,5 +1,8 @@
 package com.rubrum.sige.domain.event;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -54,7 +57,11 @@ public class Event {
     public Event(@Valid EventRequestDTO data) {
         this.schoolId = data.schoolId();
         this.name = data.name();
-        this.date = new Date();
+        try {
+            this.date = new SimpleDateFormat("yyyy-MM-dd").parse(data.date());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         this.description = data.description();
     }
 }

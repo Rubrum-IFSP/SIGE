@@ -952,3 +952,37 @@ export const saveEvent = async (event) =>{
   const data = await response.text();
   return data;
 }
+
+export const getEventsBySchoolId = async (schoolId) =>{
+
+  const response = await fetch(urlCopy+"/school/event/getBySchoolId",{
+    method: 'GET',
+    headers:{
+      'Content-type': 'application/json',
+      schoolId : schoolId
+    }
+  })
+
+  const data = await response.json();
+  return data;
+}
+
+export const deleteEventById = async (eventId, schoolId) =>{
+
+  const eventDeleteDTO ={
+    eventId: eventId
+  }
+
+  const response = await fetch(urlCopy+"/school/event/delete",{
+    method:'POST',
+    headers:{
+      'Content-type': 'application/json',
+      Authorization: "Bearer " + JSON.parse( Cookie.get("user")).token,
+      schoolId: schoolId
+    },
+    body: JSON.stringify(eventDeleteDTO)
+  })
+
+  const data = await response.text();
+  return data;
+}
