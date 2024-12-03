@@ -18,4 +18,22 @@
     font-size:2em;
     font-weight: bolder;
     margin-bottom:1.5em;
+    text-align:center;
+}
+
+.calendarWrapper button{
+    padding:10px;
+    margin:10px;
+    width:40px;
+    text-align:center;
+    font-weight:bolder;
+    border:solid black 2px;
+    border-radius:0.8em;
+    background-color:var(--secondary);
+}
+
+.calendarWrapper button:hover{
+    background-color: var(--primary);
+    transition:ease-in-out 0.3s;
+    color:white;
 }

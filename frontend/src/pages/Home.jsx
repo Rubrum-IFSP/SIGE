@@ -13,67 +13,21 @@ import { useEffect, useState } from "react";
 export default function Home() {
   
   const [role,setRole] = useState ("");
+
   const {state} = useLocation();
-  const[schoolId, setSchoolId] = useState("");
-  const [eventDays, setEventDays] = useState([]);
+
   const date = new Date();
+  
+  const [eventDays, setEventDays] = useState([]);
+  const [month,setMonth] = useState(date.getMonth());
+  const [year, setYear] = useState(date.getFullYear());
+
+  const [result,setResult] = useState([]);
 
   function daysInMonth(month, year) {
     return new Date(year, month, 0).getDate();
   }
 
-
-    
-
-  function calendarDays (){
-    let result = [];
-    let dia = " ";
-    let isEvent = false;
-
-
-    let month = date.getMonth()+1;
-    let year = date.getFullYear();
-    let dayNum = daysInMonth(month,year);
-    if(month <10){
-      "0".concat(month);
-    }
-
-
-
-
-    for (let i = 1; i <= dayNum; i++) {
-      if (i < 10) {
-        dia = "0";
-      } 
-      else 
-      {
-        dia = ""; 
-      }
-
-      if(eventDays.includes(i.toString()) || eventDays.includes("0"+i.toString())){
-        isEvent = true;
-      }
-      else{
-        isEvent = false;
-      }
-
-      result.push(
-        <DiaCalendario
-          dia={dia + i +"/"+ month}
-          isEvent={isEvent}
-          nomeEscola={state.name}
-          key={i}
-          role={role}
-        ></DiaCalendario>
-      );
-    }
-
-
-
-    return (
-      result
-    );
-  }
 
   function getMonthName(e){
     const meses =["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"]
@@ -96,35 +50,125 @@ export default function Home() {
       setRole(response);
     }
 
+    
+  
+    getRole();
+  },[state.name])
+
+  useEffect(()=>{
     const getEventDays = async () =>{
       const schoolId = await getSchoolIdByName(state.name)
       const response = await getEventsBySchoolId(schoolId);
       const ThisEventDays = [];
 
-      console.log(response);
 
       for(let i =0;i<response.length;i++){
-        const [year,month,day] = response[i].date.split("-");
+        const [thisYear,thisMonth,thisDay] = response[i].date.split("-");
         
-        if(year === date.getFullYear().toString() && month === (date.getMonth()+1).toString() ){
-          ThisEventDays.push(day);
+        if(thisYear === year && thisMonth === (month+1).toString() ){
+          ThisEventDays.push(thisDay);
         }
-
+        console.log(thisMonth)
       }
-      console.log(ThisEventDays)
+      console.log(year);
+      console.log(month);
 
       setEventDays(ThisEventDays);
     }
 
-    getEventDays();
+    const calendarDays= async ()=>{
+      let dia = " ";
+      let isEvent = false;
+      let displayMonth;
+      let calendarDaysArray = []
   
-    getRole();
-  },[state.name])
+      let dayNum = daysInMonth(month+1,year);
+      if(month+1 <10){
+        displayMonth ="0".concat(month+1);
+      }
+      else{
+        displayMonth = (month+1);
+      }
+  
+  
+  
+  
+      for (let i = 1; i <= dayNum; i++) {
+        if (i < 10) {
+          dia = "0";
+        } 
+        else 
+        {
+          dia = ""; 
+        }
+  
+        if(eventDays.includes(i.toString()) || eventDays.includes("0"+i.toString())){
+          isEvent = true;
+        }
+        else{
+          isEvent = false;
+        }
+  
+        calendarDaysArray.push(
+          <DiaCalendario
+            dia={dia + i +"/"+ displayMonth}
+            isEvent={isEvent}
+            nomeEscola={state.name}
+            key={i}
+            role={role}
+          ></DiaCalendario>
+        );
+      }
 
-  
+      setResult(calendarDaysArray);
+    }
+
+
+    calendarDays();
+
+    //getEventDays();
+  },[month])
+
+  const rightClickFunction = async (e)=>{
+    e.preventDefault();
+    const copy = month+1;
+
+    if(copy>11){
+      const copyYear = year+1;
+      setYear(copyYear);
+      setMonth(0);
+    }
+
+    else{
+    setMonth(copy);
+    console.log(copy);
+
+    }
+  }
+  const leftClickFunction = async (e) =>{
+    e.preventDefault();
+    const copy = month-1;
+
+    if(copy<0){
+
+      const copyYear = year-1;
+      setYear(copyYear)
+      setMonth(11);
+    }
+    else{
+    setMonth(copy);
+    console.log(copy);
+    console.log("left click")
+    }
+  }
  
   return(<Layout connected={Cookies.get("user")}>
     <Menu role={role} nomeEscola={state.name} idEscola={state.name}></Menu>
-    <Calendario monthName={getMonthName(date.getMonth())} content={calendarDays()}></Calendario>
+    <Calendario 
+      monthName={ year+" "+getMonthName(month)} 
+      content={result}
+      leftClickFunction={leftClickFunction}
+      rightClickFunction={rightClickFunction}
+    ></Calendario>
   </Layout>)
 }

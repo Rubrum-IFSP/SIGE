@@ -584,6 +584,21 @@ export const generateSchoolInvite = async (schoolId, userEmail) => {
 
 };
 
+export const joinSchoolInvite = async (joinRequest) =>{
+
+  const response = await fetch(urlCopy+"/invite/join",{
+    headers:{ 
+      'Content-type': 'application/json'
+      
+    },
+    method: 'POST',
+    body: JSON.stringify(joinRequest)
+  })
+
+  const data = await response.ok();
+  return data;
+}
+
 export const getLessonsBySubjectId = async (subjectId) => {
 
   try {
