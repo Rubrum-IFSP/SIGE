@@ -60,22 +60,35 @@ export default function Home() {
       const schoolId = await getSchoolIdByName(state.name)
       const response = await getEventsBySchoolId(schoolId);
       const ThisEventDays = [];
+      console.log(response);
 
 
       for(let i =0;i<response.length;i++){
         const [thisYear,thisMonth,thisDay] = response[i].date.split("-");
-        
-        if(thisYear === year && thisMonth === (month+1).toString() ){
-          ThisEventDays.push(thisDay);
-        }
-        console.log(thisMonth)
-      }
-      console.log(year);
-      console.log(month);
 
+        let trueMonth =false;
+
+        if(thisMonth === (month+1).toString() || thisMonth === "0" + (month+1)){
+          trueMonth = true;
+        }
+        
+        if(thisYear === year.toString() && trueMonth){
+          ThisEventDays.push(thisDay)
+        }
+
+      }
+      console.log(ThisEventDays);
       setEventDays(ThisEventDays);
+   
     }
 
+    getEventDays();
+
+   
+  },[month] || [year])
+
+
+  useEffect(()=>{
     const calendarDays= async ()=>{
       let dia = " ";
       let isEvent = false;
@@ -123,11 +136,9 @@ export default function Home() {
       setResult(calendarDaysArray);
     }
 
-
     calendarDays();
-
-    //getEventDays();
-  },[month])
+    
+  },[eventDays])
 
   const rightClickFunction = async (e)=>{
     e.preventDefault();
