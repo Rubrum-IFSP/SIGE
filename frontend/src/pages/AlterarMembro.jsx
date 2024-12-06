@@ -132,6 +132,8 @@ export default function AlterarMembro () {
             <form>
               <h1>Alterar Usuário</h1>
               <label>Email: {state.email}</label>
+              
+              
               <select name="role" value={role} onChange={onChangeHandler}>
               
                     <option value="ADMIN">Admin</option>
@@ -140,11 +142,11 @@ export default function AlterarMembro () {
                     <option value="STUDENT">Aluno</option>
                     
               </select>
-              <select name="classe" value={optionClass} onChange={onChangeHandlerClass}>
+              {(role === "PROFESSOR" || role==="ADMIN") ? (""): (<select name="classe" value={optionClass} onChange={onChangeHandlerClass}>
               <option value="" disabled selected>Select an option</option>
                     {getHtmlClasses()}
                     
-              </select>
+              </select>)}
                
               <input className="submitButton" onClick={alterarUsuario} type="submit" value="Enviar" />
             <button className="deleteButton" onClick={deletarUsuario}>Deletar Usuário</button>

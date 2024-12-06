@@ -263,12 +263,16 @@ export default function ClassesPage() {
             const getClassByUserIdAndSchoolId = async () => {
         
                 const userId = await fetchUserIdByEmail(user.email);
+                console.log(userId)
         
                 const schoolId = await getSchoolIdByName(state.name);
+                console.log(schoolId)
         
                 const schoolClassId = await getMemberClassByUserIdAndSchoolId(userId, schoolId);
+                console.log(schoolClassId);
         
                 const schoolClass = await getSchoolClassById(schoolClassId);
+                console.log(schoolClass)
 
                 setClasse(schoolClass);
 

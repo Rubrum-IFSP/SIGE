@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import Cookies from "js-cookie";
 import AlunosClasse from "../components/AlunosClasse";
 import { useEffect, useState } from "react";
-import { fetchRoles, getAllMembersBySchoolClass, getSchoolIdByName, getUserById } from "../interface/auth";
+import { fetchRoles, getAllMembersBySchoolClass, getSchoolClassIdByName, getSchoolIdByName, getUserById } from "../interface/auth";
 
 export default function SpecificClass(){
 
@@ -15,8 +15,10 @@ export default function SpecificClass(){
         const getAllMembersInThisSchoolClass = async ()=>{
             const schoolId = await getSchoolIdByName(state.nomeEscola);
             const schoolClassName = state.nomeClasse;
+            const schoolClassId = await getSchoolClassIdByName(schoolClassName);
 
-            const response = await getAllMembersBySchoolClass(schoolId,schoolClassName);
+            const response = await getAllMembersBySchoolClass(schoolId,schoolClassId);
+            console.log(response);
             const copy = [];
 
             for(let i =0;i <response.length;i++)
@@ -46,7 +48,7 @@ export default function SpecificClass(){
                         numeroPessoa={(index+1)}
                         />
                 )): (
-                    <h1>opa</h1>
+                    <h1></h1>
                 )}
             </div>
         </Layout>
