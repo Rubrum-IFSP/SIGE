@@ -29,11 +29,10 @@ export default function RecebeConvite (props) {
 
     const acceptInvite = async () => {
         const res = await joinSchool(invite, user.token);
-        try {
-            JSON.parse(res);
-            navigate("/");
+        
+        if (res == "") {
             return toast.success("Você entrou na escola " + inviteInfo.schoolInfo.name + "!");
-        } catch (error) {
+        } else {
             return toast.error(res);
         }
     }

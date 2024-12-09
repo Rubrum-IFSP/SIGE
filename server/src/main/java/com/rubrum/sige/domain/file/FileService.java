@@ -20,7 +20,7 @@ public class FileService {
     }
 
     public String saveFile(MultipartFile file) {
-        String name = StringUtils.cleanPath(UUID.randomUUID().toString().substring(1, 10) + "." + file.getContentType());
+        String name = StringUtils.cleanPath(UUID.randomUUID().toString().substring(1, 10) + "." + StringUtils.getFilenameExtension(file.getOriginalFilename()));
 
         try {
             Path target = getPath().resolve(name);

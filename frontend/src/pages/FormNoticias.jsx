@@ -125,6 +125,9 @@ export default function Atendimeneto() {
     
     const index = parseInt(e.target.getAttribute("index"));
     const dir = parseInt(e.target.getAttribute("dir"));
+    if ((dir == -1 && index <= 0) || (dir == 1 && index >= content.length-1)) return;
+
+
     const temp = content[index + dir];
     const target = content[index];
     const contentCopy = [...content];
