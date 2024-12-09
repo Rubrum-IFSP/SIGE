@@ -2,6 +2,7 @@ package com.rubrum.sige.domain.file;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,8 @@ public class FileService {
         return Paths.get(properties.getDir()).toAbsolutePath().normalize();
     }
 
-    public String saveFile(String fileName, MultipartFile file) {
-        String name = StringUtils.cleanPath(fileName);
+    public String saveFile(MultipartFile file) {
+        String name = StringUtils.cleanPath(UUID.randomUUID().toString().substring(1, 10) + "." + file.getContentType());
 
         try {
             Path target = getPath().resolve(name);

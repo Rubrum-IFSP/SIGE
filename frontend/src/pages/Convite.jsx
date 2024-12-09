@@ -42,7 +42,7 @@ export default function Convite() {
 
      const response = await generateSchoolInvite(schoolId, userEmail);
 
-     setInvite(response);
+     setInvite(window.location.origin + "/#/recebeconvite?invite=" + response);
 
      return toast.success("Seu convite Chegou!")
      

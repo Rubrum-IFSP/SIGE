@@ -1,7 +1,6 @@
 package com.rubrum.sige.controller;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -169,7 +168,7 @@ public class SchoolController {
                 JSONObject element = (JSONObject) content.get(i);
                 if (element.getString("tag").equals("img")) {
                     MultipartFile image = images.getFirst();
-                    String imagePath = fileService.saveFile(UUID.randomUUID().toString().substring(1, 10), image);
+                    String imagePath = fileService.saveFile(image);
                     element.put("value", imagePath);
                     images.removeFirst();
                 }
