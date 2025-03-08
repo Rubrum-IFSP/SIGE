@@ -10,7 +10,6 @@
 
 - Diferentes Cargos de Usuário
 - Usuário com autoridades específicas para contextos diferentes
-- Chat de Texto
 - Sistema de Blog
 ## Pré-requisitos
 * `Java 17+ / Maven 3.6.3+.`
